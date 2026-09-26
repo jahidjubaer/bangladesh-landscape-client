@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -22,8 +22,54 @@ import { t, lx, locale } from '../../i18n';
 /* ---------------- Hero ---------------- */
 
 const headlineWords = t('home.heroTitle').split(' ');
+const SLIDE_MS = 5200;
 
-function Hero({ districts }) {
+// Video-like Ken Burns montage: crossfading photos with a slow zoom drift
+function HeroMontage({ images }) {
+  const [idx, setIdx] = useState(0);
+  const reduced =
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Preload so crossfades never flash
+  useEffect(() => {
+    images.forEach((src) => {
+      const im = new window.Image();
+      im.src = src;
+    });
+  }, [images]);
+
+  useEffect(() => {
+    if (reduced || images.length < 2) return;
+    const id = setInterval(() => setIdx((i) => (i + 1) % images.length), SLIDE_MS);
+    return () => clearInterval(id);
+  }, [images, reduced]);
+
+  if (!images.length) return null;
+
+  return (
+    <div className="absolute inset-0" aria-hidden>
+      <AnimatePresence>
+        <motion.img
+          key={`${idx}-${images[idx]}`}
+          src={images[idx]}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: reduced ? 1.06 : 1.18 }}
+          exit={{ opacity: 0 }}
+          transition={{
+            opacity: { duration: 1.4, ease: 'easeInOut' },
+            scale: { duration: (SLIDE_MS + 1600) / 1000, ease: 'linear' },
+          }}
+        />
+      </AnimatePresence>
+      {/* Scrim keeps the headline and search card readable over any photo */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a2622]/85 via-[#0d3a32]/55 to-[#0a2622]/90" />
+    </div>
+  );
+}
+
+function Hero({ districts, images }) {
   const navigate = useNavigate();
   const [selected, setSelected] = useState('');
 
@@ -34,8 +80,9 @@ function Hero({ districts }) {
 
   return (
     <section className="relative min-h-[88vh] flex flex-col items-center justify-center overflow-hidden bg-neutral text-neutral-content">
-      {/* Layered background: gradients + slow floating glows */}
+      {/* Layered background: photo montage over gradient, plus slow floating glows */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a2622] via-[#0d3a32] to-[#0a2622]" />
+      <HeroMontage images={images} />
       <motion.div
         aria-hidden
         className="absolute -top-32 -left-32 w-[36rem] h-[36rem] rounded-full bg-primary/25 blur-3xl"
@@ -377,11 +424,20 @@ function GuideCta() {
 export default function Home() {
   const { data: districts } = useDistricts();
   const firstDistrictSlug = districts?.[0]?.slug;
+  const { data: firstDistrict } = useDistrict(firstDistrictSlug);
+
+  // Montage: district hero + first photo of each spot (react-query dedupes
+  // this fetch with the spots carousel below)
+  const heroImages = useMemo(() => {
+    const d = firstDistrict?.district;
+    const spots = firstDistrict?.spots || [];
+    return [d?.heroImageUrl, ...spots.map((s) => s.images?.[0])].filter(Boolean).slice(0, 6);
+  }, [firstDistrict]);
 
   return (
     <div>
       <AdBanner slot="hero-top" />
-      <Hero districts={districts} />
+      <Hero districts={districts} images={heroImages} />
       <StatsStrip />
       <AdBanner slot="hero-bottom" />
       <DistrictShowcase districts={districts} />
