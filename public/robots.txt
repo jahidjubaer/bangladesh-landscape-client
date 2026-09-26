@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /guide-dashboard
+Disallow: /my-plans
+Disallow: /my-bookings
+Disallow: /my-blogs
+Disallow: /write-blog
+Disallow: /profile
+
+Sitemap: https://bangladeshlandscape.com/sitemap.xml

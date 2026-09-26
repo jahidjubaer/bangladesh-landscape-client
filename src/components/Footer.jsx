@@ -24,6 +24,8 @@ export default function Footer() {
             <li><Link className="link link-hover" to="/policies/user">{t('footer.userPolicy')}</Link></li>
             <li><Link className="link link-hover" to="/policies/guide">{t('footer.guidePolicy')}</Link></li>
             <li><Link className="link link-hover" to="/policies/partner">{t('footer.partnerPolicy')}</Link></li>
+            <li><Link className="link link-hover" to="/policies/sponsor">বিজ্ঞাপন নীতিমালা</Link></li>
+            <li><Link className="link link-hover" to="/policies/blog">ব্লগ নীতিমালা</Link></li>
           </ul>
         </nav>
       </div>

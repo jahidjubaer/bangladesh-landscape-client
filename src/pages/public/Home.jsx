@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import AdBanner from '../../components/AdBanner';
 import { t } from '../../i18n';
 
 const features = [
@@ -10,7 +11,7 @@ const features = [
 export default function Home() {
   return (
     <div>
-      {/* Hero — sponsor banner slot will sit above/below this section later */}
+      <AdBanner slot="hero-top" />
       <section className="hero min-h-[70vh] bg-gradient-to-br from-primary/90 to-emerald-800 text-primary-content">
         <div className="hero-content text-center py-16">
           <div className="max-w-2xl">
@@ -28,6 +29,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <AdBanner slot="hero-bottom" />
 
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="grid gap-6 md:grid-cols-3">

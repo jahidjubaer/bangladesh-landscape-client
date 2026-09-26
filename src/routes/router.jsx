@@ -30,6 +30,10 @@ const LazyEditor = (
   </Suspense>
 );
 import AdminBlogs from '../pages/admin/AdminBlogs';
+import AdminAds from '../pages/admin/AdminAds';
+import AdminSettings from '../pages/admin/AdminSettings';
+import AdminListings from '../pages/admin/AdminListings';
+import PolicyPage from '../pages/public/PolicyPage';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import Profile from '../pages/user/Profile';
@@ -71,8 +75,8 @@ const router = createBrowserRouter([
       { path: 'write-blog', element: LazyEditor },
       { path: 'write-blog/:id', element: LazyEditor },
 
-      // Phase 6 placeholders
-      { path: 'policies/:type', element: <ComingSoon title={t('footer.policies')} /> },
+      // Policies (Phase 6)
+      { path: 'policies/:type', element: <PolicyPage /> },
 
       // Authenticated routes
       {
@@ -107,6 +111,9 @@ const router = createBrowserRouter([
               { path: 'guide-applications', element: <AdminGuideApplications /> },
               { path: 'payments', element: <AdminPayments /> },
               { path: 'blogs', element: <AdminBlogs /> },
+              { path: 'ads', element: <AdminAds /> },
+              { path: 'listings', element: <AdminListings /> },
+              { path: 'settings', element: <AdminSettings /> },
             ],
           },
         ],

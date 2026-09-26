@@ -1,9 +1,17 @@
 import { useParams, Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import api from '../../lib/axios';
 import { useDistrict } from '../../features/districts/queries';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
+import Seo from '../../components/Seo';
 import NotFound from '../NotFound';
 import { t } from '../../i18n';
+
+const LISTING_TYPE_BN = {
+  hotel: 'হোটেল', houseboat: 'হাউসবোট', boat: 'বোট', 'chander-gari': 'চান্দের গাড়ি',
+  'other-transport': 'অন্য পরিবহন', cottage: 'কটেজ', resort: 'রিসোর্ট',
+};
 
 function InfoCard({ icon, title, children }) {
   return (
@@ -21,6 +29,11 @@ function InfoCard({ icon, title, children }) {
 export default function District() {
   const { slug } = useParams();
   const { data, isLoading, isError } = useDistrict(slug);
+  const { data: listings } = useQuery({
+    queryKey: ['listings', slug],
+    queryFn: async () => (await api.get(`/districts/${slug}/listings`)).data.data.listings,
+    enabled: Boolean(slug),
+  });
 
   if (isLoading) return <Loader />;
   if (isError || !data) return <NotFound />;
@@ -29,6 +42,7 @@ export default function District() {
 
   return (
     <div>
+      <Seo title={district.name.bn} description={district.overview?.bn} image={district.heroImageUrl} />
       {/* Hero */}
       <section
         className="relative min-h-[40vh] flex items-end bg-gradient-to-br from-primary to-emerald-800 text-primary-content"
@@ -106,6 +120,40 @@ export default function District() {
             </div>
           </div>
         </section>
+
+        {/* Verified stay/transport listings (info only until booking launch) */}
+        {listings?.length > 0 && (
+          <section>
+            <h2 className="text-2xl font-bold mb-4">{t('district.stayTransport')}</h2>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {listings.map((l) => (
+                <div key={l._id} className="card bg-base-100 shadow-md">
+                  {l.images?.[0] && (
+                    <figure className="h-36">
+                      <img src={l.images[0]} alt={l.name.bn} className="w-full h-full object-cover" loading="lazy" />
+                    </figure>
+                  )}
+                  <div className="card-body p-5">
+                    <h3 className="card-title text-base">
+                      {l.name.bn}
+                      <span className="badge badge-outline badge-sm">{LISTING_TYPE_BN[l.type]}</span>
+                    </h3>
+                    {l.description?.bn && <p className="text-sm text-base-content/70 line-clamp-2">{l.description.bn}</p>}
+                    <div className="text-sm space-y-1">
+                      {l.priceRange?.max > 0 && (
+                        <div>💰 ৳{l.priceRange.min.toLocaleString('bn-BD')}–{l.priceRange.max.toLocaleString('bn-BD')}</div>
+                      )}
+                      {l.capacity > 0 && <div>👥 {t('district.capacity')}: {l.capacity}</div>}
+                      {l.contactPhone && (
+                        <div>📞 {t('district.contact')}: <a className="link" href={`tel:${l.contactPhone}`}>{l.contactPhone}</a></div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Warnings */}
         {district.warnings?.length > 0 && (
