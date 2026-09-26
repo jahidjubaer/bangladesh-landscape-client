@@ -20,7 +20,7 @@ function NavLinks() {
 }
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
+  const { user, logout, hasRole } = useAuth();
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -65,6 +65,11 @@ export default function Navbar() {
                 <span className="hidden sm:inline">{user.name}</span>
               </div>
               <ul tabIndex={0} className="menu dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52">
+                {hasRole('admin') && (
+                  <li>
+                    <Link to="/admin">{t('admin.title')}</Link>
+                  </li>
+                )}
                 <li>
                   <Link to="/profile">{t('nav.profile')}</Link>
                 </li>
