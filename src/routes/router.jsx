@@ -14,6 +14,7 @@ import Guides from '../pages/public/Guides';
 import GuideDetail from '../pages/public/GuideDetail';
 import BecomeGuide from '../pages/public/BecomeGuide';
 import GuideDashboard from '../pages/guide/GuideDashboard';
+import PartnerDashboard from '../pages/partner/PartnerDashboard';
 import MyBookings from '../pages/user/MyBookings';
 import AdminGuideApplications from '../pages/admin/AdminGuideApplications';
 import AdminPayments from '../pages/admin/AdminPayments';
@@ -97,6 +98,12 @@ const router = createBrowserRouter([
       {
         element: <ProtectedRoute roles={['guide']} />,
         children: [{ path: 'guide-dashboard', element: <GuideDashboard /> }],
+      },
+
+      // Partner dashboard (role-gated)
+      {
+        element: <ProtectedRoute roles={['partner']} />,
+        children: [{ path: 'partner-dashboard', element: <PartnerDashboard /> }],
       },
 
       // Admin (role-gated)

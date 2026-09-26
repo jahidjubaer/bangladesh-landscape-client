@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import {
   Menu, X, Mountain, Map, Compass, PenLine, Sparkles,
-  User, LogOut, ShieldCheck, BookOpenText, CalendarCheck, FileText, Settings as SettingsIcon,
+  User, LogOut, ShieldCheck, BookOpenText, CalendarCheck, FileText, Settings as SettingsIcon, BedDouble,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import ThemeToggle from './ui/ThemeToggle';
@@ -38,6 +38,7 @@ function UserMenu({ user, hasRole, onLogout }) {
   const items = [
     hasRole('admin') && { to: '/admin', label: t('admin.title'), icon: ShieldCheck },
     hasRole('guide') && { to: '/guide-dashboard', label: t('guide.dashboard'), icon: Compass },
+    hasRole('partner') && { to: '/partner-dashboard', label: t('partner.dashboard'), icon: BedDouble },
     { to: '/my-plans', label: t('plan.myPlans'), icon: FileText },
     { to: '/my-bookings', label: t('booking.myBookings'), icon: CalendarCheck },
     { to: '/my-blogs', label: t('blog.myBlogs'), icon: BookOpenText },

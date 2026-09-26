@@ -8,6 +8,7 @@ const FIELDS = [
   ['planPrice', 'প্ল্যান PDF মূল্য (টাকা)', 'number'],
   ['freePlanCreditsForNewUser', 'নতুন ইউজারের ফ্রি ক্রেডিট', 'number'],
   ['guideCommissionPct', 'গাইড কমিশন (%)', 'number'],
+  ['listingCommissionPct', 'হোটেল/বোট বুকিং কমিশন (%)', 'number'],
   ['bookingConfirmWindowHours', 'বুকিং কনফার্ম সময়সীমা (ঘণ্টা)', 'number'],
   ['bkashPersonalNumber', 'bKash পার্সোনাল নম্বর (Send Money)', 'text'],
 ];

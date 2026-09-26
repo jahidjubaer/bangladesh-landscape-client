@@ -77,9 +77,16 @@ export default function MyBookings() {
               <div className="card-body p-5">
                 <div className="flex flex-wrap justify-between items-center gap-2">
                   <div>
-                    <strong>🧭 {b.guide?.user?.name}</strong>
+                    {b.listing ? (
+                      <strong>
+                        🏨 {lx(b.listing.name)}{' '}
+                        <span className="badge badge-outline badge-sm">{t(`listingType.${b.listing.type}`)}</span>
+                      </strong>
+                    ) : (
+                      <strong>🧭 {b.guide?.user?.name}</strong>
+                    )}
                     <div className="text-sm text-base-content/60">
-                      🗓️ {fmt(b.dates.from)} → {fmt(b.dates.to)} · 👥 {b.members} জন · {money(b.amount)}
+                      🗓️ {fmt(b.dates.from)} → {fmt(b.dates.to)} · 👥 {b.members} · {money(b.amount)}
                     </div>
                   </div>
                   <div className="flex items-center gap-2 flex-wrap">
@@ -88,6 +95,11 @@ export default function MyBookings() {
                     }`}>
                       {t(`booking.status.${b.status}`)}
                     </span>
+                    {b.status === 'confirmed' && b.listing?.contactPhone && (
+                      <a href={`tel:${b.listing.contactPhone}`} className="btn btn-success btn-xs">
+                        📞 {b.listing.contactPhone}
+                      </a>
+                    )}
                     {b.status === 'confirmed' && b.guide?.whatsappNumber && (
                       <a
                         href={`https://wa.me/88${b.guide.whatsappNumber}`}

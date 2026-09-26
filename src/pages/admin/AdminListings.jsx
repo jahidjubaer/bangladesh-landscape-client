@@ -17,6 +17,7 @@ const STATUS_BN = { pending: 'অপেক্ষমাণ', approved: 'অনু
 const empty = {
   type: 'hotel', district: '', name: { bn: '', en: '' }, description: { bn: '' },
   contactPhone: '', priceRange: { min: 0, max: 0 }, capacity: 0, imagesText: '', status: 'approved',
+  isBookable: false,
 };
 
 export default function AdminListings() {
@@ -33,11 +34,18 @@ export default function AdminListings() {
 
   const save = useMutation({
     mutationFn: async (f) => {
-      const { imagesText, _id, ...rest } = f;
+      const { imagesText, _id, owner, ownerPhone, bookable, blockedDates, createdAt, updatedAt, __v, ...rest } = f;
       const payload = { ...rest, images: imagesText.split('\n').map((l) => l.trim()).filter(Boolean) };
-      return _id
+      const res = _id
         ? (await api.patch(`/admin/listings/${_id}`, payload)).data
         : (await api.post('/admin/listings', payload)).data;
+      // Owner assignment goes through its own endpoint (grants partner role)
+      const id = _id || res.data.listing._id;
+      const currentOwnerPhone = owner?.phone || '';
+      if ((ownerPhone || '') !== currentOwnerPhone) {
+        await api.patch(`/admin/listings/${id}/owner`, { phone: ownerPhone || '' });
+      }
+      return res;
     },
     onSuccess: () => {
       qc.invalidateQueries();
@@ -58,6 +66,7 @@ export default function AdminListings() {
       ...l,
       district: l.district?._id || l.district,
       imagesText: (l.images || []).join('\n'),
+      ownerPhone: l.owner?.phone || '',
     });
   }
 
@@ -71,7 +80,7 @@ export default function AdminListings() {
       </div>
 
       <div className="alert text-sm py-2 mb-4">
-        ℹ️ তালিকা এখন জেলা পেজে "যাচাই করা তথ্য" হিসেবে দেখায় — অনলাইন বুকিং পরে ফিচার ফ্ল্যাগ দিয়ে চালু হবে।
+        ℹ️ বুকিং চালু করতে: তালিকায় "অনলাইন বুকিং" টগল + জেলা ফর্মে সংশ্লিষ্ট ফিচার ফ্ল্যাগ (boat/hotel/transport) দুটোই চালু করুন। মালিক সেট করলে সেই ইউজার পার্টনার ড্যাশবোর্ড পাবেন।
       </div>
 
       {form && (
@@ -118,6 +127,14 @@ export default function AdminListings() {
                   {Object.entries(STATUS_BN).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
                 </select>
               </label>
+              <label className="form-control">
+                <span className="label-text font-semibold mb-1">মালিকের ফোন (পার্টনার)</span>
+                <input className="input input-bordered input-sm" placeholder="01XXXXXXXXX" value={form.ownerPhone || ''} onChange={(e) => setForm({ ...form, ownerPhone: e.target.value })} />
+              </label>
+              <label className="label cursor-pointer justify-start gap-2 sm:col-span-2">
+                <input type="checkbox" className="toggle toggle-success toggle-sm" checked={Boolean(form.isBookable)} onChange={(e) => setForm({ ...form, isBookable: e.target.checked })} />
+                <span className="label-text font-semibold">অনলাইন বুকিং (জেলার ফিচার ফ্ল্যাগও চালু থাকতে হবে)</span>
+              </label>
             </div>
             <label className="form-control">
               <span className="label-text font-semibold mb-1">বিবরণ (বাংলা)</span>
@@ -159,6 +176,8 @@ export default function AdminListings() {
                     <span className={`badge badge-sm ${{ approved: 'badge-success', pending: 'badge-warning', suspended: 'badge-error' }[l.status]}`}>
                       {STATUS_BN[l.status]}
                     </span>
+                    {l.isBookable && <span className="badge badge-info badge-sm ms-1">বুকিং</span>}
+                    {l.owner && <div className="text-xs text-base-content/50 mt-0.5">👤 {l.owner.name}</div>}
                   </td>
                   <td className="text-right whitespace-nowrap space-x-1">
                     <button className="btn btn-xs btn-outline" onClick={() => openEdit(l)}>{t('admin.edit')}</button>
