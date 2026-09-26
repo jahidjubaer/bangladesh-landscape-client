@@ -97,7 +97,10 @@ export default function Footer() {
 
       <div className="border-t border-neutral-content/10">
         <div className="max-w-7xl mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-3 text-sm opacity-70">
-          <span>© {new Date().getFullYear()} {t('site.name')} — {t('footer.rights')}</span>
+          <span>
+            © {new Date().getFullYear()} {t('site.name')} — {t('footer.rights')} ·{' '}
+            <Link className="link link-hover" to="/credits">{t('credits.title')}</Link>
+          </span>
           <span className="flex items-center gap-1.5">
             <MapPin className="w-4 h-4" /> সুনামগঞ্জ থেকে শুরু · ৬৪ জেলার পথে
           </span>

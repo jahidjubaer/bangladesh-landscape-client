@@ -434,6 +434,14 @@
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to home"
   },
+  "credits": {
+    "title": "Photo Credits",
+    "subtitle": "Photos on this site are free-licensed via Wikimedia Commons — with gratitude to the photographers.",
+    "photographer": "Photographer",
+    "license": "License",
+    "viewSource": "View source",
+    "empty": "No credit information"
+  },
   "footer": {
     "about": "Bangladesh Landscape — a district-by-district travel portal. We make your travels easier with field-verified information.",
     "quickLinks": "Quick links",

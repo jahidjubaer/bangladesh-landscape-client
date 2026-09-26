@@ -38,6 +38,7 @@ import Settings from '../pages/user/Settings';
 import AdminSettings from '../pages/admin/AdminSettings';
 import AdminListings from '../pages/admin/AdminListings';
 import PolicyPage from '../pages/public/PolicyPage';
+import PhotoCredits from '../pages/public/PhotoCredits';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import Profile from '../pages/user/Profile';
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
 
       // Policies (Phase 6)
       { path: 'policies/:type', element: <PolicyPage /> },
+      { path: 'credits', element: <PhotoCredits /> },
 
       // Authenticated routes
       {
