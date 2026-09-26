@@ -16,6 +16,20 @@ import GuideDashboard from '../pages/guide/GuideDashboard';
 import MyBookings from '../pages/user/MyBookings';
 import AdminGuideApplications from '../pages/admin/AdminGuideApplications';
 import AdminPayments from '../pages/admin/AdminPayments';
+import { lazy, Suspense } from 'react';
+import BlogList from '../pages/public/BlogList';
+import BlogDetail from '../pages/public/BlogDetail';
+import MyBlogs from '../pages/user/MyBlogs';
+import Loader from '../components/Loader';
+
+// Quill is heavy — load the editor only when someone actually writes
+const BlogEditor = lazy(() => import('../pages/user/BlogEditor'));
+const LazyEditor = (
+  <Suspense fallback={<Loader fullScreen />}>
+    <BlogEditor />
+  </Suspense>
+);
+import AdminBlogs from '../pages/admin/AdminBlogs';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import Profile from '../pages/user/Profile';
@@ -51,8 +65,13 @@ const router = createBrowserRouter([
       { path: 'guides/:id', element: <GuideDetail /> },
       { path: 'become-guide', element: <BecomeGuide /> },
 
-      // Phase 5+ placeholders
-      { path: 'blog', element: <ComingSoon title={t('nav.blog')} /> },
+      // Blog (Phase 5)
+      { path: 'blog', element: <BlogList /> },
+      { path: 'blog/:slug', element: <BlogDetail /> },
+      { path: 'write-blog', element: LazyEditor },
+      { path: 'write-blog/:id', element: LazyEditor },
+
+      // Phase 6 placeholders
       { path: 'policies/:type', element: <ComingSoon title={t('footer.policies')} /> },
 
       // Authenticated routes
@@ -62,6 +81,7 @@ const router = createBrowserRouter([
           { path: 'profile', element: <Profile /> },
           { path: 'my-plans', element: <MyPlans /> },
           { path: 'my-bookings', element: <MyBookings /> },
+          { path: 'my-blogs', element: <MyBlogs /> },
         ],
       },
 
@@ -86,6 +106,7 @@ const router = createBrowserRouter([
               { path: 'spots/:id', element: <AdminSpotForm /> },
               { path: 'guide-applications', element: <AdminGuideApplications /> },
               { path: 'payments', element: <AdminPayments /> },
+              { path: 'blogs', element: <AdminBlogs /> },
             ],
           },
         ],

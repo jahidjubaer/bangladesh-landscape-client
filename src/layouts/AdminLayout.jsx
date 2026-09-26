@@ -7,6 +7,7 @@ const links = [
   { to: '/admin/spots', label: t('admin.spots') },
   { to: '/admin/guide-applications', label: t('admin.guideApps') },
   { to: '/admin/payments', label: t('admin.payments') },
+  { to: '/admin/blogs', label: t('nav.blog') },
 ];
 
 export default function AdminLayout() {

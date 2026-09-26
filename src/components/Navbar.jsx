@@ -83,6 +83,9 @@ export default function Navbar() {
                   <Link to="/my-bookings">{t('booking.myBookings')}</Link>
                 </li>
                 <li>
+                  <Link to="/my-blogs">{t('blog.myBlogs')}</Link>
+                </li>
+                <li>
                   <Link to="/profile">{t('nav.profile')}</Link>
                 </li>
                 <li>
