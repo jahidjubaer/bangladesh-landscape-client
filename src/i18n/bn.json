@@ -154,6 +154,32 @@
     "capacity": "ধারণক্ষমতা",
     "contact": "যোগাযোগ"
   },
+  "listing": {
+    "bookNow": "বুক করুন",
+    "bookTitle": "বুকিং রিকোয়েস্ট",
+    "notBookable": "সরাসরি ফোনে যোগাযোগ করে বুক করুন",
+    "priceFrom": "ভাড়া",
+    "estimated": "আনুমানিক মোট",
+    "estimateNote": "চূড়ান্ত ভাড়া মালিকের সাথে কথা বলে ঠিক হবে",
+    "backToDistrict": "জেলায় ফিরে যান",
+    "capacity": "ধারণক্ষমতা",
+    "requested": "রিকোয়েস্ট পাঠানো হয়েছে! মালিক নিশ্চিত করলে যোগাযোগ নম্বর পাবেন।",
+    "contactAfter": "নিশ্চিত হলে যোগাযোগ নম্বর দেখা যাবে"
+  },
+  "partner": {
+    "dashboard": "পার্টনার ড্যাশবোর্ড",
+    "tabListings": "আমার তালিকা",
+    "tabBookings": "বুকিং",
+    "noListings": "আপনার নামে কোনো তালিকা নেই",
+    "bookableOn": "বুকিং চালু",
+    "bookableOff": "বুকিং বন্ধ (অ্যাডমিন/ফিচার ফ্ল্যাগ)",
+    "edit": "তথ্য হালনাগাদ",
+    "price": "ভাড়া (min–max)",
+    "contactPhone": "যোগাযোগ নম্বর",
+    "descriptionBn": "বিবরণ (বাংলা)",
+    "blockedDates": "ব্লক করা তারিখ",
+    "saved": "সংরক্ষিত হয়েছে"
+  },
   "listingType": {
     "hotel": "হোটেল",
     "houseboat": "হাউসবোট",

@@ -1,4 +1,4 @@
-﻿import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from '../layouts/RootLayout';
 import AdminLayout from '../layouts/AdminLayout';
 import ProtectedRoute from '../components/ProtectedRoute';
@@ -6,6 +6,7 @@ import Home from '../pages/public/Home';
 import Districts from '../pages/public/Districts';
 import District from '../pages/public/District';
 import Spot from '../pages/public/Spot';
+import ListingDetail from '../pages/public/ListingDetail';
 import PlanWizard from '../pages/public/PlanWizard';
 import PlanView from '../pages/public/PlanView';
 import MyPlans from '../pages/user/MyPlans';
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
       { path: 'districts', element: <Districts /> },
       { path: 'districts/:slug', element: <District /> },
       { path: 'spots/:slug', element: <Spot /> },
+      { path: 'listings/:id', element: <ListingDetail /> },
 
       // Tour plans (Phase 3)
       { path: 'plan', element: <PlanWizard /> },

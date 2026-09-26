@@ -154,6 +154,32 @@
     "capacity": "Capacity",
     "contact": "Contact"
   },
+  "listing": {
+    "bookNow": "Book now",
+    "bookTitle": "Booking request",
+    "notBookable": "Book directly by phone",
+    "priceFrom": "Price",
+    "estimated": "Estimated total",
+    "estimateNote": "Final price is agreed directly with the owner",
+    "backToDistrict": "back to district",
+    "capacity": "Capacity",
+    "requested": "Request sent! You'll get the contact number once the owner confirms.",
+    "contactAfter": "Contact number appears after confirmation"
+  },
+  "partner": {
+    "dashboard": "Partner Dashboard",
+    "tabListings": "My Listings",
+    "tabBookings": "Bookings",
+    "noListings": "No listings under your account",
+    "bookableOn": "Booking enabled",
+    "bookableOff": "Booking off (admin/feature flag)",
+    "edit": "Update info",
+    "price": "Price (min–max)",
+    "contactPhone": "Contact number",
+    "descriptionBn": "Description (Bangla)",
+    "blockedDates": "Blocked dates",
+    "saved": "Saved"
+  },
   "listingType": {
     "hotel": "Hotel",
     "houseboat": "Houseboat",
