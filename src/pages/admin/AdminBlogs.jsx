@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../../lib/axios';
 import Loader from '../../components/Loader';
+import { useConfirm } from '../../components/ui/ConfirmModal';
 import { t } from '../../i18n';
 
 export default function AdminBlogs() {
@@ -9,6 +10,7 @@ export default function AdminBlogs() {
   const [status, setStatus] = useState('pending');
   const [expanded, setExpanded] = useState(null);
   const [error, setError] = useState('');
+  const confirm = useConfirm();
 
   const { data: blogs, isLoading } = useQuery({
     queryKey: ['modBlogs', status],
@@ -27,8 +29,8 @@ export default function AdminBlogs() {
     onError: (err) => setError(err.response?.data?.message || t('common.error')),
   });
 
-  function rejectWithNote(id) {
-    const note = window.prompt(t('admin.reason'));
+  async function rejectWithNote(id) {
+    const note = await confirm(t('admin.rejectBtn'), { input: { placeholder: t('admin.reason') } });
     if (note !== null) act.mutate({ id, action: 'reject', note });
   }
 

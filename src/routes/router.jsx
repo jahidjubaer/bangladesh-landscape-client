@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+﻿import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from '../layouts/RootLayout';
 import AdminLayout from '../layouts/AdminLayout';
 import ProtectedRoute from '../components/ProtectedRoute';
@@ -22,7 +22,7 @@ import BlogDetail from '../pages/public/BlogDetail';
 import MyBlogs from '../pages/user/MyBlogs';
 import Loader from '../components/Loader';
 
-// Quill is heavy — load the editor only when someone actually writes
+// Quill is heavy â€” load the editor only when someone actually writes
 const BlogEditor = lazy(() => import('../pages/user/BlogEditor'));
 const LazyEditor = (
   <Suspense fallback={<Loader fullScreen />}>
@@ -42,7 +42,6 @@ import AdminDistricts from '../pages/admin/AdminDistricts';
 import AdminDistrictForm from '../pages/admin/AdminDistrictForm';
 import AdminSpots from '../pages/admin/AdminSpots';
 import AdminSpotForm from '../pages/admin/AdminSpotForm';
-import ComingSoon from '../pages/ComingSoon';
 import NotFound from '../pages/NotFound';
 import { t } from '../i18n';
 

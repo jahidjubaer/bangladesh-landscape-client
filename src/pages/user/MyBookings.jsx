@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { CalendarCheck } from 'lucide-react';
 import { useMyBookings, useBookingAction } from '../../features/guides/queries';
-import Loader from '../../components/Loader';
+import { SkeletonList } from '../../components/ui/Skeleton';
+import EmptyState from '../../components/ui/EmptyState';
+import { useConfirm } from '../../components/ui/ConfirmModal';
 import { t } from '../../i18n';
 
 const money = (n) => `৳${Number(n || 0).toLocaleString('bn-BD')}`;
@@ -49,19 +52,24 @@ function ReviewForm({ booking, onDone }) {
 export default function MyBookings() {
   const { data: bookings, isLoading } = useMyBookings();
   const action = useBookingAction();
+  const confirm = useConfirm();
   const [reviewing, setReviewing] = useState(null);
-
-  if (isLoading) return <Loader />;
 
   const canReview = (b) =>
     (b.status === 'confirmed' || b.status === 'completed') && new Date(b.dates.to) < new Date() && !b.review?.rating;
 
+  async function handleCancel(id) {
+    if (await confirm(t('booking.cancel') + '?')) action.mutate({ id, action: 'cancel' });
+  }
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-6">{t('booking.myBookings')}</h1>
+      <h1 className="font-display text-3xl font-extrabold mb-6">{t('booking.myBookings')}</h1>
 
-      {!bookings?.length ? (
-        <p className="text-center py-16 text-base-content/60">{t('booking.noBookings')}</p>
+      {isLoading ? (
+        <SkeletonList count={3} />
+      ) : !bookings?.length ? (
+        <EmptyState icon={CalendarCheck} title={t('booking.noBookings')} actionLabel={t('guide.listTitle')} actionTo="/guides" />
       ) : (
         <div className="space-y-3">
           {bookings.map((b) => (
@@ -93,7 +101,7 @@ export default function MyBookings() {
                     {['requested', 'confirmed'].includes(b.status) && new Date(b.dates.from) > new Date() && (
                       <button
                         className="btn btn-error btn-outline btn-xs"
-                        onClick={() => action.mutate({ id: b._id, action: 'cancel' })}
+                        onClick={() => handleCancel(b._id)}
                         disabled={action.isPending}
                       >
                         {t('booking.cancel')}

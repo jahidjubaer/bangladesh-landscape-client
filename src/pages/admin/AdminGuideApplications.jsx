@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../../lib/axios';
 import Loader from '../../components/Loader';
+import { useConfirm } from '../../components/ui/ConfirmModal';
 import { t } from '../../i18n';
 
 function useApplications(status) {
@@ -23,6 +24,7 @@ export default function AdminGuideApplications() {
   const [status, setStatus] = useState('pending');
   const [expanded, setExpanded] = useState(null);
   const [error, setError] = useState('');
+  const confirm = useConfirm();
   const { data: apps, isLoading } = useApplications(status);
 
   const act = useMutation({
@@ -32,8 +34,8 @@ export default function AdminGuideApplications() {
     onError: (err) => setError(err.response?.data?.message || t('common.error')),
   });
 
-  function rejectWithReason(id) {
-    const reason = window.prompt(t('admin.reason'));
+  async function rejectWithReason(id) {
+    const reason = await confirm(t('admin.rejectBtn'), { input: { placeholder: t('admin.reason') } });
     if (reason !== null) act.mutate({ id, action: 'reject', body: { reason } });
   }
 

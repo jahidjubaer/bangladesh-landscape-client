@@ -4,6 +4,7 @@ import api from '../../lib/axios';
 import { useAdminDistricts } from '../../features/districts/queries';
 import ImageUploader from '../../components/ImageUploader';
 import Loader from '../../components/Loader';
+import { useConfirm } from '../../components/ui/ConfirmModal';
 import { t } from '../../i18n';
 
 const TYPES = ['hotel', 'houseboat', 'boat', 'chander-gari', 'other-transport', 'cottage', 'resort'];
@@ -23,6 +24,7 @@ export default function AdminListings() {
   const { data: districts } = useAdminDistricts();
   const [form, setForm] = useState(null);
   const [error, setError] = useState('');
+  const confirm = useConfirm();
 
   const { data: listings, isLoading } = useQuery({
     queryKey: ['adminListings'],
@@ -160,7 +162,10 @@ export default function AdminListings() {
                   </td>
                   <td className="text-right whitespace-nowrap space-x-1">
                     <button className="btn btn-xs btn-outline" onClick={() => openEdit(l)}>{t('admin.edit')}</button>
-                    <button className="btn btn-xs btn-error btn-outline" onClick={() => window.confirm(t('admin.confirmDelete')) && del.mutate(l._id)}>
+                    <button
+                      className="btn btn-xs btn-error btn-outline"
+                      onClick={async () => (await confirm(t('admin.confirmDelete'))) && del.mutate(l._id)}
+                    >
                       {t('admin.delete')}
                     </button>
                   </td>

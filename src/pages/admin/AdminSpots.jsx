@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAdminDistricts, useAdminSpots, useDeleteSpot } from '../../features/districts/queries';
 import Loader from '../../components/Loader';
+import { useConfirm } from '../../components/ui/ConfirmModal';
+import { useToast } from '../../components/ui/Toast';
 import { t } from '../../i18n';
 
 export default function AdminSpots() {
@@ -9,13 +11,16 @@ export default function AdminSpots() {
   const { data: districts } = useAdminDistricts();
   const { data: spots, isLoading } = useAdminSpots(districtFilter || undefined);
   const del = useDeleteSpot();
+  const confirm = useConfirm();
+  const toast = useToast();
 
   async function handleDelete(s) {
-    if (!window.confirm(`${t('admin.confirmDelete')} (${s.name.bn})`)) return;
+    if (!(await confirm(`${t('admin.confirmDelete')} (${s.name.bn})`))) return;
     try {
       await del.mutateAsync(s._id);
+      toast('মুছে ফেলা হয়েছে', 'success');
     } catch (err) {
-      window.alert(err.response?.data?.message || t('common.error'));
+      toast(err.response?.data?.message || t('common.error'), 'error');
     }
   }
 

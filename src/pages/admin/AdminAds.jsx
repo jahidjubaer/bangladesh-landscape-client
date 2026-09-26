@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../../lib/axios';
 import ImageUploader from '../../components/ImageUploader';
 import Loader from '../../components/Loader';
+import { useConfirm } from '../../components/ui/ConfirmModal';
 import { t } from '../../i18n';
 
 const SLOTS = ['hero-top', 'hero-bottom', 'sidebar', 'blog-inline'];
@@ -12,6 +13,7 @@ export default function AdminAds() {
   const qc = useQueryClient();
   const [form, setForm] = useState(null); // null = closed, {} = editing/creating
   const [error, setError] = useState('');
+  const confirm = useConfirm();
 
   const { data: ads, isLoading } = useQuery({
     queryKey: ['adminAds'],
@@ -137,7 +139,10 @@ export default function AdminAds() {
                   <td className="text-sm">{a.impressions} / {a.clicks}</td>
                   <td className="text-right whitespace-nowrap space-x-1">
                     <button className="btn btn-xs btn-outline" onClick={() => openEdit(a)}>{t('admin.edit')}</button>
-                    <button className="btn btn-xs btn-error btn-outline" onClick={() => window.confirm(t('admin.confirmDelete')) && del.mutate(a._id)}>
+                    <button
+                      className="btn btn-xs btn-error btn-outline"
+                      onClick={async () => (await confirm(t('admin.confirmDelete'))) && del.mutate(a._id)}
+                    >
                       {t('admin.delete')}
                     </button>
                   </td>

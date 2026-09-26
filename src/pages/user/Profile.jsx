@@ -16,15 +16,23 @@ export default function Profile() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-12">
-      <div className="card bg-base-100 shadow-lg">
-        <div className="card-body">
-          <div className="flex items-center gap-4 mb-4">
+      <div className="card bg-base-100 shadow-lg overflow-hidden">
+        <div className="h-20 bg-gradient-to-r from-primary via-secondary to-primary/70" />
+        <div className="card-body pt-0">
+          <div className="flex items-end gap-4 -mt-8 mb-4">
             <div className="avatar placeholder">
-              <div className="bg-primary text-primary-content rounded-full w-16 text-2xl">
+              <div className="bg-gradient-to-br from-primary to-secondary text-primary-content rounded-2xl w-20 text-3xl ring-4 ring-base-100 shadow-lg">
                 <span>{user.name.charAt(0)}</span>
               </div>
             </div>
-            <h1 className="card-title text-2xl">{t('profile.title')}</h1>
+            <div className="pb-1">
+              <h1 className="font-display text-2xl font-extrabold">{user.name}</h1>
+              <div className="flex gap-1 flex-wrap">
+                {user.roles.map((r) => (
+                  <span key={r} className="badge badge-primary badge-outline badge-sm">{r}</span>
+                ))}
+              </div>
+            </div>
           </div>
           <table className="table">
             <tbody>

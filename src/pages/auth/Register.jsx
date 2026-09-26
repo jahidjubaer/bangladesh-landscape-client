@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { UserPlus } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import AuthShell from '../../layouts/AuthShell';
 import { t } from '../../i18n';
 
 export default function Register() {
@@ -30,11 +32,9 @@ export default function Register() {
   }
 
   return (
-    <div className="flex items-center justify-center px-4 py-16">
-      <div className="card bg-base-100 shadow-lg w-full max-w-md">
+    <AuthShell title={t('auth.registerTitle')}>
+      <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
-          <h1 className="card-title text-2xl justify-center mb-4">{t('auth.registerTitle')}</h1>
-
           {serverError && (
             <div className="alert alert-error text-sm py-2" role="alert">
               {serverError}
@@ -94,19 +94,20 @@ export default function Register() {
               />
             </div>
 
-            <button type="submit" className="btn btn-primary w-full" disabled={isSubmitting}>
+            <button type="submit" className="btn btn-primary w-full rounded-full gap-2 shadow-lg shadow-primary/25" disabled={isSubmitting}>
+              <UserPlus className="w-4 h-4" />
               {isSubmitting ? t('auth.registering') : t('auth.registerBtn')}
             </button>
           </form>
 
           <p className="text-center text-sm mt-4">
             {t('auth.haveAccount')}{' '}
-            <Link to="/login" className="link link-primary">
+            <Link to="/login" className="link link-primary font-medium">
               {t('auth.loginNow')}
             </Link>
           </p>
         </div>
       </div>
-    </div>
+    </AuthShell>
   );
 }

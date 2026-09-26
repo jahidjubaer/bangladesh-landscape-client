@@ -1,20 +1,25 @@
 import { Link } from 'react-router-dom';
 import { useAdminDistricts, useDeleteDistrict } from '../../features/districts/queries';
 import Loader from '../../components/Loader';
+import { useConfirm } from '../../components/ui/ConfirmModal';
+import { useToast } from '../../components/ui/Toast';
 import { t } from '../../i18n';
 
 export default function AdminDistricts() {
   const { data: districts, isLoading } = useAdminDistricts();
   const del = useDeleteDistrict();
+  const confirm = useConfirm();
+  const toast = useToast();
 
   if (isLoading) return <Loader />;
 
   async function handleDelete(d) {
-    if (!window.confirm(`${t('admin.confirmDelete')} (${d.name.bn})`)) return;
+    if (!(await confirm(`${t('admin.confirmDelete')} (${d.name.bn})`))) return;
     try {
       await del.mutateAsync(d._id);
+      toast('মুছে ফেলা হয়েছে', 'success');
     } catch (err) {
-      window.alert(err.response?.data?.message || t('common.error'));
+      toast(err.response?.data?.message || t('common.error'), 'error');
     }
   }
 

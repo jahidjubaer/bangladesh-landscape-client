@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { Phone, KeyRound, LogIn } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import AuthShell from '../../layouts/AuthShell';
 import { t } from '../../i18n';
 
 export default function Login() {
@@ -26,11 +28,9 @@ export default function Login() {
   }
 
   return (
-    <div className="flex items-center justify-center px-4 py-16">
-      <div className="card bg-base-100 shadow-lg w-full max-w-md">
+    <AuthShell title={t('auth.loginTitle')}>
+      <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
-          <h1 className="card-title text-2xl justify-center mb-4">{t('auth.loginTitle')}</h1>
-
           {serverError && (
             <div className="alert alert-error text-sm py-2" role="alert">
               {serverError}
@@ -40,7 +40,9 @@ export default function Login() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
             <div className="form-control">
               <label className="label" htmlFor="identifier">
-                <span className="label-text">{t('auth.identifier')}</span>
+                <span className="label-text font-medium flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5 text-primary" /> {t('auth.identifier')}
+                </span>
               </label>
               <input
                 id="identifier"
@@ -53,7 +55,9 @@ export default function Login() {
 
             <div className="form-control">
               <label className="label" htmlFor="password">
-                <span className="label-text">{t('auth.password')}</span>
+                <span className="label-text font-medium flex items-center gap-1.5">
+                  <KeyRound className="w-3.5 h-3.5 text-primary" /> {t('auth.password')}
+                </span>
               </label>
               <input
                 id="password"
@@ -63,19 +67,20 @@ export default function Login() {
               />
             </div>
 
-            <button type="submit" className="btn btn-primary w-full" disabled={isSubmitting}>
+            <button type="submit" className="btn btn-primary w-full rounded-full gap-2 shadow-lg shadow-primary/25" disabled={isSubmitting}>
+              <LogIn className="w-4 h-4" />
               {isSubmitting ? t('auth.loggingIn') : t('auth.loginBtn')}
             </button>
           </form>
 
           <p className="text-center text-sm mt-4">
             {t('auth.noAccount')}{' '}
-            <Link to="/register" className="link link-primary">
+            <Link to="/register" className="link link-primary font-medium">
               {t('auth.registerNow')}
             </Link>
           </p>
         </div>
       </div>
-    </div>
+    </AuthShell>
   );
 }

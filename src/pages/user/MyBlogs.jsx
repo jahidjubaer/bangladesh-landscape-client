@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { PenLine } from 'lucide-react';
 import { useMyBlogs, useDeleteBlog } from '../../features/blogs/queries';
 import Loader from '../../components/Loader';
+import EmptyState from '../../components/ui/EmptyState';
+import { useConfirm } from '../../components/ui/ConfirmModal';
 import { t } from '../../i18n';
 
 const STATUS_BADGE = { draft: 'badge-ghost', pending: 'badge-warning', approved: 'badge-success', rejected: 'badge-error' };
@@ -8,6 +11,7 @@ const STATUS_BADGE = { draft: 'badge-ghost', pending: 'badge-warning', approved:
 export default function MyBlogs() {
   const { data: blogs, isLoading } = useMyBlogs();
   const del = useDeleteBlog();
+  const confirm = useConfirm();
 
   if (isLoading) return <Loader />;
 
@@ -19,11 +23,7 @@ export default function MyBlogs() {
       </div>
 
       {!blogs?.length ? (
-        <div className="text-center py-16">
-          <div className="text-6xl mb-4">📝</div>
-          <p className="text-base-content/70 mb-6">{t('blog.noMyBlogs')}</p>
-          <Link to="/write-blog" className="btn btn-primary">{t('blog.writeFirst')}</Link>
-        </div>
+        <EmptyState icon={PenLine} title={t('blog.noMyBlogs')} actionLabel={t('blog.writeFirst')} actionTo="/write-blog" />
       ) : (
         <div className="space-y-3">
           {blogs.map((b) => (
@@ -51,7 +51,7 @@ export default function MyBlogs() {
                     <button
                       className="btn btn-xs btn-error btn-outline"
                       disabled={del.isPending}
-                      onClick={() => window.confirm(t('admin.confirmDelete')) && del.mutate(b._id)}
+                      onClick={async () => (await confirm(t('admin.confirmDelete'))) && del.mutate(b._id)}
                     >
                       {t('blog.delete')}
                     </button>

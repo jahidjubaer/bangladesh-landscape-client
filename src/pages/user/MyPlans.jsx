@@ -1,25 +1,26 @@
 import { Link } from 'react-router-dom';
+import { Sparkles, Map as MapIcon } from 'lucide-react';
 import { useMyPlans } from '../../features/plans/queries';
-import Loader from '../../components/Loader';
+import { SkeletonList } from '../../components/ui/Skeleton';
+import EmptyState from '../../components/ui/EmptyState';
 import { t } from '../../i18n';
 
 export default function MyPlans() {
   const { data: plans, isLoading } = useMyPlans();
 
-  if (isLoading) return <Loader />;
-
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-6">{t('plan.myPlans')}</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="font-display text-3xl font-extrabold">{t('plan.myPlans')}</h1>
+        <Link to="/plan" className="btn btn-primary btn-sm rounded-full gap-1.5">
+          <Sparkles className="w-4 h-4" /> {t('home.ctaPlan')}
+        </Link>
+      </div>
 
-      {!plans?.length ? (
-        <div className="text-center py-16">
-          <div className="text-6xl mb-4">🗺️</div>
-          <p className="text-base-content/70 mb-6">{t('plan.noPlans')}</p>
-          <Link to="/plan" className="btn btn-primary">
-            ✨ {t('plan.makeFirst')}
-          </Link>
-        </div>
+      {isLoading ? (
+        <SkeletonList count={3} />
+      ) : !plans?.length ? (
+        <EmptyState icon={MapIcon} title={t('plan.noPlans')} description={t('plan.makeFirst')} actionLabel={t('home.ctaPlan')} actionTo="/plan" />
       ) : (
         <div className="space-y-3">
           {plans.map((p) => (

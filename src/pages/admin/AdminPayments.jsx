@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../../lib/axios';
 import Loader from '../../components/Loader';
+import { useConfirm } from '../../components/ui/ConfirmModal';
 import { t } from '../../i18n';
 
 const money = (n) => `৳${Number(n || 0).toLocaleString('bn-BD')}`;
@@ -10,6 +11,7 @@ export default function AdminPayments() {
   const qc = useQueryClient();
   const [status, setStatus] = useState('pending-verification');
   const [error, setError] = useState('');
+  const confirm = useConfirm();
 
   const { data: payments, isLoading } = useQuery({
     queryKey: ['adminPayments', status],
@@ -22,8 +24,11 @@ export default function AdminPayments() {
     onError: (err) => setError(err.response?.data?.message || t('common.error')),
   });
 
-  function withNote(id, action) {
-    const note = window.prompt(t('admin.note'));
+  async function withNote(id, action) {
+    const note = await confirm(action === 'approve' ? t('admin.approve') : t('admin.rejectBtn'), {
+      danger: action !== 'approve',
+      input: { placeholder: t('admin.note') },
+    });
     if (note !== null) act.mutate({ id, action, note });
   }
 
