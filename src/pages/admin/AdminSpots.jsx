@@ -27,7 +27,7 @@ export default function AdminSpots() {
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-        <h1 className="text-2xl font-bold">{t('admin.spots')}</h1>
+        <h1 className="font-display text-2xl md:text-3xl font-extrabold">{t('admin.spots')}</h1>
         <div className="flex gap-3">
           <select className="select select-bordered select-sm" value={districtFilter} onChange={(e) => setDistrictFilter(e.target.value)}>
             <option value="">সব জেলা</option>
@@ -47,7 +47,7 @@ export default function AdminSpots() {
         <Loader />
       ) : (
         <div className="overflow-x-auto bg-base-100 rounded-xl shadow-md">
-          <table className="table">
+          <table className="table table-zebra">
             <thead>
               <tr>
                 <th>নাম</th>

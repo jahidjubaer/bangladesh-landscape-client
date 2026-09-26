@@ -73,7 +73,7 @@ export default function AdminListings() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">{t('admin.listings')}</h1>
+        <h1 className="font-display text-2xl md:text-3xl font-extrabold">{t('admin.listings')}</h1>
         <button className="btn btn-primary btn-sm" onClick={() => { setError(''); setForm(empty); }}>
           + {t('admin.addListing')}
         </button>
@@ -161,7 +161,7 @@ export default function AdminListings() {
         <p className="text-center py-10 text-base-content/60">{t('admin.noItems')}</p>
       ) : (
         <div className="overflow-x-auto bg-base-100 rounded-xl shadow-md">
-          <table className="table">
+          <table className="table table-zebra">
             <thead>
               <tr><th>নাম</th><th>ধরন</th><th>জেলা</th><th>ভাড়া</th><th>স্ট্যাটাস</th><th></th></tr>
             </thead>

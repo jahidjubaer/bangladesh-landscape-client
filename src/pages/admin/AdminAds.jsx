@@ -50,7 +50,7 @@ export default function AdminAds() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">{t('admin.ads')}</h1>
+        <h1 className="font-display text-2xl md:text-3xl font-extrabold">{t('admin.ads')}</h1>
         <button className="btn btn-primary btn-sm" onClick={() => { setError(''); setForm(empty); }}>
           + {t('admin.addAd')}
         </button>
@@ -116,7 +116,7 @@ export default function AdminAds() {
         <p className="text-center py-10 text-base-content/60">{t('admin.noItems')}</p>
       ) : (
         <div className="overflow-x-auto bg-base-100 rounded-xl shadow-md">
-          <table className="table">
+          <table className="table table-zebra">
             <thead>
               <tr><th>স্পনসর</th><th>স্লট</th><th>মেয়াদ</th><th>ইমপ্রেশন / ক্লিক</th><th></th></tr>
             </thead>

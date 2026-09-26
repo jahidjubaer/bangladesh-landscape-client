@@ -42,7 +42,7 @@ export default function AdminSettings() {
 
   return (
     <div className="max-w-xl">
-      <h1 className="text-2xl font-bold mb-6">{t('admin.settings')}</h1>
+      <h1 className="font-display text-2xl md:text-3xl font-extrabold mb-6">{t('admin.settings')}</h1>
       {message && <div className={`alert alert-${message.type} mb-4 text-sm py-2`}>{message.text}</div>}
 
       <form

@@ -35,7 +35,7 @@ export default function AdminPayments() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">{t('admin.payments')}</h1>
+        <h1 className="font-display text-2xl md:text-3xl font-extrabold">{t('admin.payments')}</h1>
         <select className="select select-bordered select-sm" value={status} onChange={(e) => setStatus(e.target.value)}>
           <option value="pending-verification">যাচাই বাকি</option>
           <option value="success">সফল</option>
@@ -52,7 +52,7 @@ export default function AdminPayments() {
         <p className="text-center py-10 text-base-content/60">{t('admin.noItems')}</p>
       ) : (
         <div className="overflow-x-auto bg-base-100 rounded-xl shadow-md">
-          <table className="table">
+          <table className="table table-zebra">
             <thead>
               <tr>
                 <th>ব্যবহারকারী</th>

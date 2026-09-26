@@ -26,14 +26,14 @@ export default function AdminDistricts() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">{t('admin.districts')}</h1>
+        <h1 className="font-display text-2xl md:text-3xl font-extrabold">{t('admin.districts')}</h1>
         <Link to="/admin/districts/new" className="btn btn-primary btn-sm">
           + {t('admin.addDistrict')}
         </Link>
       </div>
 
       <div className="overflow-x-auto bg-base-100 rounded-xl shadow-md">
-        <table className="table">
+        <table className="table table-zebra">
           <thead>
             <tr>
               <th>নাম</th>

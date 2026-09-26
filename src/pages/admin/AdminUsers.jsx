@@ -42,7 +42,7 @@ export default function AdminUsers() {
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-        <h1 className="text-2xl font-bold">{t('adminUsers.title')}</h1>
+        <h1 className="font-display text-2xl md:text-3xl font-extrabold">{t('adminUsers.title')}</h1>
         <div className="flex gap-2">
           <form
             onSubmit={(e) => {
@@ -76,7 +76,7 @@ export default function AdminUsers() {
       ) : (
         <>
           <div className="overflow-x-auto bg-base-100 rounded-xl shadow-md">
-            <table className="table">
+            <table className="table table-zebra">
               <thead>
                 <tr>
                   <th>ব্যবহারকারী</th>

@@ -139,6 +139,57 @@ body {
   transform: scale(1.06);
 }
 
+/* Blog content: theme-aware typography + Quill 2 markup fixes */
+.prose {
+  --tw-prose-body: var(--color-base-content);
+  --tw-prose-headings: var(--color-base-content);
+  --tw-prose-bold: var(--color-base-content);
+  --tw-prose-lead: var(--color-base-content);
+  --tw-prose-links: var(--color-primary);
+  --tw-prose-quotes: color-mix(in oklab, var(--color-base-content) 85%, transparent);
+  --tw-prose-quote-borders: var(--color-primary);
+  --tw-prose-bullets: var(--color-primary);
+  --tw-prose-counters: var(--color-primary);
+  --tw-prose-hr: var(--color-base-300);
+  --tw-prose-captions: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+  text-align: start;
+  overflow-wrap: break-word;
+}
+/* Quill emits empty <p><br></p> between blocks — keep a small, even gap */
+.prose p:empty {
+  margin: 0;
+}
+.prose img {
+  margin-inline: auto;
+  border-radius: 0.75rem;
+}
+/* Quill 2 lists: bullets are <ol><li data-list="bullet"> */
+.prose li[data-list='bullet'] {
+  list-style-type: disc;
+}
+.prose li[data-list='ordered'] {
+  list-style-type: decimal;
+}
+/* Quill alignment/indent classes survive sanitization — honor them */
+.prose .ql-align-center {
+  text-align: center;
+}
+.prose .ql-align-right {
+  text-align: right;
+}
+.prose .ql-align-justify {
+  text-align: justify;
+}
+.prose .ql-indent-1 {
+  padding-inline-start: 2rem;
+}
+.prose .ql-indent-2 {
+  padding-inline-start: 4rem;
+}
+.prose .ql-indent-3 {
+  padding-inline-start: 6rem;
+}
+
 /* Card lift on hover */
 .card-lift {
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;

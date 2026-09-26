@@ -42,7 +42,7 @@ export default function AdminGuideApplications() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">{t('admin.guideApps')}</h1>
+        <h1 className="font-display text-2xl md:text-3xl font-extrabold">{t('admin.guideApps')}</h1>
         <select className="select select-bordered select-sm" value={status} onChange={(e) => setStatus(e.target.value)}>
           <option value="">সব</option>
           {['pending', 'screened', 'approved', 'rejected'].map((s) => (

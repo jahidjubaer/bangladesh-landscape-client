@@ -96,7 +96,7 @@ export default function AdminSpotForm() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">{isEdit ? `${t('admin.edit')}: ${spot?.name?.bn || ''}` : t('admin.addSpot')}</h1>
+      <h1 className="font-display text-2xl md:text-3xl font-extrabold mb-6">{isEdit ? `${t('admin.edit')}: ${spot?.name?.bn || ''}` : t('admin.addSpot')}</h1>
       {serverError && <div className="alert alert-error mb-4">{serverError}</div>}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-base-100 rounded-xl shadow-md p-6">

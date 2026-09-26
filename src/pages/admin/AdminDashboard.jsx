@@ -38,7 +38,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold">
+      <h1 className="font-display text-2xl md:text-3xl font-extrabold">
         {t('admin.welcome')}, {user?.name} 👋
       </h1>
 
