@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="bn" data-theme="emerald">
+<html lang="bn" data-theme="landscape">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,9 +10,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Noto+Serif+Bengali:wght@600;700;800;900&display=swap"
       rel="stylesheet"
     />
+    <script>
+      // Apply saved theme before first paint to avoid flash
+      try {
+        var t = localStorage.getItem('bl-theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+        else if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+          document.documentElement.setAttribute('data-theme', 'landscape-dark');
+      } catch (e) {}
+    </script>
     <title>বাংলাদেশ ল্যান্ডস্কেপ</title>
   </head>
   <body>

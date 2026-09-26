@@ -1,13 +1,149 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
+
 @plugin "daisyui" {
-  themes: emerald --default, dark --prefersdark;
+  themes: false;
+}
+
+/* Light: haor water teal + shimul warm accent on warm paper */
+@plugin "daisyui/theme" {
+  name: 'landscape';
+  default: true;
+  color-scheme: light;
+
+  --color-base-100: #fdfcf8;
+  --color-base-200: #f5f2ea;
+  --color-base-300: #e8e3d5;
+  --color-base-content: #26332f;
+
+  --color-primary: #0d7a68;
+  --color-primary-content: #f0fdf9;
+  --color-secondary: #0a6a8a;
+  --color-secondary-content: #eff9fd;
+  --color-accent: #e8590c;
+  --color-accent-content: #fff7ed;
+  --color-neutral: #1c3d36;
+  --color-neutral-content: #e8f5f1;
+
+  --color-info: #0284c7;
+  --color-info-content: #f0f9ff;
+  --color-success: #0f9d6e;
+  --color-success-content: #ecfdf5;
+  --color-warning: #d97706;
+  --color-warning-content: #fffbeb;
+  --color-error: #dc2626;
+  --color-error-content: #fef2f2;
+
+  --radius-selector: 1rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+/* Dark: deep haor night */
+@plugin "daisyui/theme" {
+  name: 'landscape-dark';
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: #12211d;
+  --color-base-200: #0c1815;
+  --color-base-300: #1d332d;
+  --color-base-content: #e2e8e5;
+
+  --color-primary: #2fbf9c;
+  --color-primary-content: #04211a;
+  --color-secondary: #38b6dd;
+  --color-secondary-content: #06202a;
+  --color-accent: #fb8a3c;
+  --color-accent-content: #2a1204;
+  --color-neutral: #22423a;
+  --color-neutral-content: #d9ece6;
+
+  --color-info: #38bdf8;
+  --color-info-content: #082f42;
+  --color-success: #34d399;
+  --color-success-content: #052e21;
+  --color-warning: #fbbf24;
+  --color-warning-content: #3b2503;
+  --color-error: #f87171;
+  --color-error-content: #400808;
+
+  --radius-selector: 1rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@theme {
+  --font-sans: 'Noto Sans Bengali', system-ui, sans-serif;
+  --font-display: 'Noto Serif Bengali', 'Noto Sans Bengali', serif;
 }
 
 :root {
-  font-family: 'Noto Sans Bengali', system-ui, sans-serif;
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Editorial headlines */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Selection + scrollbar tuned to brand */
+::selection {
+  background: color-mix(in oklab, var(--color-primary) 25%, transparent);
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-base-200);
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--color-base-content) 25%, transparent);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+}
+
+/* Visible focus for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Card image hover-zoom helper */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.img-zoom:hover img {
+  transform: scale(1.06);
+}
+
+/* Card lift on hover */
+.card-lift {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px -12px color-mix(in oklab, var(--color-neutral) 30%, transparent);
 }
