@@ -6,7 +6,7 @@ import EmptyState from '../../components/ui/EmptyState';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import Seo from '../../components/Seo';
-import { t } from '../../i18n';
+import { t, lx, locale } from '../../i18n';
 
 export default function Districts() {
   const { data: districts, isLoading, isError } = useDistricts();
@@ -32,15 +32,15 @@ export default function Districts() {
             <Reveal key={d.slug} delay={i * 0.08}>
               <Link to={`/districts/${d.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
                 <figure className="h-52 relative">
-                  <Img src={d.heroImageUrl} alt={d.name.bn} icon={MapIcon} className="w-full h-full object-cover" />
+                  <Img src={d.heroImageUrl} alt={lx(d.name)} icon={MapIcon} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral/75 via-transparent to-transparent" />
                   <div className="absolute bottom-0 p-5 text-neutral-content">
-                    <h2 className="font-display text-2xl font-bold">{d.name.bn}</h2>
+                    <h2 className="font-display text-2xl font-bold">{lx(d.name)}</h2>
                     {d.division && <span className="text-sm opacity-80">{d.division}</span>}
                   </div>
                 </figure>
                 <div className="card-body p-5">
-                  <p className="text-sm text-base-content/70 line-clamp-3 leading-relaxed">{d.overview?.bn}</p>
+                  <p className="text-sm text-base-content/70 line-clamp-3 leading-relaxed">{lx(d.overview)}</p>
                   <div className="card-actions justify-between items-center mt-2">
                     <div className="flex gap-1 flex-wrap">
                       {(d.stayTypesAvailable || []).map((st) => (

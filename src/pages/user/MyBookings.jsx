@@ -4,10 +4,10 @@ import { useMyBookings, useBookingAction } from '../../features/guides/queries';
 import { SkeletonList } from '../../components/ui/Skeleton';
 import EmptyState from '../../components/ui/EmptyState';
 import { useConfirm } from '../../components/ui/ConfirmModal';
-import { t } from '../../i18n';
+import { t, lx, locale } from '../../i18n';
 
-const money = (n) => `৳${Number(n || 0).toLocaleString('bn-BD')}`;
-const fmt = (d) => new Date(d).toLocaleDateString('bn-BD');
+const money = (n) => `৳${Number(n || 0).toLocaleString(locale())}`;
+const fmt = (d) => new Date(d).toLocaleDateString(locale());
 
 function ReviewForm({ booking, onDone }) {
   const action = useBookingAction();

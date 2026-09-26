@@ -154,6 +154,15 @@
     "capacity": "ধারণক্ষমতা",
     "contact": "যোগাযোগ"
   },
+  "listingType": {
+    "hotel": "হোটেল",
+    "houseboat": "হাউসবোট",
+    "boat": "বোট",
+    "chander-gari": "চান্দের গাড়ি",
+    "other-transport": "অন্য পরিবহন",
+    "cottage": "কটেজ",
+    "resort": "রিসোর্ট"
+  },
   "spot": {
     "howToGo": "কীভাবে যাবেন",
     "entryCost": "প্রবেশ ফি",

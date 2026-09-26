@@ -180,6 +180,26 @@ export default function AdminSpotForm() {
           </label>
         </div>
 
+        {/* English content (optional — shown to foreign tourists) */}
+        <div className="collapse collapse-arrow bg-base-200 rounded-xl">
+          <input type="checkbox" />
+          <div className="collapse-title font-semibold">🌐 English content (optional)</div>
+          <div className="collapse-content space-y-3">
+            <label className="form-control">
+              <span className="label-text mb-1 font-semibold">Description (English)</span>
+              <textarea rows={3} className="textarea textarea-bordered" {...register('description.en')} />
+            </label>
+            <label className="form-control">
+              <span className="label-text mb-1 font-semibold">How to go (English)</span>
+              <textarea rows={2} className="textarea textarea-bordered" {...register('howToGo.en')} />
+            </label>
+            <label className="form-control">
+              <span className="label-text mb-1 font-semibold">Best time (English)</span>
+              <input className="input input-bordered" {...register('bestTime.en')} />
+            </label>
+          </div>
+        </div>
+
         <label className="form-control">
           <span className="label-text mb-1 font-semibold">সতর্কতা (প্রতি লাইনে একটি)</span>
           <textarea rows={2} className="textarea textarea-bordered" {...register('warningsText')} />

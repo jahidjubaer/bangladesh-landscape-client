@@ -11,7 +11,7 @@ import { useAuth } from '../../context/AuthContext';
 import Loader from '../../components/Loader';
 import Img from '../../components/ui/Img';
 import Seo from '../../components/Seo';
-import { t } from '../../i18n';
+import { t, lx, locale, getLang } from '../../i18n';
 
 const FOODS = ['local', 'special', 'regular'];
 const STYLES = ['adventure', 'relaxed', 'family', 'other'];
@@ -157,6 +157,7 @@ export default function PlanWizard() {
       const { publicId } = await generate.mutateAsync({
         district: district._id,
         spots: selectedSpots,
+        lang: getLang(),
         ...form,
         members: Number(form.members),
         days: Number(form.days),
@@ -224,10 +225,10 @@ export default function PlanWizard() {
                         districtSlug === d.slug ? 'border-primary' : 'border-transparent'
                       }`}
                     >
-                      <Img src={d.heroImageUrl} alt={d.name.bn} icon={MapPin} className="absolute inset-0 w-full h-full object-cover" />
+                      <Img src={d.heroImageUrl} alt={lx(d.name)} icon={MapPin} className="absolute inset-0 w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-gradient-to-t from-neutral/80 to-transparent" />
                       <div className="absolute bottom-3 left-4 text-neutral-content">
-                        <span className="font-display text-xl font-bold">{d.name.bn}</span>
+                        <span className="font-display text-xl font-bold">{lx(d.name)}</span>
                       </div>
                       {districtSlug === d.slug && (
                         <motion.span
@@ -248,7 +249,7 @@ export default function PlanWizard() {
                   <div className="flex items-center justify-between mb-4">
                     <p className="text-base-content/60">{t('plan.selectSpotsHint')}</p>
                     <span className="badge badge-primary badge-outline">
-                      {t('plan.selectedCount')}: {selectedSpots.length.toLocaleString('bn-BD')}
+                      {t('plan.selectedCount')}: {selectedSpots.length.toLocaleString(locale())}
                     </span>
                   </div>
                   <div className="grid gap-3 sm:grid-cols-2">
@@ -264,9 +265,9 @@ export default function PlanWizard() {
                             selected ? 'border-primary bg-primary/5' : 'border-base-200 hover:border-primary/40'
                           }`}
                         >
-                          <Img src={s.images?.[0]} alt={s.name.bn} icon={Camera} className="w-16 h-16 rounded-xl object-cover shrink-0" />
+                          <Img src={s.images?.[0]} alt={lx(s.name)} icon={Camera} className="w-16 h-16 rounded-xl object-cover shrink-0" />
                           <div className="min-w-0">
-                            <div className="font-semibold truncate">{s.name.bn}</div>
+                            <div className="font-semibold truncate">{lx(s.name)}</div>
                             <div className="text-xs text-base-content/55">
                               {t(`spot.category.${s.category}`)}
                               {s.isHidden && ` · 💎`}
@@ -290,8 +291,8 @@ export default function PlanWizard() {
                 <div className="space-y-6">
                   {/* Trip summary chip row */}
                   <div className="flex flex-wrap gap-2 p-3 rounded-2xl bg-base-200">
-                    <span className="badge badge-primary gap-1"><MapPin className="w-3 h-3" /> {district?.name?.bn}</span>
-                    <span className="badge badge-ghost">{t('plan.selectedCount')}: {selectedSpots.length.toLocaleString('bn-BD')} স্পট</span>
+                    <span className="badge badge-primary gap-1"><MapPin className="w-3 h-3" /> {lx(district?.name)}</span>
+                    <span className="badge badge-ghost">{t('plan.selectedCount')}: {selectedSpots.length.toLocaleString(locale())} স্পট</span>
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2">

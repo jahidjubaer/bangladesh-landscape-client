@@ -13,12 +13,8 @@ import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import NotFound from '../NotFound';
-import { t } from '../../i18n';
+import { t, lx, locale } from '../../i18n';
 
-const LISTING_TYPE_BN = {
-  hotel: 'হোটেল', houseboat: 'হাউসবোট', boat: 'বোট', 'chander-gari': 'চান্দের গাড়ি',
-  'other-transport': 'অন্য পরিবহন', cottage: 'কটেজ', resort: 'রিসোর্ট',
-};
 
 function InfoCard({ icon: Icon, title, children }) {
   return (
@@ -41,13 +37,13 @@ function SpotCard({ s, delay }) {
     <Reveal delay={delay}>
       <Link to={`/spots/${s.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
         <figure className="h-44 relative">
-          <Img src={s.images?.[0]} alt={s.name.bn} icon={Camera} className="w-full h-full object-cover" />
+          <Img src={s.images?.[0]} alt={lx(s.name)} icon={Camera} className="w-full h-full object-cover" />
           {s.isHidden && (
             <span className="absolute top-3 left-3 badge badge-secondary badge-sm shadow">💎 {t('district.hiddenGem')}</span>
           )}
         </figure>
         <div className="card-body p-5">
-          <h3 className="card-title text-base">{s.name.bn}</h3>
+          <h3 className="card-title text-base">{lx(s.name)}</h3>
           <div className="flex flex-wrap gap-1">
             <span className="badge badge-outline badge-sm">{t(`spot.category.${s.category}`)}</span>
             {(s.tags || []).map((tag) => (
@@ -78,13 +74,13 @@ export default function District() {
 
   return (
     <div>
-      <Seo title={district.name.bn} description={district.overview?.bn} image={district.heroImageUrl} />
+      <Seo title={lx(district.name)} description={lx(district.overview)} image={district.heroImageUrl} />
 
       {/* Parallax hero */}
       <section className="relative h-[52vh] min-h-80 overflow-hidden flex items-end">
         <motion.div style={{ y: heroY }} className="absolute inset-0 scale-110">
           {district.heroImageUrl ? (
-            <Img src={district.heroImageUrl} alt={district.name.bn} className="w-full h-full object-cover" />
+            <Img src={district.heroImageUrl} alt={lx(district.name)} className="w-full h-full object-cover" />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-[#0a2622] via-primary to-secondary" />
           )}
@@ -95,7 +91,7 @@ export default function District() {
             <span className="badge badge-accent gap-1 mb-3">
               <MapPin className="w-3.5 h-3.5" /> {district.division}
             </span>
-            <h1 className="font-display text-4xl md:text-6xl font-extrabold">{district.name.bn}</h1>
+            <h1 className="font-display text-4xl md:text-6xl font-extrabold">{lx(district.name)}</h1>
           </motion.div>
         </div>
       </section>
@@ -104,14 +100,14 @@ export default function District() {
         {/* Overview + plan CTA */}
         <Reveal>
           <div className="grid gap-6 lg:grid-cols-[1fr_300px] items-start">
-            <p className="text-lg leading-relaxed text-base-content/85">{district.overview?.bn}</p>
+            <p className="text-lg leading-relaxed text-base-content/85">{lx(district.overview)}</p>
             <Link
               to="/plan"
               className="card bg-gradient-to-br from-primary to-secondary text-primary-content shadow-lg card-lift p-6 text-center"
             >
               <Sparkles className="w-8 h-8 mx-auto mb-2" />
               <span className="font-bold text-lg">{t('home.ctaPlan')}</span>
-              <span className="text-sm opacity-85">{district.name.bn} — AI ট্যুর প্ল্যান</span>
+              <span className="text-sm opacity-85">{lx(district.name)} — AI ট্যুর প্ল্যান</span>
             </Link>
           </div>
         </Reveal>
@@ -135,16 +131,16 @@ export default function District() {
             <SpotMap
               center={district.mapCenter}
               zoom={district.zoom}
-              markers={spots.map((s) => ({ lat: s.location?.lat, lng: s.location?.lng, nameBn: s.name.bn, slug: s.slug }))}
+              markers={spots.map((s) => ({ lat: s.location?.lat, lng: s.location?.lng, nameBn: lx(s.name), slug: s.slug }))}
             />
           </Reveal>
         </section>
 
         {/* Info cards */}
         <section className="grid gap-6 md:grid-cols-2">
-          <Reveal><InfoCard icon={Bus} title={t('district.transport')}>{district.transportInfo?.bn}</InfoCard></Reveal>
-          <Reveal delay={0.08}><InfoCard icon={UtensilsCrossed} title={t('district.food')}>{district.foodInfo?.bn}</InfoCard></Reveal>
-          <Reveal><InfoCard icon={CalendarDays} title={t('district.bestSeason')}>{district.bestSeason?.bn}</InfoCard></Reveal>
+          <Reveal><InfoCard icon={Bus} title={t('district.transport')}>{lx(district.transportInfo)}</InfoCard></Reveal>
+          <Reveal delay={0.08}><InfoCard icon={UtensilsCrossed} title={t('district.food')}>{lx(district.foodInfo)}</InfoCard></Reveal>
+          <Reveal><InfoCard icon={CalendarDays} title={t('district.bestSeason')}>{lx(district.bestSeason)}</InfoCard></Reveal>
           <Reveal delay={0.08}>
             <div className="card bg-base-100 shadow-md h-full">
               <div className="card-body">
@@ -182,19 +178,19 @@ export default function District() {
                   <div className="card bg-base-100 shadow-md card-lift h-full">
                     {l.images?.[0] && (
                       <figure className="h-36 img-zoom">
-                        <Img src={l.images[0]} alt={l.name.bn} className="w-full h-full object-cover" />
+                        <Img src={l.images[0]} alt={lx(l.name)} className="w-full h-full object-cover" />
                       </figure>
                     )}
                     <div className="card-body p-5">
                       <h3 className="card-title text-base">
-                        {l.name.bn}
-                        <span className="badge badge-outline badge-sm">{LISTING_TYPE_BN[l.type]}</span>
+                        {lx(l.name)}
+                        <span className="badge badge-outline badge-sm">{t(`listingType.${l.type}`)}</span>
                       </h3>
-                      {l.description?.bn && <p className="text-sm text-base-content/65 line-clamp-2">{l.description.bn}</p>}
+                      {lx(l.description) && <p className="text-sm text-base-content/65 line-clamp-2">{lx(l.description)}</p>}
                       <div className="text-sm space-y-1.5 mt-1">
                         {l.priceRange?.max > 0 && (
                           <div className="font-semibold text-primary">
-                            ৳{l.priceRange.min.toLocaleString('bn-BD')}–{l.priceRange.max.toLocaleString('bn-BD')}
+                            ৳{l.priceRange.min.toLocaleString(locale())}–{l.priceRange.max.toLocaleString(locale())}
                           </div>
                         )}
                         {l.capacity > 0 && (
@@ -229,7 +225,7 @@ export default function District() {
               <ul className="space-y-2.5">
                 {district.warnings.map((w, i) => (
                   <li key={i} className="flex gap-2.5 text-base-content/80 leading-relaxed">
-                    <AlertTriangle className="w-4 h-4 text-warning shrink-0 mt-1.5" /> {w.bn}
+                    <AlertTriangle className="w-4 h-4 text-warning shrink-0 mt-1.5" /> {lx(w)}
                   </li>
                 ))}
               </ul>

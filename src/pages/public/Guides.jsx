@@ -8,7 +8,7 @@ import EmptyState from '../../components/ui/EmptyState';
 import StarRating from '../../components/ui/StarRating';
 import Reveal from '../../components/ui/Reveal';
 import Seo from '../../components/Seo';
-import { t } from '../../i18n';
+import { t, lx, locale } from '../../i18n';
 
 export function GuideCard({ g }) {
   return (
@@ -33,11 +33,11 @@ export function GuideCard({ g }) {
             </h2>
             <StarRating value={g.ratingAvg} count={g.ratingCount} />
             <div className="text-xs text-base-content/55 mt-0.5">
-              {t('guide.experience')}: {Number(g.experienceYears).toLocaleString('bn-BD')} {t('guide.years')}
+              {t('guide.experience')}: {Number(g.experienceYears).toLocaleString(locale())} {t('guide.years')}
             </div>
           </div>
         </div>
-        {g.bio?.bn && <p className="text-sm text-base-content/65 line-clamp-2 mt-1">{g.bio.bn}</p>}
+        {lx(g.bio) && <p className="text-sm text-base-content/65 line-clamp-2 mt-1">{lx(g.bio)}</p>}
         <div className="flex flex-wrap gap-1">
           {(g.languages || []).map((l) => (
             <span key={l} className="badge badge-ghost badge-sm">{t(`guide.lang.${l}`)}</span>
@@ -45,7 +45,7 @@ export function GuideCard({ g }) {
         </div>
         <div className="card-actions justify-between items-center mt-2 pt-3 border-t border-base-200">
           <span className="font-bold text-primary text-lg">
-            ৳{g.dailyRate?.toLocaleString('bn-BD')}
+            ৳{g.dailyRate?.toLocaleString(locale())}
             <span className="text-xs font-normal text-base-content/50"> / {t('guide.perDay')}</span>
           </span>
           <span className="btn btn-primary btn-sm rounded-full gap-1">
@@ -79,7 +79,7 @@ export default function Guides() {
           <div className="flex gap-3 items-center">
             <select className="select select-bordered" value={slug} onChange={(e) => setSlug(e.target.value)}>
               {(districts || []).map((d) => (
-                <option key={d.slug} value={d.slug}>{d.name.bn}</option>
+                <option key={d.slug} value={d.slug}>{lx(d.name)}</option>
               ))}
             </select>
             <Link to="/become-guide" className="btn btn-secondary btn-sm rounded-full gap-1.5">

@@ -4,7 +4,7 @@ import { useMyBlogs, useDeleteBlog } from '../../features/blogs/queries';
 import Loader from '../../components/Loader';
 import EmptyState from '../../components/ui/EmptyState';
 import { useConfirm } from '../../components/ui/ConfirmModal';
-import { t } from '../../i18n';
+import { t, lx, locale } from '../../i18n';
 
 const STATUS_BADGE = { draft: 'badge-ghost', pending: 'badge-warning', approved: 'badge-success', rejected: 'badge-error' };
 
@@ -32,13 +32,13 @@ export default function MyBlogs() {
                 <div className="flex flex-wrap justify-between items-center gap-2">
                   <div>
                     {b.status === 'approved' ? (
-                      <Link to={`/blog/${b.slug}`} className="font-bold link link-hover">{b.title.bn}</Link>
+                      <Link to={`/blog/${b.slug}`} className="font-bold link link-hover">{lx(b.title)}</Link>
                     ) : (
-                      <strong>{b.title.bn}</strong>
+                      <strong>{lx(b.title)}</strong>
                     )}
                     <div className="text-sm text-base-content/60">
-                      {b.district?.name?.bn && `📍 ${b.district.name.bn} · `}
-                      {new Date(b.createdAt).toLocaleDateString('bn-BD')}
+                      {lx(b.district?.name) && `📍 ${lx(b.district.name)} · `}
+                      {new Date(b.createdAt).toLocaleDateString(locale())}
                       {b.status === 'approved' && ` · 👁️ ${b.views} ${t('blog.views')}`}
                     </div>
                     {b.status === 'rejected' && b.moderationNote && (

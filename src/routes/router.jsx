@@ -22,7 +22,7 @@ import BlogDetail from '../pages/public/BlogDetail';
 import MyBlogs from '../pages/user/MyBlogs';
 import Loader from '../components/Loader';
 
-// Quill is heavy â€” load the editor only when someone actually writes
+// Quill is heavy — load the editor only when someone actually writes
 const BlogEditor = lazy(() => import('../pages/user/BlogEditor'));
 const LazyEditor = (
   <Suspense fallback={<Loader fullScreen />}>

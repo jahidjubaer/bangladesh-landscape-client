@@ -3,7 +3,7 @@ import { Sparkles, Map as MapIcon } from 'lucide-react';
 import { useMyPlans } from '../../features/plans/queries';
 import { SkeletonList } from '../../components/ui/Skeleton';
 import EmptyState from '../../components/ui/EmptyState';
-import { t } from '../../i18n';
+import { t, lx, locale } from '../../i18n';
 
 export default function MyPlans() {
   const { data: plans, isLoading } = useMyPlans();
@@ -33,8 +33,8 @@ export default function MyPlans() {
                 <div>
                   <h2 className="font-bold">{p.output?.title}</h2>
                   <div className="text-sm text-base-content/60">
-                    📍 {p.district?.name?.bn} · 👥 {p.input?.members} জন · 🗓️ {p.input?.days} দিন {p.input?.nights} রাত ·{' '}
-                    {new Date(p.createdAt).toLocaleDateString('bn-BD')}
+                    📍 {lx(p.district?.name)} · 👥 {p.input?.members} জন · 🗓️ {p.input?.days} দিন {p.input?.nights} রাত ·{' '}
+                    {new Date(p.createdAt).toLocaleDateString(locale())}
                   </div>
                 </div>
                 <div className="flex items-center gap-3">

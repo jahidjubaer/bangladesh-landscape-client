@@ -14,7 +14,7 @@ import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import NotFound from '../NotFound';
-import { t } from '../../i18n';
+import { t, lx, locale } from '../../i18n';
 
 function AlertList({ icon: Icon, title, items, tone }) {
   if (!items?.length) return null;
@@ -28,7 +28,7 @@ function AlertList({ icon: Icon, title, items, tone }) {
           {items.map((item, i) => (
             <li key={i} className="flex gap-2.5 text-base-content/80 leading-relaxed">
               <span className={`mt-2 w-1.5 h-1.5 rounded-full shrink-0 ${tone === 'warning' ? 'bg-warning' : 'bg-base-content/40'}`} />
-              {item.bn}
+              {lx(item)}
             </li>
           ))}
         </ul>
@@ -52,20 +52,20 @@ export default function Spot() {
   const facts = [
     { Icon: Ticket, label: t('spot.entryCost'), value: cost },
     { Icon: Clock3, label: t('spot.timeNeeded'), value: `${spot.timeNeededHours} ${t('spot.hours')}` },
-    { Icon: CalendarDays, label: t('spot.bestTime'), value: spot.bestTime?.bn },
+    { Icon: CalendarDays, label: t('spot.bestTime'), value: lx(spot.bestTime) },
   ];
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <Seo title={spot.name.bn} description={spot.description?.bn} image={spot.images?.[0]} />
+      <Seo title={lx(spot.name)} description={lx(spot.description)} image={spot.images?.[0]} />
 
       {/* Breadcrumb + title */}
       <Reveal>
         <Link to={`/districts/${spot.district.slug}`} className="inline-flex items-center gap-1.5 text-sm link link-primary mb-3">
-          <ArrowLeft className="w-4 h-4" /> {spot.district.name.bn} — {t('spot.backToDistrict')}
+          <ArrowLeft className="w-4 h-4" /> {lx(spot.district.name)} — {t('spot.backToDistrict')}
         </Link>
         <h1 className="font-display text-3xl md:text-5xl font-extrabold flex items-center gap-3 flex-wrap mb-3">
-          {spot.name.bn}
+          {lx(spot.name)}
           {spot.isHidden && <span className="badge badge-secondary">💎 {t('district.hiddenGem')}</span>}
         </h1>
         <div className="flex flex-wrap gap-2 mb-8">
@@ -90,17 +90,17 @@ export default function Spot() {
               >
                 {spot.images.map((img, i) => (
                   <SwiperSlide key={i}>
-                    <Img src={img} alt={`${spot.name.bn} ${i + 1}`} className="w-full h-72 md:h-[26rem] object-cover" />
+                    <Img src={img} alt={`${lx(spot.name)} ${i + 1}`} className="w-full h-72 md:h-[26rem] object-cover" />
                   </SwiperSlide>
                 ))}
               </Swiper>
             ) : (
-              <Img alt={spot.name.bn} icon={Camera} className="w-full h-72 rounded-2xl" />
+              <Img alt={lx(spot.name)} icon={Camera} className="w-full h-72 rounded-2xl" />
             )}
           </Reveal>
 
           <Reveal>
-            <p className="text-lg leading-relaxed text-base-content/85">{spot.description?.bn}</p>
+            <p className="text-lg leading-relaxed text-base-content/85">{lx(spot.description)}</p>
           </Reveal>
 
           {/* How to go */}
@@ -113,7 +113,7 @@ export default function Spot() {
                   </span>
                   {t('spot.howToGo')}
                 </h2>
-                <p className="leading-relaxed text-base-content/75 whitespace-pre-line">{spot.howToGo?.bn}</p>
+                <p className="leading-relaxed text-base-content/75 whitespace-pre-line">{lx(spot.howToGo)}</p>
               </div>
             </div>
           </Reveal>
@@ -124,7 +124,7 @@ export default function Spot() {
           {/* Map */}
           {spot.location?.lat != null && (
             <Reveal>
-              <SpotMap center={spot.location} zoom={13} markers={[{ ...spot.location, nameBn: spot.name.bn }]} height="320px" />
+              <SpotMap center={spot.location} zoom={13} markers={[{ ...spot.location, nameBn: lx(spot.name) }]} height="320px" />
             </Reveal>
           )}
         </div>

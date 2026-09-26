@@ -8,7 +8,7 @@ import StarRating from '../../components/ui/StarRating';
 import Reveal from '../../components/ui/Reveal';
 import Seo from '../../components/Seo';
 import NotFound from '../NotFound';
-import { t } from '../../i18n';
+import { t, lx, locale } from '../../i18n';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -44,7 +44,7 @@ export default function GuideDetail() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10 grid gap-8 lg:grid-cols-[1fr_360px]">
-      <Seo title={guide.user?.name} description={guide.bio?.bn} image={guide.photoUrl} />
+      <Seo title={guide.user?.name} description={lx(guide.bio)} image={guide.photoUrl} />
       <div className="space-y-6 min-w-0">
         {/* Profile header */}
         <Reveal>
@@ -69,21 +69,21 @@ export default function GuideDetail() {
                 </div>
               </div>
               <div className="text-sm text-base-content/65 mt-2">
-                {t('guide.experience')}: {Number(guide.experienceYears).toLocaleString('bn-BD')} {t('guide.years')} ·{' '}
+                {t('guide.experience')}: {Number(guide.experienceYears).toLocaleString(locale())} {t('guide.years')} ·{' '}
                 {(guide.languages || []).map((l) => t(`guide.lang.${l}`)).join(', ')}
               </div>
-              {guide.bio?.bn && <p className="mt-2 leading-relaxed text-base-content/80">{guide.bio.bn}</p>}
+              {lx(guide.bio) && <p className="mt-2 leading-relaxed text-base-content/80">{lx(guide.bio)}</p>}
               <div className="flex flex-wrap gap-1.5 mt-2">
                 {(guide.districts || []).map((d) => (
                   <Link key={d.slug} to={`/districts/${d.slug}`} className="badge badge-primary badge-outline gap-1">
-                    <MapPin className="w-3 h-3" /> {d.name?.bn}
+                    <MapPin className="w-3 h-3" /> {lx(d.name)}
                   </Link>
                 ))}
               </div>
               {guide.knownSpots?.length > 0 && (
                 <div className="mt-2 text-sm">
                   <span className="font-semibold">{t('guide.knownSpots')}: </span>
-                  <span className="text-base-content/65">{guide.knownSpots.map((s) => s.name?.bn).join(', ')}</span>
+                  <span className="text-base-content/65">{guide.knownSpots.map((s) => lx(s.name)).join(', ')}</span>
                 </div>
               )}
             </div>
@@ -113,7 +113,7 @@ export default function GuideDetail() {
                         <StarRating value={r.review.rating} size={14} />
                       </div>
                       {r.review.comment && <p className="text-sm text-base-content/75 leading-relaxed">{r.review.comment}</p>}
-                      <span className="text-xs text-base-content/45">{new Date(r.review.at).toLocaleDateString('bn-BD')}</span>
+                      <span className="text-xs text-base-content/45">{new Date(r.review.at).toLocaleDateString(locale())}</span>
                     </div>
                   ))}
                 </div>
@@ -130,7 +130,7 @@ export default function GuideDetail() {
             <Compass className="w-5 h-5 text-primary" /> {t('booking.bookGuide')}
           </h2>
           <div className="text-2xl font-bold text-primary">
-            ৳{guide.dailyRate?.toLocaleString('bn-BD')} <span className="text-sm font-normal text-base-content/60">/ {t('guide.perDay')}</span>
+            ৳{guide.dailyRate?.toLocaleString(locale())} <span className="text-sm font-normal text-base-content/60">/ {t('guide.perDay')}</span>
           </div>
 
           {message && <div className={`alert alert-${message.type} text-sm py-2`}>{message.text}</div>}
@@ -159,7 +159,7 @@ export default function GuideDetail() {
               </label>
               {days > 0 && (
                 <div className="alert py-2 text-sm">
-                  {t('booking.estimated')}: <strong>৳{estimate.toLocaleString('bn-BD')}</strong> ({days} দিন)
+                  {t('booking.estimated')}: <strong>৳{estimate.toLocaleString(locale())}</strong> ({days} দিন)
                 </div>
               )}
               <button type="submit" className="btn btn-primary w-full" disabled={createBooking.isPending}>

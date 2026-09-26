@@ -15,9 +15,9 @@ import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import NotFound from '../NotFound';
 import api from '../../lib/axios';
-import { t } from '../../i18n';
+import { t, lx, locale } from '../../i18n';
 
-const money = (n) => `${Number(n || 0).toLocaleString('bn-BD')} ৳`;
+const money = (n) => `${Number(n || 0).toLocaleString(locale())} ৳`;
 
 function BkashManualBox({ publicId, bkashNumber, planPrice }) {
   const submit = useSubmitManualBkash();
@@ -98,7 +98,7 @@ function TimelineDay({ day, isLast }) {
       {/* Timeline line + dot */}
       {!isLast && <span className="absolute left-[1.19rem] top-12 bottom-[-1rem] w-0.5 bg-primary/25" aria-hidden />}
       <span className="absolute left-0 top-1 w-10 h-10 rounded-2xl bg-gradient-to-br from-primary to-secondary text-primary-content font-bold flex items-center justify-center shadow-md shadow-primary/25">
-        {Number(day.dayNumber).toLocaleString('bn-BD')}
+        {Number(day.dayNumber).toLocaleString(locale())}
       </span>
 
       <div className="card bg-base-100 shadow-md">
@@ -214,9 +214,9 @@ export default function PlanView() {
   }
 
   const metaChips = [
-    { Icon: MapPin, text: plan.district?.name?.bn },
-    { Icon: Users, text: `${Number(plan.input.members).toLocaleString('bn-BD')} জন` },
-    { Icon: CalendarDays, text: `${Number(plan.input.days).toLocaleString('bn-BD')} দিন ${Number(plan.input.nights).toLocaleString('bn-BD')} রাত` },
+    { Icon: MapPin, text: lx(plan.district?.name) },
+    { Icon: Users, text: `${Number(plan.input.members).toLocaleString(locale())} জন` },
+    { Icon: CalendarDays, text: `${Number(plan.input.days).toLocaleString(locale())} দিন ${Number(plan.input.nights).toLocaleString(locale())} রাত` },
     { Icon: Wallet, text: money(plan.input.budget) },
   ];
 
@@ -294,7 +294,7 @@ export default function PlanView() {
             <div className="card border-2 border-dashed border-base-300 bg-base-100/60">
               <div className="card-body items-center text-center text-base-content/55 py-8">
                 <Lock className="w-6 h-6 mb-1" />
-                {t('plan.moreDays').replace('{n}', Number(hiddenDays).toLocaleString('bn-BD'))}
+                {t('plan.moreDays').replace('{n}', Number(hiddenDays).toLocaleString(locale()))}
               </div>
             </div>
           </Reveal>
@@ -324,7 +324,7 @@ export default function PlanView() {
                     <div className="flex flex-wrap gap-3 justify-center">
                       {freeCredits > 0 && (
                         <button onClick={handleUnlock} className="btn btn-secondary rounded-full gap-2" disabled={unlock.isPending}>
-                          <Gift className="w-4 h-4" /> {t('plan.freeCreditBtn')} ({t('plan.freeCreditsLeft')}: {Number(freeCredits).toLocaleString('bn-BD')})
+                          <Gift className="w-4 h-4" /> {t('plan.freeCreditBtn')} ({t('plan.freeCreditsLeft')}: {Number(freeCredits).toLocaleString(locale())})
                         </button>
                       )}
                       {paymentOptions?.online && (

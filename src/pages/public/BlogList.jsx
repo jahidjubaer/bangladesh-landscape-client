@@ -8,7 +8,7 @@ import EmptyState from '../../components/ui/EmptyState';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import Seo from '../../components/Seo';
-import { t } from '../../i18n';
+import { t, lx, locale } from '../../i18n';
 
 function BlogCard({ b, featured = false }) {
   return (
@@ -17,11 +17,11 @@ function BlogCard({ b, featured = false }) {
       className={`card bg-base-100 shadow-md card-lift img-zoom block h-full ${featured ? 'md:card-side' : ''}`}
     >
       <figure className={featured ? 'md:w-1/2 h-56 md:h-auto' : 'h-44'}>
-        <Img src={b.coverImageUrl} alt={b.title.bn} icon={PenLine} className="w-full h-full object-cover" />
+        <Img src={b.coverImageUrl} alt={lx(b.title)} icon={PenLine} className="w-full h-full object-cover" />
       </figure>
       <div className={`card-body p-5 ${featured ? 'md:w-1/2 justify-center' : ''}`}>
         <h2 className={`card-title leading-snug ${featured ? 'font-display text-2xl md:text-3xl' : 'text-base'}`}>
-          {b.title.bn}
+          {lx(b.title)}
           {b.hasBadge && (
             <span className="badge badge-primary badge-sm gap-1">
               <BadgeCheck className="w-3 h-3" /> {t('blog.officialBadge')}
@@ -37,12 +37,12 @@ function BlogCard({ b, featured = false }) {
             {b.author?.name}
           </span>
           <span className="flex items-center gap-1">
-            {b.district?.name?.bn && (
+            {lx(b.district?.name) && (
               <>
-                <MapPin className="w-3 h-3" /> {b.district.name.bn} ·
+                <MapPin className="w-3 h-3" /> {lx(b.district.name)} ·
               </>
             )}
-            {new Date(b.publishedAt).toLocaleDateString('bn-BD')}
+            {new Date(b.publishedAt).toLocaleDateString(locale())}
           </span>
         </div>
       </div>
@@ -97,7 +97,7 @@ export default function BlogList() {
             >
               <option value="">{t('blog.allDistricts')}</option>
               {(districts || []).map((d) => (
-                <option key={d.slug} value={d.slug}>{d.name.bn}</option>
+                <option key={d.slug} value={d.slug}>{lx(d.name)}</option>
               ))}
             </select>
             <Link to="/write-blog" className="btn btn-secondary btn-sm rounded-full gap-1.5">
@@ -135,7 +135,7 @@ export default function BlogList() {
             <div className="join flex justify-center mt-10">
               {Array.from({ length: data.pages }, (_, i) => i + 1).map((p) => (
                 <button key={p} className={`join-item btn btn-sm ${p === page ? 'btn-primary' : ''}`} onClick={() => setPage(p)}>
-                  {Number(p).toLocaleString('bn-BD')}
+                  {Number(p).toLocaleString(locale())}
                 </button>
               ))}
             </div>

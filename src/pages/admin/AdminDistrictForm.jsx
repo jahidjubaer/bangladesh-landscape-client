@@ -122,6 +122,25 @@ export default function AdminDistrictForm() {
           </label>
         ))}
 
+        {/* English content (optional — shown to foreign tourists) */}
+        <div className="collapse collapse-arrow bg-base-200 rounded-xl">
+          <input type="checkbox" />
+          <div className="collapse-title font-semibold">🌐 English content (optional)</div>
+          <div className="collapse-content space-y-3">
+            {[
+              ['overview.en', 'Overview (English)', 4],
+              ['transportInfo.en', 'Transport info (English)', 4],
+              ['foodInfo.en', 'Food info (English)', 3],
+              ['bestSeason.en', 'Best season (English)', 2],
+            ].map(([field, label, rows]) => (
+              <label key={field} className="form-control">
+                <span className="label-text mb-1 font-semibold">{label}</span>
+                <textarea rows={rows} className="textarea textarea-bordered" {...register(field)} />
+              </label>
+            ))}
+          </div>
+        </div>
+
         <label className="form-control">
           <span className="label-text mb-1 font-semibold">সতর্কতা (প্রতি লাইনে একটি)</span>
           <textarea rows={4} className="textarea textarea-bordered" {...register('warningsText')} />

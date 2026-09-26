@@ -17,7 +17,7 @@ import AdBanner from '../../components/AdBanner';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import CountUp from '../../components/ui/CountUp';
-import { t } from '../../i18n';
+import { t, lx, locale } from '../../i18n';
 
 /* ---------------- Hero ---------------- */
 
@@ -107,7 +107,7 @@ function Hero({ districts }) {
               <option value="">{t('home.searchTitle')}</option>
               {(districts || []).map((d) => (
                 <option key={d.slug} value={d.slug}>
-                  {d.name.bn}
+                  {lx(d.name)}
                 </option>
               ))}
             </select>
@@ -186,10 +186,10 @@ function DistrictShowcase({ districts }) {
           <Reveal key={d.slug} delay={i * 0.08}>
             <Link to={`/districts/${d.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block">
               <figure className="h-56 relative">
-                <Img src={d.heroImageUrl} alt={d.name.bn} icon={MapIcon} className="w-full h-full object-cover" />
+                <Img src={d.heroImageUrl} alt={lx(d.name)} icon={MapIcon} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral/80 via-transparent to-transparent" />
                 <div className="absolute bottom-0 p-5 text-neutral-content">
-                  <h3 className="font-display text-2xl font-bold">{d.name.bn}</h3>
+                  <h3 className="font-display text-2xl font-bold">{lx(d.name)}</h3>
                   <span className="text-sm opacity-80 flex items-center gap-1">
                     <ArrowRight className="w-4 h-4" /> {t('district.viewDetails')}
                   </span>
@@ -288,13 +288,13 @@ function SpotsCarousel({ firstDistrictSlug }) {
             <SwiperSlide key={s.slug}>
               <Link to={`/spots/${s.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
                 <figure className="h-48 relative">
-                  <Img src={s.images?.[0]} alt={s.name.bn} icon={Camera} className="w-full h-full object-cover" />
+                  <Img src={s.images?.[0]} alt={lx(s.name)} icon={Camera} className="w-full h-full object-cover" />
                   {s.isHidden && (
                     <span className="absolute top-3 left-3 badge badge-secondary badge-sm shadow">💎 {t('district.hiddenGem')}</span>
                   )}
                 </figure>
                 <div className="card-body p-4">
-                  <h3 className="font-bold">{s.name.bn}</h3>
+                  <h3 className="font-bold">{lx(s.name)}</h3>
                   <span className="badge badge-outline badge-sm">{t(`spot.category.${s.category}`)}</span>
                 </div>
               </Link>
@@ -329,13 +329,13 @@ function BlogStrip() {
             <Reveal key={b.slug} delay={i * 0.1}>
               <Link to={`/blog/${b.slug}`} className="card bg-base-200 card-lift img-zoom block h-full">
                 <figure className="h-44">
-                  <Img src={b.coverImageUrl} alt={b.title.bn} icon={PenLine} className="w-full h-full object-cover" />
+                  <Img src={b.coverImageUrl} alt={lx(b.title)} icon={PenLine} className="w-full h-full object-cover" />
                 </figure>
                 <div className="card-body p-5">
-                  <h3 className="font-bold leading-snug line-clamp-2">{b.title.bn}</h3>
+                  <h3 className="font-bold leading-snug line-clamp-2">{lx(b.title)}</h3>
                   <p className="text-sm text-base-content/60 line-clamp-2">{b.excerpt}</p>
                   <span className="text-xs text-base-content/50 mt-1">
-                    ✍️ {b.author?.name} · {new Date(b.publishedAt).toLocaleDateString('bn-BD')}
+                    ✍️ {b.author?.name} · {new Date(b.publishedAt).toLocaleDateString(locale())}
                   </span>
                 </div>
               </Link>

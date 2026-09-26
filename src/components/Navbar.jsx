@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import ThemeToggle from './ui/ThemeToggle';
+import LanguageToggle from './ui/LanguageToggle';
 import { t } from '../i18n';
 
 const navItems = [
@@ -135,6 +136,7 @@ export default function Navbar() {
         </div>
 
         <div className="navbar-end gap-1">
+          <LanguageToggle />
           <ThemeToggle />
           {user ? (
             <UserMenu user={user} hasRole={hasRole} onLogout={handleLogout} />
