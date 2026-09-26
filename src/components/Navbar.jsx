@@ -5,6 +5,7 @@ import { t } from '../i18n';
 const navItems = [
   { to: '/', label: t('nav.home'), end: true },
   { to: '/districts', label: t('nav.districts') },
+  { to: '/plan', label: t('nav.planTour') },
   { to: '/guides', label: t('nav.guides') },
   { to: '/blog', label: t('nav.blog') },
 ];
@@ -70,6 +71,9 @@ export default function Navbar() {
                     <Link to="/admin">{t('admin.title')}</Link>
                   </li>
                 )}
+                <li>
+                  <Link to="/my-plans">{t('plan.myPlans')}</Link>
+                </li>
                 <li>
                   <Link to="/profile">{t('nav.profile')}</Link>
                 </li>

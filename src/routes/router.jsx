@@ -6,6 +6,9 @@ import Home from '../pages/public/Home';
 import Districts from '../pages/public/Districts';
 import District from '../pages/public/District';
 import Spot from '../pages/public/Spot';
+import PlanWizard from '../pages/public/PlanWizard';
+import PlanView from '../pages/public/PlanView';
+import MyPlans from '../pages/user/MyPlans';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import Profile from '../pages/user/Profile';
@@ -32,16 +35,22 @@ const router = createBrowserRouter([
       { path: 'districts/:slug', element: <District /> },
       { path: 'spots/:slug', element: <Spot /> },
 
-      // Phase 3+ placeholders
+      // Tour plans (Phase 3)
+      { path: 'plan', element: <PlanWizard /> },
+      { path: 'plans/:publicId', element: <PlanView /> },
+
+      // Phase 4+ placeholders
       { path: 'guides', element: <ComingSoon title={t('nav.guides')} /> },
       { path: 'blog', element: <ComingSoon title={t('nav.blog')} /> },
-      { path: 'plan', element: <ComingSoon title={t('nav.planTour')} /> },
       { path: 'policies/:type', element: <ComingSoon title={t('footer.policies')} /> },
 
       // Authenticated routes
       {
         element: <ProtectedRoute />,
-        children: [{ path: 'profile', element: <Profile /> }],
+        children: [
+          { path: 'profile', element: <Profile /> },
+          { path: 'my-plans', element: <MyPlans /> },
+        ],
       },
 
       // Admin (role-gated)
