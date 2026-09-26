@@ -31,6 +31,8 @@ const LazyEditor = (
 );
 import AdminBlogs from '../pages/admin/AdminBlogs';
 import AdminAds from '../pages/admin/AdminAds';
+import AdminUsers from '../pages/admin/AdminUsers';
+import Settings from '../pages/user/Settings';
 import AdminSettings from '../pages/admin/AdminSettings';
 import AdminListings from '../pages/admin/AdminListings';
 import PolicyPage from '../pages/public/PolicyPage';
@@ -85,6 +87,7 @@ const router = createBrowserRouter([
           { path: 'my-plans', element: <MyPlans /> },
           { path: 'my-bookings', element: <MyBookings /> },
           { path: 'my-blogs', element: <MyBlogs /> },
+          { path: 'settings', element: <Settings /> },
         ],
       },
 
@@ -111,6 +114,7 @@ const router = createBrowserRouter([
               { path: 'payments', element: <AdminPayments /> },
               { path: 'blogs', element: <AdminBlogs /> },
               { path: 'ads', element: <AdminAds /> },
+              { path: 'users', element: <AdminUsers /> },
               { path: 'listings', element: <AdminListings /> },
               { path: 'settings', element: <AdminSettings /> },
             ],

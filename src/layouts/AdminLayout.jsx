@@ -8,6 +8,7 @@ const links = [
   { to: '/admin/guide-applications', label: t('admin.guideApps') },
   { to: '/admin/payments', label: t('admin.payments') },
   { to: '/admin/blogs', label: t('nav.blog') },
+  { to: '/admin/users', label: t('adminUsers.title') },
   { to: '/admin/listings', label: t('admin.listings') },
   { to: '/admin/ads', label: t('admin.ads') },
   { to: '/admin/settings', label: t('admin.settings') },

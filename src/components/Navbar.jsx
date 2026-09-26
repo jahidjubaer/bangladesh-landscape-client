@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import {
   Menu, X, Mountain, Map, Compass, PenLine, Sparkles,
-  User, LogOut, ShieldCheck, BookOpenText, CalendarCheck, FileText,
+  User, LogOut, ShieldCheck, BookOpenText, CalendarCheck, FileText, Settings as SettingsIcon,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import ThemeToggle from './ui/ThemeToggle';
@@ -41,15 +41,22 @@ function UserMenu({ user, hasRole, onLogout }) {
     { to: '/my-bookings', label: t('booking.myBookings'), icon: CalendarCheck },
     { to: '/my-blogs', label: t('blog.myBlogs'), icon: BookOpenText },
     { to: '/profile', label: t('nav.profile'), icon: User },
+    { to: '/settings', label: t('settings.title'), icon: SettingsIcon },
   ].filter(Boolean);
 
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost rounded-full gap-2 pl-1.5">
         <div className="avatar placeholder">
-          <div className="bg-gradient-to-br from-primary to-secondary text-primary-content rounded-full w-8">
-            <span className="text-sm font-bold">{user.name.charAt(0)}</span>
-          </div>
+          {user.avatarUrl ? (
+            <div className="w-8 rounded-full">
+              <img src={user.avatarUrl} alt={user.name} />
+            </div>
+          ) : (
+            <div className="bg-gradient-to-br from-primary to-secondary text-primary-content rounded-full w-8">
+              <span className="text-sm font-bold">{user.name.charAt(0)}</span>
+            </div>
+          )}
         </div>
         <span className="hidden sm:inline max-w-28 truncate">{user.name}</span>
       </div>

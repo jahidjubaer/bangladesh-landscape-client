@@ -44,8 +44,18 @@ export function AuthProvider({ children }) {
 
   const hasRole = useCallback((...roles) => Boolean(user) && user.roles.some((r) => roles.includes(r)), [user]);
 
+  // Re-fetch the session user (after profile/avatar updates)
+  const refreshUser = useCallback(async () => {
+    try {
+      const res = await api.get('/auth/me');
+      setUser(res.data.data.user);
+    } catch {
+      setUser(null);
+    }
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, hasRole }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, hasRole, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );
