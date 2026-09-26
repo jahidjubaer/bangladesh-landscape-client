@@ -9,6 +9,13 @@ import Spot from '../pages/public/Spot';
 import PlanWizard from '../pages/public/PlanWizard';
 import PlanView from '../pages/public/PlanView';
 import MyPlans from '../pages/user/MyPlans';
+import Guides from '../pages/public/Guides';
+import GuideDetail from '../pages/public/GuideDetail';
+import BecomeGuide from '../pages/public/BecomeGuide';
+import GuideDashboard from '../pages/guide/GuideDashboard';
+import MyBookings from '../pages/user/MyBookings';
+import AdminGuideApplications from '../pages/admin/AdminGuideApplications';
+import AdminPayments from '../pages/admin/AdminPayments';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import Profile from '../pages/user/Profile';
@@ -39,8 +46,12 @@ const router = createBrowserRouter([
       { path: 'plan', element: <PlanWizard /> },
       { path: 'plans/:publicId', element: <PlanView /> },
 
-      // Phase 4+ placeholders
-      { path: 'guides', element: <ComingSoon title={t('nav.guides')} /> },
+      // Guides (Phase 4)
+      { path: 'guides', element: <Guides /> },
+      { path: 'guides/:id', element: <GuideDetail /> },
+      { path: 'become-guide', element: <BecomeGuide /> },
+
+      // Phase 5+ placeholders
       { path: 'blog', element: <ComingSoon title={t('nav.blog')} /> },
       { path: 'policies/:type', element: <ComingSoon title={t('footer.policies')} /> },
 
@@ -50,7 +61,14 @@ const router = createBrowserRouter([
         children: [
           { path: 'profile', element: <Profile /> },
           { path: 'my-plans', element: <MyPlans /> },
+          { path: 'my-bookings', element: <MyBookings /> },
         ],
+      },
+
+      // Guide dashboard (role-gated)
+      {
+        element: <ProtectedRoute roles={['guide']} />,
+        children: [{ path: 'guide-dashboard', element: <GuideDashboard /> }],
       },
 
       // Admin (role-gated)
@@ -66,6 +84,8 @@ const router = createBrowserRouter([
               { path: 'districts/:id', element: <AdminDistrictForm /> },
               { path: 'spots', element: <AdminSpots /> },
               { path: 'spots/:id', element: <AdminSpotForm /> },
+              { path: 'guide-applications', element: <AdminGuideApplications /> },
+              { path: 'payments', element: <AdminPayments /> },
             ],
           },
         ],

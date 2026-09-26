@@ -5,6 +5,8 @@ const links = [
   { to: '/admin', label: t('admin.dashboard'), end: true },
   { to: '/admin/districts', label: t('admin.districts') },
   { to: '/admin/spots', label: t('admin.spots') },
+  { to: '/admin/guide-applications', label: t('admin.guideApps') },
+  { to: '/admin/payments', label: t('admin.payments') },
 ];
 
 export default function AdminLayout() {

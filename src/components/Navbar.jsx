@@ -71,8 +71,16 @@ export default function Navbar() {
                     <Link to="/admin">{t('admin.title')}</Link>
                   </li>
                 )}
+                {hasRole('guide') && (
+                  <li>
+                    <Link to="/guide-dashboard">{t('guide.dashboard')}</Link>
+                  </li>
+                )}
                 <li>
                   <Link to="/my-plans">{t('plan.myPlans')}</Link>
+                </li>
+                <li>
+                  <Link to="/my-bookings">{t('booking.myBookings')}</Link>
                 </li>
                 <li>
                   <Link to="/profile">{t('nav.profile')}</Link>

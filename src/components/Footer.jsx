@@ -14,6 +14,7 @@ export default function Footer() {
           <ul className="space-y-1 text-sm">
             <li><Link className="link link-hover" to="/districts">{t('nav.districts')}</Link></li>
             <li><Link className="link link-hover" to="/guides">{t('nav.guides')}</Link></li>
+            <li><Link className="link link-hover" to="/become-guide">{t('guide.becomeGuide')}</Link></li>
             <li><Link className="link link-hover" to="/blog">{t('nav.blog')}</Link></li>
           </ul>
         </nav>

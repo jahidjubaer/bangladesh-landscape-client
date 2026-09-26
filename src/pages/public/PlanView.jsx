@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { usePlan, useUnlockPlan, useInitPayment } from '../../features/plans/queries';
+import { useSubmitManualBkash } from '../../features/guides/queries';
 import { useAuth } from '../../context/AuthContext';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
@@ -9,6 +10,69 @@ import api from '../../lib/axios';
 import { t } from '../../i18n';
 
 const money = (n) => `${Number(n || 0).toLocaleString('bn-BD')} ৳`;
+
+function BkashManualBox({ publicId, bkashNumber, planPrice }) {
+  const submit = useSubmitManualBkash();
+  const [form, setForm] = useState({ trxId: '', senderNumber: '' });
+  const [error, setError] = useState('');
+  const [copied, setCopied] = useState(false);
+
+  function copyNumber() {
+    navigator.clipboard.writeText(bkashNumber).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError('');
+    try {
+      await submit.mutateAsync({ planPublicId: publicId, ...form });
+    } catch (err) {
+      setError(err.response?.data?.message || t('common.error'));
+    }
+  }
+
+  return (
+    <div className="bg-pink-50 dark:bg-pink-950/20 border border-pink-300 rounded-xl p-4 text-left w-full max-w-md">
+      <h3 className="font-bold text-pink-700 dark:text-pink-400 mb-2">📱 {t('bkash.payTitle')}</h3>
+      <ol className="list-decimal ms-5 text-sm space-y-1 mb-3">
+        <li>
+          {t('bkash.step1')}:{' '}
+          <button type="button" onClick={copyNumber} className="btn btn-xs btn-outline font-mono">
+            {bkashNumber} 📋
+          </button>{' '}
+          {copied && <span className="text-success">{t('bkash.copied')}</span>}
+          <strong className="ms-1">({money(planPrice)})</strong>
+        </li>
+        <li>{t('bkash.step2')}</li>
+        <li>{t('bkash.step3')}</li>
+      </ol>
+      {error && <div className="alert alert-error text-sm py-1 mb-2">{error}</div>}
+      <form onSubmit={handleSubmit} className="flex flex-wrap gap-2">
+        <input
+          required
+          minLength={6}
+          placeholder={t('bkash.trxId')}
+          className="input input-bordered input-sm flex-1 min-w-32"
+          value={form.trxId}
+          onChange={(e) => setForm({ ...form, trxId: e.target.value })}
+        />
+        <input
+          required
+          placeholder={t('bkash.senderNumber')}
+          className="input input-bordered input-sm flex-1 min-w-32"
+          value={form.senderNumber}
+          onChange={(e) => setForm({ ...form, senderNumber: e.target.value })}
+        />
+        <button type="submit" className="btn btn-primary btn-sm" disabled={submit.isPending}>
+          {submit.isPending ? t('bkash.submitting') : t('bkash.submit')}
+        </button>
+      </form>
+    </div>
+  );
+}
 
 function DayCard({ day }) {
   return (
@@ -54,7 +118,7 @@ export default function PlanView() {
   if (isLoading) return <Loader fullScreen />;
   if (isError || !data) return <NotFound />;
 
-  const { plan, isOwner, planPrice, freeCredits } = data;
+  const { plan, isOwner, planPrice, freeCredits, pendingVerification, paymentOptions } = data;
   const o = plan.output;
   const locked = plan.isPreview;
   const hiddenDays = locked ? (o.totalDays || 0) - (o.days?.length || 0) : 0;
@@ -170,16 +234,27 @@ export default function PlanView() {
             <p className="text-base-content/70">{t('plan.unlockDesc')}</p>
             {actionError && <div className="alert alert-error text-sm py-2">{actionError}</div>}
             {isOwner ? (
-              <div className="flex flex-wrap gap-3 justify-center mt-2">
-                <button onClick={handlePay} className="btn btn-primary" disabled={initPay.isPending}>
-                  💳 {t('plan.payBtn')} ({money(planPrice)})
-                </button>
-                {freeCredits > 0 && (
-                  <button onClick={handleUnlock} className="btn btn-secondary" disabled={unlock.isPending}>
-                    🎁 {t('plan.freeCreditBtn')} ({t('plan.freeCreditsLeft')}: {freeCredits})
-                  </button>
-                )}
-              </div>
+              pendingVerification ? (
+                <div className="alert alert-info text-sm">⏳ {t('bkash.pending')}</div>
+              ) : (
+                <div className="flex flex-col items-center gap-3 mt-2 w-full">
+                  <div className="flex flex-wrap gap-3 justify-center">
+                    {freeCredits > 0 && (
+                      <button onClick={handleUnlock} className="btn btn-secondary" disabled={unlock.isPending}>
+                        🎁 {t('plan.freeCreditBtn')} ({t('plan.freeCreditsLeft')}: {freeCredits})
+                      </button>
+                    )}
+                    {paymentOptions?.online && (
+                      <button onClick={handlePay} className="btn btn-primary" disabled={initPay.isPending}>
+                        💳 {t('plan.payBtn')} ({money(planPrice)})
+                      </button>
+                    )}
+                  </div>
+                  {paymentOptions?.bkashNumber && (
+                    <BkashManualBox publicId={publicId} bkashNumber={paymentOptions.bkashNumber} planPrice={planPrice} />
+                  )}
+                </div>
+              )
             ) : (
               <p className="text-sm">{user ? '' : t('plan.loginRequired')}</p>
             )}
