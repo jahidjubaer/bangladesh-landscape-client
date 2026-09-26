@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+@plugin "daisyui" {
+  themes: emerald --default, dark --prefersdark;
+}
+
+:root {
+  font-family: 'Noto Sans Bengali', system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
