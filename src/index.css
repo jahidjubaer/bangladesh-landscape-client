@@ -190,6 +190,41 @@ body {
   padding-inline-start: 6rem;
 }
 
+/* Shimmer placeholder shown behind images while they load */
+.img-loading {
+  background: linear-gradient(
+    100deg,
+    var(--color-base-300) 40%,
+    color-mix(in oklab, var(--color-base-300) 55%, var(--color-base-100)) 50%,
+    var(--color-base-300) 60%
+  );
+  background-size: 200% 100%;
+  animation: img-shimmer 1.4s ease-in-out infinite;
+}
+@keyframes img-shimmer {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -80% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .img-loading {
+    animation: none;
+  }
+}
+
+/* Room for the mobile bottom tab bar (incl. iOS home indicator) */
+.pb-bottom-nav {
+  padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+}
+@media (min-width: 1024px) {
+  .pb-bottom-nav {
+    padding-bottom: 0;
+  }
+}
+
 /* Card lift on hover */
 .card-lift {
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;

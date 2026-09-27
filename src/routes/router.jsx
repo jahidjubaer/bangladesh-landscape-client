@@ -1,120 +1,80 @@
 import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from '../layouts/RootLayout';
-import AdminLayout from '../layouts/AdminLayout';
 import ProtectedRoute from '../components/ProtectedRoute';
-import Home from '../pages/public/Home';
-import Districts from '../pages/public/Districts';
-import District from '../pages/public/District';
-import Spot from '../pages/public/Spot';
-import ListingDetail from '../pages/public/ListingDetail';
-import PlanWizard from '../pages/public/PlanWizard';
-import PlanView from '../pages/public/PlanView';
-import MyPlans from '../pages/user/MyPlans';
-import Guides from '../pages/public/Guides';
-import GuideDetail from '../pages/public/GuideDetail';
-import BecomeGuide from '../pages/public/BecomeGuide';
-import GuideDashboard from '../pages/guide/GuideDashboard';
-import PartnerDashboard from '../pages/partner/PartnerDashboard';
-import MyBookings from '../pages/user/MyBookings';
-import AdminGuideApplications from '../pages/admin/AdminGuideApplications';
-import AdminPayments from '../pages/admin/AdminPayments';
-import { lazy, Suspense } from 'react';
-import BlogList from '../pages/public/BlogList';
-import BlogDetail from '../pages/public/BlogDetail';
-import MyBlogs from '../pages/user/MyBlogs';
 import Loader from '../components/Loader';
-
-// Quill is heavy — load the editor only when someone actually writes
-const BlogEditor = lazy(() => import('../pages/user/BlogEditor'));
-const LazyEditor = (
-  <Suspense fallback={<Loader fullScreen />}>
-    <BlogEditor />
-  </Suspense>
-);
-import AdminBlogs from '../pages/admin/AdminBlogs';
-import AdminAds from '../pages/admin/AdminAds';
-import AdminUsers from '../pages/admin/AdminUsers';
-import Settings from '../pages/user/Settings';
-import AdminSettings from '../pages/admin/AdminSettings';
-import AdminListings from '../pages/admin/AdminListings';
-import PolicyPage from '../pages/public/PolicyPage';
-import PhotoCredits from '../pages/public/PhotoCredits';
-import Events from '../pages/public/Events';
-import Stays from '../pages/public/Stays';
-import Gallery from '../pages/public/Gallery';
-import EventDetail from '../pages/public/EventDetail';
-import AdminEvents from '../pages/admin/AdminEvents';
-import Login from '../pages/auth/Login';
-import Register from '../pages/auth/Register';
-import Profile from '../pages/user/Profile';
-import AdminDashboard from '../pages/admin/AdminDashboard';
-import AdminDistricts from '../pages/admin/AdminDistricts';
-import AdminDistrictForm from '../pages/admin/AdminDistrictForm';
-import AdminSpots from '../pages/admin/AdminSpots';
-import AdminSpotForm from '../pages/admin/AdminSpotForm';
+import Home from '../pages/public/Home';
 import NotFound from '../pages/NotFound';
-import { t } from '../i18n';
+
+// Route-level code splitting: each page ships as its own chunk and the
+// router waits for it during navigation, so the previous page stays
+// visible instead of flashing a spinner.
+const lazyPage = (load) => async () => ({ Component: (await load()).default });
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    hydrateFallbackElement: <Loader fullScreen />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'login', element: <Login /> },
-      { path: 'register', element: <Register /> },
+      { path: 'login', lazy: lazyPage(() => import('../pages/auth/Login')) },
+      { path: 'register', lazy: lazyPage(() => import('../pages/auth/Register')) },
 
       // District content (Phase 2)
-      { path: 'districts', element: <Districts /> },
-      { path: 'districts/:slug', element: <District /> },
-      { path: 'spots/:slug', element: <Spot /> },
-      { path: 'listings/:id', element: <ListingDetail /> },
+      { path: 'districts', lazy: lazyPage(() => import('../pages/public/Districts')) },
+      { path: 'districts/:slug', lazy: lazyPage(() => import('../pages/public/District')) },
+      { path: 'spots/:slug', lazy: lazyPage(() => import('../pages/public/Spot')) },
+      { path: 'listings/:id', lazy: lazyPage(() => import('../pages/public/ListingDetail')) },
 
       // Tour plans (Phase 3)
-      { path: 'plan', element: <PlanWizard /> },
-      { path: 'plans/:publicId', element: <PlanView /> },
+      { path: 'plan', lazy: lazyPage(() => import('../pages/public/PlanWizard')) },
+      { path: 'plans/:publicId', lazy: lazyPage(() => import('../pages/public/PlanView')) },
 
       // Guides (Phase 4)
-      { path: 'guides', element: <Guides /> },
-      { path: 'guides/:id', element: <GuideDetail /> },
-      { path: 'become-guide', element: <BecomeGuide /> },
+      { path: 'guides', lazy: lazyPage(() => import('../pages/public/Guides')) },
+      { path: 'guides/:id', lazy: lazyPage(() => import('../pages/public/GuideDetail')) },
+      { path: 'become-guide', lazy: lazyPage(() => import('../pages/public/BecomeGuide')) },
 
-      // Blog (Phase 5)
-      { path: 'blog', element: <BlogList /> },
-      { path: 'blog/:slug', element: <BlogDetail /> },
-      { path: 'write-blog', element: LazyEditor },
-      { path: 'write-blog/:id', element: LazyEditor },
+      // Blog (Phase 5) — Quill editor is the heaviest chunk of all
+      { path: 'blog', lazy: lazyPage(() => import('../pages/public/BlogList')) },
+      { path: 'blog/:slug', lazy: lazyPage(() => import('../pages/public/BlogDetail')) },
+      { path: 'write-blog', lazy: lazyPage(() => import('../pages/user/BlogEditor')) },
+      { path: 'write-blog/:id', lazy: lazyPage(() => import('../pages/user/BlogEditor')) },
 
       // Policies (Phase 6)
-      { path: 'policies/:type', element: <PolicyPage /> },
-      { path: 'credits', element: <PhotoCredits /> },
-      { path: 'stays', element: <Stays /> },
-      { path: 'gallery', element: <Gallery /> },
-      { path: 'events', element: <Events /> },
-      { path: 'events/:slug', element: <EventDetail /> },
+      { path: 'policies/:type', lazy: lazyPage(() => import('../pages/public/PolicyPage')) },
+      { path: 'credits', lazy: lazyPage(() => import('../pages/public/PhotoCredits')) },
+      { path: 'stays', lazy: lazyPage(() => import('../pages/public/Stays')) },
+      { path: 'gallery', lazy: lazyPage(() => import('../pages/public/Gallery')) },
+      { path: 'events', lazy: lazyPage(() => import('../pages/public/Events')) },
+      { path: 'events/:slug', lazy: lazyPage(() => import('../pages/public/EventDetail')) },
 
       // Authenticated routes
       {
         element: <ProtectedRoute />,
         children: [
-          { path: 'profile', element: <Profile /> },
-          { path: 'my-plans', element: <MyPlans /> },
-          { path: 'my-bookings', element: <MyBookings /> },
-          { path: 'my-blogs', element: <MyBlogs /> },
-          { path: 'settings', element: <Settings /> },
+          { path: 'profile', lazy: lazyPage(() => import('../pages/user/Profile')) },
+          { path: 'my-plans', lazy: lazyPage(() => import('../pages/user/MyPlans')) },
+          { path: 'my-bookings', lazy: lazyPage(() => import('../pages/user/MyBookings')) },
+          { path: 'my-blogs', lazy: lazyPage(() => import('../pages/user/MyBlogs')) },
+          { path: 'settings', lazy: lazyPage(() => import('../pages/user/Settings')) },
         ],
       },
 
       // Guide dashboard (role-gated)
       {
         element: <ProtectedRoute roles={['guide']} />,
-        children: [{ path: 'guide-dashboard', element: <GuideDashboard /> }],
+        children: [
+          { path: 'guide-dashboard', lazy: lazyPage(() => import('../pages/guide/GuideDashboard')) },
+        ],
       },
 
       // Partner dashboard (role-gated)
       {
         element: <ProtectedRoute roles={['partner']} />,
-        children: [{ path: 'partner-dashboard', element: <PartnerDashboard /> }],
+        children: [
+          { path: 'partner-dashboard', lazy: lazyPage(() => import('../pages/partner/PartnerDashboard')) },
+        ],
       },
 
       // Admin (role-gated)
@@ -123,21 +83,21 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'admin',
-            element: <AdminLayout />,
+            lazy: lazyPage(() => import('../layouts/AdminLayout')),
             children: [
-              { index: true, element: <AdminDashboard /> },
-              { path: 'districts', element: <AdminDistricts /> },
-              { path: 'districts/:id', element: <AdminDistrictForm /> },
-              { path: 'spots', element: <AdminSpots /> },
-              { path: 'spots/:id', element: <AdminSpotForm /> },
-              { path: 'guide-applications', element: <AdminGuideApplications /> },
-              { path: 'payments', element: <AdminPayments /> },
-              { path: 'blogs', element: <AdminBlogs /> },
-              { path: 'ads', element: <AdminAds /> },
-              { path: 'users', element: <AdminUsers /> },
-              { path: 'events', element: <AdminEvents /> },
-              { path: 'listings', element: <AdminListings /> },
-              { path: 'settings', element: <AdminSettings /> },
+              { index: true, lazy: lazyPage(() => import('../pages/admin/AdminDashboard')) },
+              { path: 'districts', lazy: lazyPage(() => import('../pages/admin/AdminDistricts')) },
+              { path: 'districts/:id', lazy: lazyPage(() => import('../pages/admin/AdminDistrictForm')) },
+              { path: 'spots', lazy: lazyPage(() => import('../pages/admin/AdminSpots')) },
+              { path: 'spots/:id', lazy: lazyPage(() => import('../pages/admin/AdminSpotForm')) },
+              { path: 'guide-applications', lazy: lazyPage(() => import('../pages/admin/AdminGuideApplications')) },
+              { path: 'payments', lazy: lazyPage(() => import('../pages/admin/AdminPayments')) },
+              { path: 'blogs', lazy: lazyPage(() => import('../pages/admin/AdminBlogs')) },
+              { path: 'ads', lazy: lazyPage(() => import('../pages/admin/AdminAds')) },
+              { path: 'users', lazy: lazyPage(() => import('../pages/admin/AdminUsers')) },
+              { path: 'events', lazy: lazyPage(() => import('../pages/admin/AdminEvents')) },
+              { path: 'listings', lazy: lazyPage(() => import('../pages/admin/AdminListings')) },
+              { path: 'settings', lazy: lazyPage(() => import('../pages/admin/AdminSettings')) },
             ],
           },
         ],

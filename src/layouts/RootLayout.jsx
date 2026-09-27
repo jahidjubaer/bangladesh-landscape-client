@@ -1,13 +1,14 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, ScrollRestoration } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import BottomNav from '../components/BottomNav';
 
 export default function RootLayout() {
   const location = useLocation();
 
   return (
-    <div className="flex flex-col min-h-screen bg-base-200">
+    <div className="flex flex-col min-h-screen bg-base-200 pb-bottom-nav">
       <Navbar />
       <main className="flex-1">
         <AnimatePresence mode="wait" initial={false}>
@@ -23,6 +24,8 @@ export default function RootLayout() {
         </AnimatePresence>
       </main>
       <Footer />
+      <BottomNav />
+      <ScrollRestoration />
     </div>
   );
 }

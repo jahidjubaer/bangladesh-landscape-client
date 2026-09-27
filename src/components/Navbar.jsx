@@ -94,7 +94,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
-  // Ctrl+K / Cmd+K opens search
+  // Ctrl+K / Cmd+K opens search; the mobile bottom nav asks via event
   useEffect(() => {
     const onKey = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -102,8 +102,13 @@ export default function Navbar() {
         setSearchOpen(true);
       }
     };
+    const onOpen = () => setSearchOpen(true);
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener('bl:open-search', onOpen);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('bl:open-search', onOpen);
+    };
   }, []);
 
   useEffect(() => {

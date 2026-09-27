@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { ImageOff } from 'lucide-react';
 
-// Image with a branded placeholder when src is missing or fails to load.
+// Image with a shimmer placeholder while loading and a branded
+// fallback when src is missing or fails to load.
 export default function Img({ src, alt = '', className = '', icon: Icon, ...props }) {
   const [failed, setFailed] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const Fallback = Icon || ImageOff;
 
   if (!src || failed) {
@@ -18,5 +20,16 @@ export default function Img({ src, alt = '', className = '', icon: Icon, ...prop
     );
   }
 
-  return <img src={src} alt={alt} className={className} loading="lazy" onError={() => setFailed(true)} {...props} />;
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={`${className} ${loaded ? '' : 'img-loading'}`}
+      loading="lazy"
+      decoding="async"
+      onLoad={() => setLoaded(true)}
+      onError={() => setFailed(true)}
+      {...props}
+    />
+  );
 }
