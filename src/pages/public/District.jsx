@@ -9,6 +9,7 @@ import api from '../../lib/axios';
 import { useDistrict } from '../../features/districts/queries';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
+import WeatherStrip from '../../components/WeatherStrip';
 import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
@@ -102,6 +103,9 @@ export default function District() {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 py-12 space-y-16">
+        {/* Live weather */}
+        <WeatherStrip slug={slug} />
+
         {/* Overview + plan CTA */}
         <Reveal>
           <div className="grid gap-6 lg:grid-cols-[1fr_300px] items-start">

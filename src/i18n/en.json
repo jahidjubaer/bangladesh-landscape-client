@@ -451,6 +451,21 @@
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to home"
   },
+  "weather": {
+    "title": "Weather today",
+    "humidity": "Humidity",
+    "wind": "Wind",
+    "rain": "Rain chance",
+    "code": {
+      "clear": "Sunny",
+      "partly": "Partly cloudy",
+      "cloudy": "Cloudy",
+      "fog": "Fog",
+      "drizzle": "Drizzle",
+      "rain": "Rain",
+      "storm": "Thunderstorm"
+    }
+  },
   "notif": {
     "title": "Notifications",
     "empty": "No notifications",
