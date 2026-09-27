@@ -8,6 +8,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 import ThemeToggle from './ui/ThemeToggle';
 import LanguageToggle from './ui/LanguageToggle';
+import NotificationBell from './NotificationBell';
 import { t } from '../i18n';
 
 const navItems = [
@@ -139,6 +140,7 @@ export default function Navbar() {
         <div className="navbar-end gap-1">
           <LanguageToggle />
           <ThemeToggle />
+          {user && <NotificationBell />}
           {user ? (
             <UserMenu user={user} hasRole={hasRole} onLogout={handleLogout} />
           ) : (

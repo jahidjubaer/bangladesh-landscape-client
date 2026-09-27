@@ -451,6 +451,28 @@
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to home"
   },
+  "notif": {
+    "title": "Notifications",
+    "empty": "No notifications",
+    "markAll": "Mark all read",
+    "justNow": "just now",
+    "minAgo": "{n} min ago",
+    "hourAgo": "{n} hr ago",
+    "dayAgo": "{n} d ago",
+    "kind": {
+      "booking-requested": "{name} sent you a new booking request",
+      "booking-confirmed": "{name} confirmed your booking 🎉",
+      "booking-rejected": "{name} couldn't accept your booking request",
+      "booking-cancelled": "{name} cancelled the booking",
+      "review-received": "{name} left you a review ⭐",
+      "payment-approved": "Payment verified — your plan is unlocked! 🎉",
+      "payment-rejected": "Payment couldn't be verified — please try again",
+      "blog-approved": "Your blog “{title}” has been published 🎉",
+      "blog-rejected": "Your blog “{title}” couldn't be published yet",
+      "guide-approved": "Congratulations! You're now a verified tour guide 🎉",
+      "guide-rejected": "Your guide application wasn't accepted"
+    }
+  },
   "credits": {
     "title": "Photo Credits",
     "subtitle": "Photos on this site are free-licensed via Wikimedia Commons — with gratitude to the photographers.",
