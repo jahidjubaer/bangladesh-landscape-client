@@ -34,8 +34,8 @@
     },
     "districtsTitle": "কোন জেলায় যাবেন?",
     "districtsSubtitle": "মাঠপর্যায়ে যাচাই করা তথ্যসহ জেলাগুলো ঘুরে দেখুন",
-    "moreDistrictsTitle": "আরও ৬৩ জেলা আসছে",
-    "moreDistrictsDesc": "একে একে সব জেলা যুক্ত হবে — প্রতিটি মাঠপর্যায়ের যাচাই শেষে",
+    "moreDistrictsTitle": "সব ৬৪ জেলা দেখুন",
+    "moreDistrictsDesc": "প্রতিটি জেলা একে একে মাঠপর্যায়ে যাচাই হচ্ছে — যাচাইকৃত জেলায় সবুজ ব্যাজ",
     "howTitle": "কীভাবে কাজ করে?",
     "howSubtitle": "তিন ধাপে আপনার পুরো ট্যুর রেডি",
     "how1Title": "জেলা ও স্পট বাছুন",
@@ -152,7 +152,24 @@
     "noDistricts": "এখনো কোনো জেলা চালু হয়নি — শীঘ্রই আসছে!",
     "stayTransport": "থাকা ও যাতায়াত (যাচাই করা তথ্য)",
     "capacity": "ধারণক্ষমতা",
-    "contact": "যোগাযোগ"
+    "contact": "যোগাযোগ",
+    "verified": "মাঠপর্যায়ে যাচাইকৃত",
+    "notVerified": "তথ্য যাচাই চলছে",
+    "searchPlaceholder": "জেলা খুঁজুন...",
+    "allDivisions": "সব বিভাগ",
+    "spotCount": "{n}টি স্পট",
+    "contentComing": "কনটেন্ট আসছে",
+    "noSpotsYet": "এই জেলার স্পটগুলো যোগ করার কাজ চলছে — শীঘ্রই আসছে!",
+    "divisions": {
+      "Dhaka": "ঢাকা",
+      "Chattogram": "চট্টগ্রাম",
+      "Rajshahi": "রাজশাহী",
+      "Khulna": "খুলনা",
+      "Barishal": "বরিশাল",
+      "Sylhet": "সিলেট",
+      "Rangpur": "রংপুর",
+      "Mymensingh": "ময়মনসিংহ"
+    }
   },
   "listing": {
     "bookNow": "বুক করুন",

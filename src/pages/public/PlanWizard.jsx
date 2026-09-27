@@ -14,6 +14,7 @@ import Seo from '../../components/Seo';
 import { t, lx, locale, getLang } from '../../i18n';
 
 const FOODS = ['local', 'special', 'regular'];
+const DIVISIONS = ['Dhaka', 'Chattogram', 'Rajshahi', 'Khulna', 'Barishal', 'Sylhet', 'Rangpur', 'Mymensingh'];
 const STYLES = ['adventure', 'relaxed', 'family', 'other'];
 const STEPS = [
   { label: t('plan.step1'), Icon: MapPin },
@@ -131,6 +132,8 @@ export default function PlanWizard() {
   const [step, setStep] = useState(1);
   const [dir, setDir] = useState(1);
   const [districtSlug, setDistrictSlug] = useState('');
+  const [districtQuery, setDistrictQuery] = useState('');
+  const [divisionFilter, setDivisionFilter] = useState('');
   const [selectedSpots, setSelectedSpots] = useState([]);
   const [form, setForm] = useState({
     members: 4, days: 3, nights: 2, budget: 20000, startDate: '',
@@ -142,6 +145,13 @@ export default function PlanWizard() {
   const district = districtData?.district;
   const spots = districtData?.spots || [];
   const stayOptions = ['any', ...(district?.stayTypesAvailable || [])];
+
+  const needle = districtQuery.trim().toLowerCase();
+  const filteredDistricts = (districts || []).filter(
+    (d) =>
+      (!divisionFilter || d.division === divisionFilter) &&
+      (!needle || d.name.bn.includes(needle) || (d.name.en || '').toLowerCase().includes(needle))
+  );
 
   const goStep = (n) => {
     setDir(n > step ? 1 : -1);
@@ -211,36 +221,72 @@ export default function PlanWizard() {
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
               {step === 1 && (
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {(districts || []).map((d) => (
-                    <motion.button
-                      key={d.slug}
-                      type="button"
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => {
-                        setDistrictSlug(d.slug);
-                        setSelectedSpots([]);
-                      }}
-                      className={`relative rounded-2xl overflow-hidden text-left h-40 img-zoom border-2 transition-colors ${
-                        districtSlug === d.slug ? 'border-primary' : 'border-transparent'
-                      }`}
+                <div>
+                  {/* Search + division filter for 64 districts */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <input
+                      className="input input-bordered input-sm flex-1 min-w-40"
+                      placeholder={t('district.searchPlaceholder')}
+                      value={districtQuery}
+                      onChange={(e) => setDistrictQuery(e.target.value)}
+                    />
+                    <select
+                      className="select select-bordered select-sm"
+                      value={divisionFilter}
+                      onChange={(e) => setDivisionFilter(e.target.value)}
                     >
-                      <Img src={d.heroImageUrl} alt={lx(d.name)} icon={MapPin} className="absolute inset-0 w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-neutral/80 to-transparent" />
-                      <div className="absolute bottom-3 left-4 text-neutral-content">
-                        <span className="font-display text-xl font-bold">{lx(d.name)}</span>
-                      </div>
-                      {districtSlug === d.slug && (
-                        <motion.span
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="absolute top-3 right-3 w-7 h-7 rounded-full bg-primary text-primary-content flex items-center justify-center shadow"
+                      <option value="">{t('district.allDivisions')}</option>
+                      {DIVISIONS.map((dv) => (
+                        <option key={dv} value={dv}>{t(`district.divisions.${dv}`)}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2 max-h-[26rem] overflow-y-auto pe-1">
+                    {filteredDistricts.map((d) => {
+                      const hasSpots = (d.spotCount ?? 0) > 0;
+                      return (
+                        <motion.button
+                          key={d.slug}
+                          type="button"
+                          disabled={!hasSpots}
+                          whileTap={hasSpots ? { scale: 0.98 } : undefined}
+                          onClick={() => {
+                            setDistrictSlug(d.slug);
+                            setSelectedSpots([]);
+                          }}
+                          className={`relative rounded-2xl overflow-hidden text-left h-36 img-zoom border-2 transition-colors ${
+                            districtSlug === d.slug ? 'border-primary' : 'border-transparent'
+                          } ${hasSpots ? '' : 'opacity-45 cursor-not-allowed'}`}
                         >
-                          <Check className="w-4 h-4" />
-                        </motion.span>
-                      )}
-                    </motion.button>
-                  ))}
+                          <Img src={d.heroImageUrl} alt={lx(d.name)} icon={MapPin} className="absolute inset-0 w-full h-full object-cover" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-neutral/80 to-transparent" />
+                          <div className="absolute bottom-3 left-4 text-neutral-content">
+                            <span className="font-display text-xl font-bold">{lx(d.name)}</span>
+                            <div className="text-xs opacity-80">
+                              {hasSpots
+                                ? t('district.spotCount').replace('{n}', Number(d.spotCount).toLocaleString(locale()))
+                                : t('district.contentComing')}
+                            </div>
+                          </div>
+                          {d.isVerified && (
+                            <span className="absolute top-3 left-3 badge badge-success badge-sm gap-1">
+                              <Check className="w-3 h-3" /> {t('district.verified')}
+                            </span>
+                          )}
+                          {districtSlug === d.slug && (
+                            <motion.span
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              className="absolute top-3 right-3 w-7 h-7 rounded-full bg-primary text-primary-content flex items-center justify-center shadow"
+                            >
+                              <Check className="w-4 h-4" />
+                            </motion.span>
+                          )}
+                        </motion.button>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 

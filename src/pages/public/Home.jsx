@@ -17,6 +17,7 @@ import AdBanner from '../../components/AdBanner';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import CountUp from '../../components/ui/CountUp';
+import VerifiedBadge from '../../components/ui/VerifiedBadge';
 import { t, lx, locale } from '../../i18n';
 
 /* ---------------- Hero ---------------- */
@@ -221,6 +222,8 @@ function StatsStrip() {
 /* ---------------- Districts showcase ---------------- */
 
 function DistrictShowcase({ districts }) {
+  // API sorts verified-first; the homepage shows only the top few
+  const featured = (districts || []).slice(0, 5);
   return (
     <section className="max-w-7xl mx-auto px-4 py-20">
       <Reveal>
@@ -229,12 +232,15 @@ function DistrictShowcase({ districts }) {
       </Reveal>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {(districts || []).map((d, i) => (
+        {featured.map((d, i) => (
           <Reveal key={d.slug} delay={i * 0.08}>
             <Link to={`/districts/${d.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block">
               <figure className="h-56 relative">
                 <Img src={d.heroImageUrl} alt={lx(d.name)} icon={MapIcon} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral/80 via-transparent to-transparent" />
+                <div className="absolute top-3 left-3">
+                  <VerifiedBadge verified={d.isVerified} />
+                </div>
                 <div className="absolute bottom-0 p-5 text-neutral-content">
                   <h3 className="font-display text-2xl font-bold">{lx(d.name)}</h3>
                   <span className="text-sm opacity-80 flex items-center gap-1">
@@ -246,13 +252,16 @@ function DistrictShowcase({ districts }) {
           </Reveal>
         ))}
 
-        {/* Coming-soon card */}
-        <Reveal delay={(districts?.length || 0) * 0.08}>
-          <div className="card h-56 border-2 border-dashed border-base-300 bg-base-100/50 items-center justify-center text-center p-6">
-            <MapIcon className="w-10 h-10 text-base-content/25 mb-3" strokeWidth={1.5} />
-            <h3 className="font-bold text-base-content/70">{t('home.moreDistrictsTitle')}</h3>
-            <p className="text-sm text-base-content/50">{t('home.moreDistrictsDesc')}</p>
-          </div>
+        {/* All 64 districts card */}
+        <Reveal delay={featured.length * 0.08}>
+          <Link
+            to="/districts"
+            className="card h-56 border-2 border-dashed border-primary/40 bg-primary/5 items-center justify-center text-center p-6 card-lift"
+          >
+            <MapIcon className="w-10 h-10 text-primary mb-3" strokeWidth={1.5} />
+            <h3 className="font-bold text-primary">{t('home.moreDistrictsTitle')}</h3>
+            <p className="text-sm text-base-content/55">{t('home.moreDistrictsDesc')}</p>
+          </Link>
         </Reveal>
       </div>
     </section>

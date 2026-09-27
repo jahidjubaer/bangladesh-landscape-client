@@ -12,6 +12,8 @@ import SpotMap from '../../components/SpotMap';
 import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
+import VerifiedBadge from '../../components/ui/VerifiedBadge';
+import EmptyState from '../../components/ui/EmptyState';
 import NotFound from '../NotFound';
 import { t, lx, locale } from '../../i18n';
 
@@ -88,9 +90,12 @@ export default function District() {
         <div className="absolute inset-0 bg-gradient-to-t from-neutral/85 via-neutral/25 to-transparent" />
         <div className="relative max-w-7xl mx-auto px-4 pb-10 w-full text-neutral-content">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <span className="badge badge-accent gap-1 mb-3">
-              <MapPin className="w-3.5 h-3.5" /> {district.division}
-            </span>
+            <div className="flex flex-wrap gap-2 mb-3">
+              <span className="badge badge-accent gap-1">
+                <MapPin className="w-3.5 h-3.5" /> {t(`district.divisions.${district.division}`) || district.division}
+              </span>
+              <VerifiedBadge verified={district.isVerified} />
+            </div>
             <h1 className="font-display text-4xl md:text-6xl font-extrabold">{lx(district.name)}</h1>
           </motion.div>
         </div>
@@ -117,30 +122,42 @@ export default function District() {
           <Reveal>
             <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-6">{t('district.spots')}</h2>
           </Reveal>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {spots.map((s, i) => (
-              <SpotCard key={s.slug} s={s} delay={(i % 3) * 0.08} />
-            ))}
-          </div>
+          {spots.length === 0 ? (
+            <EmptyState icon={Camera} title={t('district.contentComing')} description={t('district.noSpotsYet')} />
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {spots.map((s, i) => (
+                <SpotCard key={s.slug} s={s} delay={(i % 3) * 0.08} />
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Map */}
-        <section>
-          <Reveal>
-            <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-6">{t('district.mapTitle')}</h2>
-            <SpotMap
-              center={district.mapCenter}
-              zoom={district.zoom}
-              markers={spots.map((s) => ({ lat: s.location?.lat, lng: s.location?.lng, nameBn: lx(s.name), slug: s.slug }))}
-            />
-          </Reveal>
-        </section>
+        {spots.length > 0 && (
+          <section>
+            <Reveal>
+              <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-6">{t('district.mapTitle')}</h2>
+              <SpotMap
+                center={district.mapCenter}
+                zoom={district.zoom}
+                markers={spots.map((s) => ({ lat: s.location?.lat, lng: s.location?.lng, nameBn: lx(s.name), slug: s.slug }))}
+              />
+            </Reveal>
+          </section>
+        )}
 
-        {/* Info cards */}
+        {/* Info cards (only those with content) */}
         <section className="grid gap-6 md:grid-cols-2">
-          <Reveal><InfoCard icon={Bus} title={t('district.transport')}>{lx(district.transportInfo)}</InfoCard></Reveal>
-          <Reveal delay={0.08}><InfoCard icon={UtensilsCrossed} title={t('district.food')}>{lx(district.foodInfo)}</InfoCard></Reveal>
-          <Reveal><InfoCard icon={CalendarDays} title={t('district.bestSeason')}>{lx(district.bestSeason)}</InfoCard></Reveal>
+          {lx(district.transportInfo) && (
+            <Reveal><InfoCard icon={Bus} title={t('district.transport')}>{lx(district.transportInfo)}</InfoCard></Reveal>
+          )}
+          {lx(district.foodInfo) && (
+            <Reveal delay={0.08}><InfoCard icon={UtensilsCrossed} title={t('district.food')}>{lx(district.foodInfo)}</InfoCard></Reveal>
+          )}
+          {lx(district.bestSeason) && (
+            <Reveal><InfoCard icon={CalendarDays} title={t('district.bestSeason')}>{lx(district.bestSeason)}</InfoCard></Reveal>
+          )}
           <Reveal delay={0.08}>
             <div className="card bg-base-100 shadow-md h-full">
               <div className="card-body">

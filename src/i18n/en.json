@@ -34,8 +34,8 @@
     },
     "districtsTitle": "Which district will you visit?",
     "districtsSubtitle": "Explore districts with field-verified travel information",
-    "moreDistrictsTitle": "63 more districts coming",
-    "moreDistrictsDesc": "Every district joins one by one — after on-the-ground verification",
+    "moreDistrictsTitle": "See all 64 districts",
+    "moreDistrictsDesc": "Each district is being field-verified one by one — verified ones carry a green badge",
     "howTitle": "How it works",
     "howSubtitle": "Your whole tour ready in three steps",
     "how1Title": "Pick a district & spots",
@@ -152,7 +152,24 @@
     "noDistricts": "No districts live yet — coming soon!",
     "stayTransport": "Stay & transport (verified info)",
     "capacity": "Capacity",
-    "contact": "Contact"
+    "contact": "Contact",
+    "verified": "Locally verified",
+    "notVerified": "Info being verified",
+    "searchPlaceholder": "Search districts...",
+    "allDivisions": "All divisions",
+    "spotCount": "{n} spots",
+    "contentComing": "Content coming",
+    "noSpotsYet": "Spots for this district are being added — coming soon!",
+    "divisions": {
+      "Dhaka": "Dhaka",
+      "Chattogram": "Chattogram",
+      "Rajshahi": "Rajshahi",
+      "Khulna": "Khulna",
+      "Barishal": "Barishal",
+      "Sylhet": "Sylhet",
+      "Rangpur": "Rangpur",
+      "Mymensingh": "Mymensingh"
+    }
   },
   "listing": {
     "bookNow": "Book now",

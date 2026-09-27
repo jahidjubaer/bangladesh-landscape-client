@@ -51,6 +51,7 @@ export default function AdminDistricts() {
                   <span className={`badge ${d.isLaunched ? 'badge-success' : 'badge-ghost'}`}>
                     {d.isLaunched ? t('admin.launched') : t('admin.notLaunched')}
                   </span>
+                  {d.isVerified && <span className="badge badge-info badge-sm ms-1">✓ {t('district.verified')}</span>}
                 </td>
                 <td className="text-right space-x-2 whitespace-nowrap">
                   <Link to={`/admin/districts/${d._id}`} className="btn btn-xs btn-outline">

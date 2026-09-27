@@ -13,6 +13,7 @@ const emptyValues = {
   slug: '',
   division: '',
   isLaunched: false,
+  isVerified: false,
   heroImageUrl: '',
   name: { bn: '', en: '' },
   overview: { bn: '' },
@@ -203,6 +204,11 @@ export default function AdminDistrictForm() {
         <label className="label cursor-pointer justify-start gap-3">
           <input type="checkbox" className="toggle toggle-success" {...register('isLaunched')} />
           <span className="label-text font-semibold">{t('admin.launched')} (পাবলিক সাইটে দেখা যাবে)</span>
+        </label>
+
+        <label className="label cursor-pointer justify-start gap-3">
+          <input type="checkbox" className="toggle toggle-info" {...register('isVerified')} />
+          <span className="label-text font-semibold">✓ {t('district.verified')} (মাঠপর্যায়ে যাচাই সম্পন্ন হলে চালু করুন)</span>
         </label>
 
         <div className="flex gap-3">
