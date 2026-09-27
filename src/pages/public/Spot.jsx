@@ -16,7 +16,7 @@ import StarRating from '../../components/ui/StarRating';
 import Reviews from '../../components/Reviews';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
-import Seo from '../../components/Seo';
+import Seo, { absUrl } from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import NotFound from '../NotFound';
@@ -101,7 +101,45 @@ export default function Spot() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <Seo title={lx(spot.name)} description={lx(spot.description)} image={spot.images?.[0]} />
+      <Seo
+        title={lx(spot.name)}
+        description={lx(spot.description)}
+        image={spot.images?.[0]}
+        type="article"
+        jsonLd={[
+          {
+            '@type': 'TouristAttraction',
+            name: lx(spot.name),
+            description: lx(spot.description)?.slice(0, 300),
+            image: (spot.images || []).map(absUrl),
+            ...(spot.location?.lat != null && {
+              geo: { '@type': 'GeoCoordinates', latitude: spot.location.lat, longitude: spot.location.lng },
+            }),
+            address: { '@type': 'PostalAddress', addressRegion: lx(spot.district.name), addressCountry: 'BD' },
+            ...(spot.ratingCount > 0 && {
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: spot.ratingAvg,
+                reviewCount: spot.ratingCount,
+                bestRating: 5,
+              },
+            }),
+          },
+          {
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: t('nav.home'), item: window.location.origin + '/' },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: lx(spot.district.name),
+                item: window.location.origin + `/districts/${spot.district.slug}`,
+              },
+              { '@type': 'ListItem', position: 3, name: lx(spot.name) },
+            ],
+          },
+        ]}
+      />
 
       {/* Breadcrumb + title */}
       <Reveal>

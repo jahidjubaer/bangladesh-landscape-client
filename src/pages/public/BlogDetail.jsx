@@ -3,7 +3,7 @@ import { motion, useScroll, useSpring } from 'motion/react';
 import { ArrowLeft, BadgeCheck, CalendarDays, Eye, MapPin } from 'lucide-react';
 import { useBlog } from '../../features/blogs/queries';
 import Loader from '../../components/Loader';
-import Seo from '../../components/Seo';
+import Seo, { absUrl } from '../../components/Seo';
 import NotFound from '../NotFound';
 import { t, lx, locale } from '../../i18n';
 
@@ -24,7 +24,22 @@ export default function BlogDetail() {
         style={{ scaleX: progress }}
         aria-hidden
       />
-      <Seo title={lx(blog.title)} description={blog.excerpt} image={blog.coverImageUrl} />
+      <Seo
+        title={lx(blog.title)}
+        description={blog.excerpt}
+        image={blog.coverImageUrl}
+        type="article"
+        jsonLd={{
+          '@type': 'BlogPosting',
+          headline: lx(blog.title),
+          ...(blog.coverImageUrl && { image: absUrl(blog.coverImageUrl) }),
+          datePublished: blog.publishedAt,
+          dateModified: blog.updatedAt,
+          author: { '@type': 'Person', name: blog.author?.name },
+          publisher: { '@type': 'Organization', name: 'বাংলাদেশ ল্যান্ডস্কেপ' },
+          inLanguage: 'bn',
+        }}
+      />
 
       {blog.coverImageUrl && (
         <img src={blog.coverImageUrl} alt={lx(blog.title)} className="w-full h-72 object-cover rounded-2xl shadow-md mb-6" />

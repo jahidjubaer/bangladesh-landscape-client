@@ -12,7 +12,7 @@ import { useDistrict, useDistricts } from '../../features/districts/queries';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
 import WeatherStrip from '../../components/WeatherStrip';
-import Seo from '../../components/Seo';
+import Seo, { absUrl } from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import CardCarousel from '../../components/ui/CardCarousel';
@@ -198,7 +198,22 @@ export default function District() {
 
   return (
     <div>
-      <Seo title={lx(district.name)} description={lx(district.overview)} image={district.heroImageUrl} />
+      <Seo
+        title={lx(district.name)}
+        description={lx(district.overview)}
+        image={district.heroImageUrl}
+        type="article"
+        jsonLd={{
+          '@type': 'TouristDestination',
+          name: lx(district.name),
+          description: lx(district.overview)?.slice(0, 300),
+          ...(district.heroImageUrl && { image: absUrl(district.heroImageUrl) }),
+          ...(district.mapCenter?.lat != null && {
+            geo: { '@type': 'GeoCoordinates', latitude: district.mapCenter.lat, longitude: district.mapCenter.lng },
+          }),
+          address: { '@type': 'PostalAddress', addressRegion: district.division, addressCountry: 'BD' },
+        }}
+      />
 
       {/* Parallax hero */}
       <section className="relative h-[52vh] min-h-80 overflow-hidden flex items-end">

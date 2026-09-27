@@ -14,7 +14,7 @@ import Img from '../../components/ui/Img';
 import Reveal from '../../components/ui/Reveal';
 import StarRating from '../../components/ui/StarRating';
 import Reviews from '../../components/Reviews';
-import Seo from '../../components/Seo';
+import Seo, { absUrl } from '../../components/Seo';
 import NotFound from '../NotFound';
 import { t, lx, locale } from '../../i18n';
 
@@ -65,7 +65,31 @@ export default function ListingDetail() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <Seo title={lx(listing.name)} description={lx(listing.description)} image={listing.images?.[0]} />
+      <Seo
+        title={lx(listing.name)}
+        description={lx(listing.description)}
+        image={listing.images?.[0]}
+        type="article"
+        jsonLd={{
+          '@type': ['hotel', 'cottage', 'resort', 'houseboat'].includes(listing.type)
+            ? 'LodgingBusiness'
+            : 'LocalBusiness',
+          name: lx(listing.name),
+          ...(listing.images?.length > 0 && { image: listing.images.map(absUrl) }),
+          ...(lx(listing.description) && { description: lx(listing.description).slice(0, 300) }),
+          priceRange: `৳${listing.priceRange?.min ?? 0}–${listing.priceRange?.max ?? 0}`,
+          address: { '@type': 'PostalAddress', addressRegion: lx(listing.district?.name), addressCountry: 'BD' },
+          ...(listing.contactPhone && { telephone: listing.contactPhone }),
+          ...(listing.ratingCount > 0 && {
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: listing.ratingAvg,
+              reviewCount: listing.ratingCount,
+              bestRating: 5,
+            },
+          }),
+        }}
+      />
 
       <Reveal>
         <Link to={`/districts/${listing.district.slug}`} className="inline-flex items-center gap-1.5 text-sm link link-primary mb-3">

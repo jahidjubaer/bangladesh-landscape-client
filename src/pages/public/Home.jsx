@@ -16,6 +16,7 @@ import api from '../../lib/axios';
 import { useDistricts, useDistrict } from '../../features/districts/queries';
 import { useBlogs } from '../../features/blogs/queries';
 import AdBanner from '../../components/AdBanner';
+import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import CountUp from '../../components/ui/CountUp';
@@ -587,6 +588,15 @@ export default function Home() {
 
   return (
     <div>
+      <Seo
+        description={t('home.heroSubtitle')}
+        jsonLd={{
+          '@type': 'WebSite',
+          name: 'বাংলাদেশ ল্যান্ডস্কেপ',
+          alternateName: 'Bangladesh Landscape',
+          url: window.location.origin,
+        }}
+      />
       <AdBanner slot="hero-top" />
       <Hero districts={districts} images={heroImages} />
       <StatsStrip />

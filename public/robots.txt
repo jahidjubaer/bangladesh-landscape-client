@@ -7,5 +7,8 @@ Disallow: /my-bookings
 Disallow: /my-blogs
 Disallow: /write-blog
 Disallow: /profile
+Disallow: /wishlist
+Disallow: /settings
+Disallow: /partner-dashboard
 
 Sitemap: https://bangladeshlandscape.com/sitemap.xml

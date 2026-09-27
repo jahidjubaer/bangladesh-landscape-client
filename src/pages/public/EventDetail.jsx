@@ -8,7 +8,7 @@ import { useAuth } from '../../context/AuthContext';
 import Loader from '../../components/Loader';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
-import Seo from '../../components/Seo';
+import Seo, { absUrl } from '../../components/Seo';
 import NotFound from '../NotFound';
 import { t, lx, locale } from '../../i18n';
 
@@ -68,7 +68,36 @@ export default function EventDetail() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <Seo title={lx(event.title)} description={lx(event.description)} image={event.coverImageUrl} />
+      <Seo
+        title={lx(event.title)}
+        description={lx(event.description)}
+        image={event.coverImageUrl}
+        type="article"
+        jsonLd={{
+          '@type': 'Event',
+          name: lx(event.title),
+          description: lx(event.description)?.slice(0, 300),
+          ...(event.coverImageUrl && { image: absUrl(event.coverImageUrl) }),
+          startDate: event.dates?.start,
+          endDate: event.dates?.end,
+          eventStatus:
+            event.status === 'cancelled' ? 'https://schema.org/EventCancelled' : 'https://schema.org/EventScheduled',
+          eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+          location: {
+            '@type': 'Place',
+            name: lx(event.district?.name) || 'Bangladesh',
+            address: { '@type': 'PostalAddress', addressCountry: 'BD' },
+          },
+          organizer: { '@type': 'Organization', name: 'বাংলাদেশ ল্যান্ডস্কেপ', url: window.location.origin },
+          offers: {
+            '@type': 'Offer',
+            price: event.pricePerPerson,
+            priceCurrency: 'BDT',
+            availability: open ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut',
+            url: window.location.origin + `/events/${event.slug}`,
+          },
+        }}
+      />
 
       <Reveal>
         <Link to="/events" className="inline-flex items-center gap-1.5 text-sm link link-primary mb-3">
