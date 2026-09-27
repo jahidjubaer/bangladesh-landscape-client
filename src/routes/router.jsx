@@ -41,6 +41,7 @@ import PolicyPage from '../pages/public/PolicyPage';
 import PhotoCredits from '../pages/public/PhotoCredits';
 import Events from '../pages/public/Events';
 import Stays from '../pages/public/Stays';
+import Gallery from '../pages/public/Gallery';
 import EventDetail from '../pages/public/EventDetail';
 import AdminEvents from '../pages/admin/AdminEvents';
 import Login from '../pages/auth/Login';
@@ -88,6 +89,7 @@ const router = createBrowserRouter([
       { path: 'policies/:type', element: <PolicyPage /> },
       { path: 'credits', element: <PhotoCredits /> },
       { path: 'stays', element: <Stays /> },
+      { path: 'gallery', element: <Gallery /> },
       { path: 'events', element: <Events /> },
       { path: 'events/:slug', element: <EventDetail /> },
 

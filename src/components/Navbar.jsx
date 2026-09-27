@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import {
-  Menu, X, Mountain, Map, Compass, PenLine, Sparkles, Tent,
+  Menu, X, Mountain, Map, Compass, PenLine, Sparkles, Tent, Camera,
   User, LogOut, ShieldCheck, BookOpenText, CalendarCheck, FileText, Settings as SettingsIcon, BedDouble,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -19,6 +19,7 @@ const navItems = [
   { to: '/events', label: t('nav.events'), icon: Tent },
   { to: '/guides', label: t('nav.guides'), icon: Compass },
   { to: '/blog', label: t('nav.blog'), icon: PenLine },
+  { to: '/gallery', label: t('nav.gallery'), icon: Camera },
 ];
 
 function DesktopLinks() {

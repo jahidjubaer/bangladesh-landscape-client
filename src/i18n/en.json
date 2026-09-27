@@ -11,6 +11,7 @@
     "planTour": "Plan a Tour",
     "events": "Group Tours",
     "stays": "Stays & Boats",
+    "gallery": "Gallery",
     "login": "Log in",
     "register": "Sign up",
     "logout": "Log out",
@@ -454,6 +455,13 @@
     "notFoundTitle": "Page not found",
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to home"
+  },
+  "gallery": {
+    "title": "Photo Gallery",
+    "subtitle": "The beauty of Bangladesh, district by district",
+    "all": "All",
+    "empty": "No photos yet",
+    "visit": "Visit this place"
   },
   "stays": {
     "listTitle": "Hotels, Boats & Vehicles",

@@ -30,6 +30,7 @@ const columns = [
       { to: '/guides', label: t('nav.guides') },
       { to: '/become-guide', label: t('guide.becomeGuide') },
       { to: '/blog', label: t('nav.blog') },
+      { to: '/gallery', label: t('nav.gallery') },
     ],
   },
   {
