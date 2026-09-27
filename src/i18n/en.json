@@ -481,6 +481,18 @@
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to home"
   },
+  "wishlist": {
+    "title": "My Wishlist",
+    "subtitle": "Places and stays you have saved",
+    "empty": "Nothing saved yet",
+    "emptyDesc": "Tap the ❤️ on any card to collect the places you love here",
+    "browse": "Explore",
+    "save": "Save",
+    "loginPrompt": "Log in first to save favorites"
+  },
+  "recent": {
+    "title": "Recently viewed"
+  },
   "explore": {
     "title": "Explore",
     "subtitle": "Sights across all of Bangladesh — pick a type",

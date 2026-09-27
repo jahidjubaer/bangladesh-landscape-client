@@ -7,10 +7,11 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import {
-  MapPin, Sparkles, Compass, ShieldCheck, ChevronDown, ArrowRight, Search,
+  MapPin, Sparkles, Compass, ShieldCheck, ChevronDown, ArrowRight, Search, History,
   ListChecks, SlidersHorizontal, FileDown, Map as MapIcon, Camera, PenLine,
 } from 'lucide-react';
 import { CATEGORIES } from '../../lib/categories';
+import { getRecent } from '../../lib/recent';
 import api from '../../lib/axios';
 import { useDistricts, useDistrict } from '../../features/districts/queries';
 import { useBlogs } from '../../features/blogs/queries';
@@ -19,6 +20,7 @@ import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import CountUp from '../../components/ui/CountUp';
 import VerifiedBadge from '../../components/ui/VerifiedBadge';
+import FavoriteButton from '../../components/ui/FavoriteButton';
 import { t, lx, locale } from '../../i18n';
 
 /* ---------------- Hero ---------------- */
@@ -226,6 +228,39 @@ function StatsStrip() {
   );
 }
 
+/* ---------------- Recently viewed ---------------- */
+
+function RecentlyViewed() {
+  const [items] = useState(getRecent);
+  if (!items.length) return null;
+
+  return (
+    <section className="max-w-7xl mx-auto px-4 pt-14">
+      <Reveal>
+        <h2 className="font-bold text-lg mb-4 flex items-center gap-2 text-base-content/80">
+          <History className="w-5 h-5 text-primary" /> {t('recent.title')}
+        </h2>
+        <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+          {items.map((item) => (
+            <Link
+              key={item.link}
+              to={item.link}
+              className="shrink-0 w-44 card bg-base-100 shadow-sm card-lift img-zoom block"
+            >
+              <figure className="h-24">
+                <Img src={item.image} alt={lx(item.title)} className="w-full h-full object-cover" />
+              </figure>
+              <div className="p-3">
+                <span className="font-semibold text-sm leading-tight line-clamp-1">{lx(item.title)}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
 /* ---------------- Category explore row ---------------- */
 
 function CategoryRow() {
@@ -343,11 +378,12 @@ function DistrictShowcase({ districts }) {
             <Link to={`/districts/${d.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block">
               <figure className="h-56 relative">
                 <Img src={d.heroImageUrl} alt={lx(d.name)} icon={MapIcon} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral/80 via-transparent to-transparent pointer-events-none" />
                 <div className="absolute top-3 left-3">
                   <VerifiedBadge verified={d.isVerified} />
                 </div>
-                <div className="absolute bottom-0 p-5 text-neutral-content">
+                <FavoriteButton kind="district" itemId={d._id} className="absolute top-3 right-3 z-20" />
+                <div className="absolute bottom-0 p-5 text-neutral-content pointer-events-none">
                   <h3 className="font-display text-2xl font-bold">{lx(d.name)}</h3>
                   <span className="text-sm opacity-80 flex items-center gap-1">
                     <ArrowRight className="w-4 h-4" /> {t('district.viewDetails')}
@@ -554,6 +590,7 @@ export default function Home() {
       <AdBanner slot="hero-top" />
       <Hero districts={districts} images={heroImages} />
       <StatsStrip />
+      <RecentlyViewed />
       <CategoryRow />
       <SeasonalPicks districts={districts} />
       <AdBanner slot="hero-bottom" />

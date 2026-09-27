@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { recordView } from '../../lib/recent';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -33,6 +34,11 @@ export default function ListingDetail() {
   const book = useMutation({
     mutationFn: async (payload) => (await api.post('/bookings/listing', payload)).data,
   });
+
+  useEffect(() => {
+    const l = data?.listing;
+    if (l) recordView({ kind: 'listing', link: `/listings/${l._id}`, title: l.name, image: l.images?.[0] });
+  }, [data]);
 
   if (isLoading) return <Loader fullScreen />;
   if (isError || !data) return <NotFound />;

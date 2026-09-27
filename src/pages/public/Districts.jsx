@@ -5,6 +5,7 @@ import { useDistricts } from '../../features/districts/queries';
 import { SkeletonGrid } from '../../components/ui/Skeleton';
 import EmptyState from '../../components/ui/EmptyState';
 import VerifiedBadge from '../../components/ui/VerifiedBadge';
+import FavoriteButton from '../../components/ui/FavoriteButton';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import Seo from '../../components/Seo';
@@ -72,11 +73,12 @@ export default function Districts() {
               <Link to={`/districts/${d.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
                 <figure className="h-44 relative">
                   <Img src={d.heroImageUrl} alt={lx(d.name)} icon={MapIcon} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral/75 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral/75 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute top-3 left-3">
                     <VerifiedBadge verified={d.isVerified} />
                   </div>
-                  <div className="absolute bottom-0 p-4 text-neutral-content">
+                  <FavoriteButton kind="district" itemId={d._id} className="absolute top-3 right-3 z-20" />
+                  <div className="absolute bottom-0 p-4 text-neutral-content pointer-events-none">
                     <h2 className="font-display text-xl font-bold">{lx(d.name)}</h2>
                     <span className="text-xs opacity-80">{t(`district.divisions.${d.division}`) || d.division}</span>
                   </div>

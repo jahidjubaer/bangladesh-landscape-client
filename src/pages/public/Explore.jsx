@@ -5,7 +5,8 @@ import api from '../../lib/axios';
 import { CATEGORIES } from '../../lib/categories';
 import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
-import Img from '../../components/ui/Img';
+import CardCarousel from '../../components/ui/CardCarousel';
+import FavoriteButton from '../../components/ui/FavoriteButton';
 import EmptyState from '../../components/ui/EmptyState';
 import { SkeletonGrid } from '../../components/ui/Skeleton';
 import { t, lx, locale } from '../../i18n';
@@ -14,12 +15,13 @@ function SpotCard({ s }) {
   return (
     <Link to={`/spots/${s.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
       <figure className="h-44 relative">
-        <Img src={s.images?.[0]} alt={lx(s.name)} icon={Camera} className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral/70 via-transparent to-transparent" />
+        <CardCarousel images={s.images} alt={lx(s.name)} icon={Camera} className="w-full h-full" />
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral/70 via-transparent to-transparent pointer-events-none" />
         {s.isHidden && (
           <span className="absolute top-3 left-3 badge badge-secondary badge-sm shadow">💎 {t('district.hiddenGem')}</span>
         )}
-        <div className="absolute bottom-0 p-4 text-neutral-content">
+        <FavoriteButton kind="spot" itemId={s._id} className="absolute top-3 right-3 z-20" />
+        <div className="absolute bottom-0 p-4 text-neutral-content pointer-events-none">
           <h2 className="font-bold text-lg leading-snug">{lx(s.name)}</h2>
           <span className="text-xs opacity-85 flex items-center gap-1">
             <MapPin className="w-3 h-3" /> {lx(s.district?.name)}

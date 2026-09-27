@@ -57,6 +57,7 @@ const router = createBrowserRouter([
           { path: 'profile', lazy: lazyPage(() => import('../pages/user/Profile')) },
           { path: 'my-plans', lazy: lazyPage(() => import('../pages/user/MyPlans')) },
           { path: 'my-bookings', lazy: lazyPage(() => import('../pages/user/MyBookings')) },
+          { path: 'wishlist', lazy: lazyPage(() => import('../pages/user/Wishlist')) },
           { path: 'my-blogs', lazy: lazyPage(() => import('../pages/user/MyBlogs')) },
           { path: 'settings', lazy: lazyPage(() => import('../pages/user/Settings')) },
         ],

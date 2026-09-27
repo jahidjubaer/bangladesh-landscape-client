@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { recordView } from '../../lib/recent';
 import { motion, useScroll, useTransform } from 'motion/react';
 import {
   Bus, UtensilsCrossed, CalendarDays, Siren, AlertTriangle, MapPin,
@@ -13,6 +15,8 @@ import WeatherStrip from '../../components/WeatherStrip';
 import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
+import CardCarousel from '../../components/ui/CardCarousel';
+import FavoriteButton from '../../components/ui/FavoriteButton';
 import VerifiedBadge from '../../components/ui/VerifiedBadge';
 import EmptyState from '../../components/ui/EmptyState';
 import NotFound from '../NotFound';
@@ -40,10 +44,11 @@ function SpotCard({ s, delay }) {
     <Reveal delay={delay}>
       <Link to={`/spots/${s.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
         <figure className="h-44 relative">
-          <Img src={s.images?.[0]} alt={lx(s.name)} icon={Camera} className="w-full h-full object-cover" />
+          <CardCarousel images={s.images} alt={lx(s.name)} icon={Camera} className="w-full h-full" />
           {s.isHidden && (
             <span className="absolute top-3 left-3 badge badge-secondary badge-sm shadow">💎 {t('district.hiddenGem')}</span>
           )}
+          <FavoriteButton kind="spot" itemId={s._id} className="absolute top-3 right-3 z-20" />
         </figure>
         <div className="card-body p-5">
           <h3 className="card-title text-base">{lx(s.name)}</h3>
@@ -69,6 +74,11 @@ export default function District() {
   });
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, 140]);
+
+  useEffect(() => {
+    const d = data?.district;
+    if (d) recordView({ kind: 'district', link: `/districts/${d.slug}`, title: d.name, image: d.heroImageUrl });
+  }, [data]);
 
   if (isLoading) return <Loader fullScreen />;
   if (isError || !data) return <NotFound />;

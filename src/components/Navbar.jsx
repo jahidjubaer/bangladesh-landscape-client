@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import {
-  Menu, X, Mountain, Map, Compass, PenLine, Sparkles, Tent, Camera, Search,
+  Menu, X, Mountain, Map, Compass, PenLine, Sparkles, Tent, Camera, Search, Heart,
   User, LogOut, ShieldCheck, BookOpenText, CalendarCheck, FileText, Settings as SettingsIcon, BedDouble,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -46,6 +46,7 @@ function UserMenu({ user, hasRole, onLogout }) {
     hasRole('partner') && { to: '/partner-dashboard', label: t('partner.dashboard'), icon: BedDouble },
     { to: '/my-plans', label: t('plan.myPlans'), icon: FileText },
     { to: '/my-bookings', label: t('booking.myBookings'), icon: CalendarCheck },
+    { to: '/wishlist', label: t('wishlist.title'), icon: Heart },
     { to: '/my-blogs', label: t('blog.myBlogs'), icon: BookOpenText },
     { to: '/profile', label: t('nav.profile'), icon: User },
     { to: '/settings', label: t('settings.title'), icon: SettingsIcon },

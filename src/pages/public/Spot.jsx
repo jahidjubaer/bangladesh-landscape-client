@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { recordView } from '../../lib/recent';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -40,6 +42,10 @@ function AlertList({ icon: Icon, title, items, tone }) {
 export default function Spot() {
   const { slug } = useParams();
   const { data: spot, isLoading, isError } = useSpot(slug);
+
+  useEffect(() => {
+    if (spot) recordView({ kind: 'spot', link: `/spots/${spot.slug}`, title: spot.name, image: spot.images?.[0] });
+  }, [spot]);
 
   if (isLoading) return <Loader fullScreen />;
   if (isError || !spot) return <NotFound />;
