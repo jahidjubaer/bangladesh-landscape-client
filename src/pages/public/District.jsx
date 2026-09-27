@@ -17,6 +17,7 @@ import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import CardCarousel from '../../components/ui/CardCarousel';
 import FavoriteButton from '../../components/ui/FavoriteButton';
+import StarRating from '../../components/ui/StarRating';
 import VerifiedBadge from '../../components/ui/VerifiedBadge';
 import EmptyState from '../../components/ui/EmptyState';
 import NotFound from '../NotFound';
@@ -153,6 +154,7 @@ function SpotCard({ s, delay }) {
         </figure>
         <div className="card-body p-5">
           <h3 className="card-title text-base">{lx(s.name)}</h3>
+          {s.ratingCount > 0 && <StarRating value={s.ratingAvg} count={s.ratingCount} size={13} />}
           <div className="flex flex-wrap gap-1">
             <span className="badge badge-outline badge-sm">{t(`spot.category.${s.category}`)}</span>
             {(s.tags || []).map((tag) => (

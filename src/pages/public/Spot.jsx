@@ -12,6 +12,8 @@ import {
 import { useSpot, useDistrict } from '../../features/districts/queries';
 import CardCarousel from '../../components/ui/CardCarousel';
 import FavoriteButton from '../../components/ui/FavoriteButton';
+import StarRating from '../../components/ui/StarRating';
+import Reviews from '../../components/Reviews';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
 import Seo from '../../components/Seo';
@@ -43,7 +45,8 @@ function MoreNearby({ districtSlug, currentSlug }) {
               </figure>
               <div className="card-body p-4">
                 <h3 className="font-bold">{lx(s.name)}</h3>
-                <span className="badge badge-outline badge-sm">{t(`spot.category.${s.category}`)}</span>
+                {s.ratingCount > 0 && <StarRating value={s.ratingAvg} count={s.ratingCount} size={13} />}
+                <span className="badge badge-outline badge-sm w-fit">{t(`spot.category.${s.category}`)}</span>
               </div>
             </Link>
           </Reveal>
@@ -109,11 +112,12 @@ export default function Spot() {
           {lx(spot.name)}
           {spot.isHidden && <span className="badge badge-secondary">💎 {t('district.hiddenGem')}</span>}
         </h1>
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap items-center gap-2 mb-8">
           <span className="badge badge-primary badge-outline">{t(`spot.category.${spot.category}`)}</span>
           {(spot.tags || []).map((tag) => (
             <span key={tag} className="badge badge-ghost">{t(`spot.tag.${tag}`)}</span>
           ))}
+          {spot.ratingCount > 0 && <StarRating value={spot.ratingAvg} count={spot.ratingCount} size={16} />}
         </div>
       </Reveal>
 
@@ -168,6 +172,11 @@ export default function Spot() {
               <SpotMap center={spot.location} zoom={13} markers={[{ ...spot.location, nameBn: lx(spot.name) }]} height="320px" />
             </Reveal>
           )}
+
+          {/* Reviews */}
+          <Reveal>
+            <Reviews kind="spot" itemId={spot._id} ratingAvg={spot.ratingAvg} ratingCount={spot.ratingCount} />
+          </Reveal>
         </div>
 
         {/* Sticky quick facts */}

@@ -466,6 +466,7 @@
     "addAd": "New ad",
     "settings": "Settings",
     "listings": "Hotel/boat/vehicle listings",
+    "reviews": "Reviews",
     "addListing": "New listing",
     "payments": "Payment verification",
     "approve": "Approve",
@@ -487,6 +488,19 @@
     "notFoundTitle": "Page not found",
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to home"
+  },
+  "review": {
+    "title": "Reviews & ratings",
+    "yourRating": "Your rating",
+    "placeholder": "Share your experience (optional)…",
+    "submit": "Submit review",
+    "update": "Update review",
+    "submitted": "Review submitted — it will appear after moderation",
+    "pendingNote": "Your review is awaiting moderation",
+    "rejectedNote": "Your review couldn't be published — edit and resubmit if you like",
+    "loginPrompt": "Log in to write a review",
+    "empty": "No reviews yet — be the first!",
+    "count": "{n} reviews"
   },
   "wishlist": {
     "title": "My Wishlist",
@@ -598,6 +612,8 @@
       "booking-rejected": "{name} couldn't accept your booking request",
       "booking-cancelled": "{name} cancelled the booking",
       "review-received": "{name} left you a review ⭐",
+      "review-approved": "Your review of “{title}” is now live ⭐",
+      "review-rejected": "Your review couldn't be published this time",
       "payment-approved": "Payment verified — your plan is unlocked! 🎉",
       "payment-rejected": "Payment couldn't be verified — please try again",
       "blog-approved": "Your blog “{title}” has been published 🎉",

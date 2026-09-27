@@ -10,6 +10,7 @@ import Loader from '../../components/Loader';
 const ExploreMap = lazy(() => import('../../components/ExploreMap'));
 import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
+import StarRating from '../../components/ui/StarRating';
 import CardCarousel from '../../components/ui/CardCarousel';
 import FavoriteButton from '../../components/ui/FavoriteButton';
 import EmptyState from '../../components/ui/EmptyState';
@@ -33,11 +34,15 @@ function SpotCard({ s }) {
           </span>
         </div>
       </figure>
-      <div className="card-body p-3 flex-row items-center justify-between">
+      <div className="card-body p-3 flex-row items-center justify-between gap-2">
         <span className="badge badge-outline badge-sm">{t(`spot.category.${s.category}`)}</span>
-        {(s.tags || []).slice(0, 2).map((tag) => (
-          <span key={tag} className="badge badge-ghost badge-sm">{t(`spot.tag.${tag}`)}</span>
-        ))}
+        {s.ratingCount > 0 ? (
+          <StarRating value={s.ratingAvg} count={s.ratingCount} size={13} />
+        ) : (
+          (s.tags || []).slice(0, 2).map((tag) => (
+            <span key={tag} className="badge badge-ghost badge-sm">{t(`spot.tag.${tag}`)}</span>
+          ))
+        )}
       </div>
     </Link>
   );

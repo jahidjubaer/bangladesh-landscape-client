@@ -95,6 +95,7 @@ const router = createBrowserRouter([
               { path: 'guide-applications', lazy: lazyPage(() => import('../pages/admin/AdminGuideApplications')) },
               { path: 'payments', lazy: lazyPage(() => import('../pages/admin/AdminPayments')) },
               { path: 'blogs', lazy: lazyPage(() => import('../pages/admin/AdminBlogs')) },
+              { path: 'reviews', lazy: lazyPage(() => import('../pages/admin/AdminReviews')) },
               { path: 'ads', lazy: lazyPage(() => import('../pages/admin/AdminAds')) },
               { path: 'users', lazy: lazyPage(() => import('../pages/admin/AdminUsers')) },
               { path: 'events', lazy: lazyPage(() => import('../pages/admin/AdminEvents')) },

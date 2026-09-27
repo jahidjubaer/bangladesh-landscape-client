@@ -9,6 +9,7 @@ import EmptyState from '../../components/ui/EmptyState';
 import Reveal from '../../components/ui/Reveal';
 import CardCarousel from '../../components/ui/CardCarousel';
 import FavoriteButton from '../../components/ui/FavoriteButton';
+import StarRating from '../../components/ui/StarRating';
 import Seo from '../../components/Seo';
 import { t, lx, locale } from '../../i18n';
 
@@ -95,6 +96,11 @@ export default function Stays() {
                     <span className="font-display text-lg font-extrabold text-primary">
                       {money(l.priceRange?.min)}–{money(l.priceRange?.max)}
                     </span>
+                    {l.ratingCount > 0 && (
+                      <div className="mt-0.5">
+                        <StarRating value={l.ratingAvg} count={l.ratingCount} size={13} />
+                      </div>
+                    )}
                     {l.capacity > 0 && (
                       <span className="text-xs text-base-content/50 flex items-center gap-1 mt-0.5">
                         <Users className="w-3 h-3" /> {t('district.capacity')}: {Number(l.capacity).toLocaleString(locale())}

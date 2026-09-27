@@ -12,6 +12,8 @@ import { useAuth } from '../../context/AuthContext';
 import Loader from '../../components/Loader';
 import Img from '../../components/ui/Img';
 import Reveal from '../../components/ui/Reveal';
+import StarRating from '../../components/ui/StarRating';
+import Reviews from '../../components/Reviews';
 import Seo from '../../components/Seo';
 import NotFound from '../NotFound';
 import { t, lx, locale } from '../../i18n';
@@ -72,6 +74,7 @@ export default function ListingDetail() {
         <h1 className="font-display text-3xl md:text-5xl font-extrabold flex items-center gap-3 flex-wrap mb-6">
           {lx(listing.name)}
           <span className="badge badge-primary badge-outline">{t(`listingType.${listing.type}`)}</span>
+          {listing.ratingCount > 0 && <StarRating value={listing.ratingAvg} count={listing.ratingCount} size={18} />}
         </h1>
       </Reveal>
 
@@ -101,6 +104,11 @@ export default function ListingDetail() {
               <p className="text-lg leading-relaxed text-base-content/85">{lx(listing.description)}</p>
             </Reveal>
           )}
+
+          {/* Reviews */}
+          <Reveal>
+            <Reviews kind="listing" itemId={listing._id} ratingAvg={listing.ratingAvg} ratingCount={listing.ratingCount} />
+          </Reveal>
         </div>
 
         {/* Booking / contact box */}
