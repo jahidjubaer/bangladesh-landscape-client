@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion, useScroll, useTransform } from 'motion/react';
 import {
   Bus, UtensilsCrossed, CalendarDays, Siren, AlertTriangle, MapPin,
-  Camera, Sparkles, Phone, Users, BadgeCheck, Hospital, Flame,
+  Camera, Sparkles, Phone, Users, BadgeCheck, Hospital, Flame, Hourglass,
 } from 'lucide-react';
 import api from '../../lib/axios';
 import { useDistrict } from '../../features/districts/queries';
@@ -186,6 +186,16 @@ export default function District() {
             </div>
           </Reveal>
         </section>
+
+        {/* Booking coming soon (no feature flags enabled yet) */}
+        {!Object.values(district.features || {}).some(Boolean) && (
+          <Reveal>
+            <div className="alert bg-secondary/10 border-secondary/30">
+              <Hourglass className="w-5 h-5 text-secondary" />
+              <span>{t('district.bookingComingSoon')}</span>
+            </div>
+          </Reveal>
+        )}
 
         {/* Verified stay/transport listings */}
         {listings?.length > 0 && (

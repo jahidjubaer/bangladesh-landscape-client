@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import {
-  Menu, X, Mountain, Map, Compass, PenLine, Sparkles,
+  Menu, X, Mountain, Map, Compass, PenLine, Sparkles, Tent,
   User, LogOut, ShieldCheck, BookOpenText, CalendarCheck, FileText, Settings as SettingsIcon, BedDouble,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -15,6 +15,7 @@ const navItems = [
   { to: '/', label: t('nav.home'), icon: Mountain, end: true },
   { to: '/districts', label: t('nav.districts'), icon: Map },
   { to: '/plan', label: t('nav.planTour'), icon: Sparkles },
+  { to: '/events', label: t('nav.events'), icon: Tent },
   { to: '/guides', label: t('nav.guides'), icon: Compass },
   { to: '/blog', label: t('nav.blog'), icon: PenLine },
 ];

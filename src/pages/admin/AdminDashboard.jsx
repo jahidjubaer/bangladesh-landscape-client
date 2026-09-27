@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {
-  Wallet, Compass, PenLine, Users, FileText, BadgeCheck, CalendarCheck,
+  Wallet, Compass, PenLine, Users, FileText, BadgeCheck, CalendarCheck, Tent,
   HandCoins, ArrowRight, PartyPopper,
 } from 'lucide-react';
 import api from '../../lib/axios';
@@ -27,6 +27,7 @@ export default function AdminDashboard() {
     { count: a.pendingPayments, label: t('overview.pendingPayments'), to: '/admin/payments', Icon: Wallet, tone: 'bg-error/10 text-error border-error/30' },
     { count: a.pendingGuideApps, label: t('overview.pendingApps'), to: '/admin/guide-applications', Icon: Compass, tone: 'bg-warning/10 text-warning border-warning/30' },
     { count: a.pendingBlogs, label: t('overview.pendingBlogs'), to: '/admin/blogs', Icon: PenLine, tone: 'bg-info/10 text-info border-info/30' },
+    { count: a.pendingEventBookings, label: t('overview.pendingEvents'), to: '/admin/events', Icon: Tent, tone: 'bg-secondary/10 text-secondary border-secondary/30' },
   ].filter((c) => c.count > 0);
 
   const stats = [

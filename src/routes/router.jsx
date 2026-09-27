@@ -39,6 +39,9 @@ import AdminSettings from '../pages/admin/AdminSettings';
 import AdminListings from '../pages/admin/AdminListings';
 import PolicyPage from '../pages/public/PolicyPage';
 import PhotoCredits from '../pages/public/PhotoCredits';
+import Events from '../pages/public/Events';
+import EventDetail from '../pages/public/EventDetail';
+import AdminEvents from '../pages/admin/AdminEvents';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import Profile from '../pages/user/Profile';
@@ -83,6 +86,8 @@ const router = createBrowserRouter([
       // Policies (Phase 6)
       { path: 'policies/:type', element: <PolicyPage /> },
       { path: 'credits', element: <PhotoCredits /> },
+      { path: 'events', element: <Events /> },
+      { path: 'events/:slug', element: <EventDetail /> },
 
       // Authenticated routes
       {
@@ -126,6 +131,7 @@ const router = createBrowserRouter([
               { path: 'blogs', element: <AdminBlogs /> },
               { path: 'ads', element: <AdminAds /> },
               { path: 'users', element: <AdminUsers /> },
+              { path: 'events', element: <AdminEvents /> },
               { path: 'listings', element: <AdminListings /> },
               { path: 'settings', element: <AdminSettings /> },
             ],

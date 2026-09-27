@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { CalendarCheck } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { CalendarCheck, Tent, Users } from 'lucide-react';
 import { useMyBookings, useBookingAction } from '../../features/guides/queries';
+import { useMyEventBookings, useCancelEventBooking } from '../../features/events/queries';
 import { SkeletonList } from '../../components/ui/Skeleton';
 import EmptyState from '../../components/ui/EmptyState';
 import { useConfirm } from '../../components/ui/ConfirmModal';
@@ -133,6 +135,58 @@ export default function MyBookings() {
           ))}
         </div>
       )}
+
+      <EventBookingsSection />
     </div>
+  );
+}
+
+function EventBookingsSection() {
+  const { data: bookings } = useMyEventBookings();
+  const cancel = useCancelEventBooking();
+  const confirm = useConfirm();
+
+  if (!bookings?.length) return null;
+
+  async function handleCancel(id) {
+    if (await confirm(t('booking.cancel') + '?')) cancel.mutate(id);
+  }
+
+  return (
+    <section className="mt-12">
+      <h2 className="font-display text-2xl font-extrabold mb-4 flex items-center gap-2">
+        <Tent className="w-6 h-6 text-primary" /> {t('events.myBookings')}
+      </h2>
+      <div className="space-y-3">
+        {bookings.map((b) => (
+          <div key={b._id} className="card bg-base-100 shadow-md">
+            <div className="card-body p-5 flex-row items-center justify-between flex-wrap gap-3">
+              <div>
+                <Link to={`/events/${b.event?.slug}`} className="font-bold link link-hover">
+                  {lx(b.event?.title)}
+                </Link>
+                <div className="text-sm text-base-content/60 flex items-center gap-2 flex-wrap mt-0.5">
+                  <span>🗓️ {fmt(b.event?.dates?.start)}</span>
+                  <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" /> {Number(b.seats).toLocaleString(locale())}</span>
+                  <span>{money(b.amountTotal)}</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className={`badge ${
+                  { requested: 'badge-warning', confirmed: 'badge-success' }[b.status] || 'badge-ghost'
+                }`}>
+                  {t(`booking.status.${b.status}`)}
+                </span>
+                {['requested', 'confirmed'].includes(b.status) && new Date(b.event?.dates?.start) > new Date() && (
+                  <button className="btn btn-error btn-outline btn-xs" onClick={() => handleCancel(b._id)} disabled={cancel.isPending}>
+                    {t('booking.cancel')}
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }

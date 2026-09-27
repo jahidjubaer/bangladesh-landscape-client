@@ -9,6 +9,7 @@
     "guides": "Tour Guides",
     "blog": "Blog",
     "planTour": "Plan a Tour",
+    "events": "Group Tours",
     "login": "Log in",
     "register": "Sign up",
     "logout": "Log out",
@@ -114,6 +115,7 @@
     "pendingPayments": "Payments to verify",
     "pendingApps": "Guide applications",
     "pendingBlogs": "Blogs to review",
+    "pendingEvents": "Event bookings pending",
     "allClear": "All caught up — great job! 🎉",
     "totals": "Statistics",
     "users": "Users",
@@ -159,6 +161,7 @@
     "allDivisions": "All divisions",
     "spotCount": "{n} spots",
     "contentComing": "Content coming",
+    "bookingComingSoon": "Guide, hotel, boat and vehicle booking is coming soon to this district — right after field verification!",
     "noSpotsYet": "Spots for this district are being added — coming soon!",
     "divisions": {
       "Dhaka": "Dhaka",
@@ -451,6 +454,28 @@
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to home"
   },
+  "events": {
+    "listTitle": "Group Tours & Events",
+    "listSubtitle": "Travel together on our organized trips — guide, food and stay in one package",
+    "perPerson": "per person",
+    "seatsLeft": "{n} seats left",
+    "soldOut": "Sold out",
+    "bookingClosed": "Booking closed",
+    "seats": "How many seats?",
+    "total": "Total",
+    "bookBtn": "Book seats",
+    "booking": "Sending...",
+    "requested": "Booking request sent! We will contact you for payment; you will be notified once confirmed.",
+    "itinerary": "Itinerary",
+    "included": "Included in the package",
+    "meetingPoint": "Meeting point",
+    "duration": "{n} days",
+    "noEvents": "No upcoming events — coming soon!",
+    "myBookings": "Event bookings",
+    "note": "Message (optional)",
+    "alreadyBooked": "You already booked this event",
+    "homeTitle": "Upcoming group tours"
+  },
   "referral": {
     "title": "Invite a friend",
     "desc": "When a friend signs up with your link, you both get a free plan credit!",
@@ -495,7 +520,9 @@
       "blog-rejected": "Your blog “{title}” couldn't be published yet",
       "guide-approved": "Congratulations! You're now a verified tour guide 🎉",
       "guide-rejected": "Your guide application wasn't accepted",
-      "referral-joined": "{name} joined with your referral — you earned a free credit! 🎁"
+      "referral-joined": "{name} joined with your referral — you earned a free credit! 🎁",
+      "event-confirmed": "Your seats for “{title}” are confirmed 🎉",
+      "event-rejected": "Your booking for “{title}” could not be confirmed"
     }
   },
   "credits": {
