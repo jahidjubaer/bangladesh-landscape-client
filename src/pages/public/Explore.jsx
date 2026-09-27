@@ -1,8 +1,13 @@
+import { lazy, Suspense, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { Camera, MapPin, Compass } from 'lucide-react';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { Camera, MapPin, Compass, List, Map as MapIcon } from 'lucide-react';
 import api from '../../lib/axios';
 import { CATEGORIES } from '../../lib/categories';
+import Loader from '../../components/Loader';
+
+// Leaflet is heavy — pull the map chunk only when someone switches views
+const ExploreMap = lazy(() => import('../../components/ExploreMap'));
 import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import CardCarousel from '../../components/ui/CardCarousel';
@@ -41,6 +46,7 @@ function SpotCard({ s }) {
 export default function Explore() {
   const [params, setParams] = useSearchParams();
   const cat = params.get('cat') || '';
+  const [view, setView] = useState('list');
 
   const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['explore', cat],
@@ -49,6 +55,16 @@ export default function Explore() {
     initialPageParam: 1,
     getNextPageParam: (last) => (last.hasMore ? last.page + 1 : undefined),
     staleTime: 5 * 60 * 1000,
+    enabled: view === 'list',
+  });
+
+  // Map view wants every matching spot at once
+  const { data: mapSpots, isLoading: mapLoading } = useQuery({
+    queryKey: ['exploreMap', cat],
+    queryFn: async () =>
+      (await api.get('/spots', { params: { category: cat || undefined, all: 1 } })).data.data.spots,
+    staleTime: 5 * 60 * 1000,
+    enabled: view === 'map',
   });
 
   const spots = (data?.pages || []).flatMap((p) => p.spots);
@@ -66,28 +82,56 @@ export default function Explore() {
         <p className="text-base-content/60 mb-6">{t('explore.subtitle')}</p>
       </Reveal>
 
-      {/* Category chip bar — sticky under the navbar, scrolls sideways on mobile */}
+      {/* Category chip bar + view toggle — sticky under the navbar */}
       <div className="sticky top-16 z-30 -mx-4 px-4 py-3 bg-base-200/90 backdrop-blur-md mb-8">
-        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-0.5">
-          <button
-            onClick={() => pick('')}
-            className={`btn btn-sm rounded-full gap-1.5 shrink-0 ${!cat ? 'btn-primary' : 'btn-ghost bg-base-100 shadow-sm'}`}
-          >
-            <Compass className="w-4 h-4" /> {t('explore.all')}
-          </button>
-          {CATEGORIES.map(({ key, Icon }) => (
+        <div className="flex items-center gap-2">
+          <div className="flex gap-2 overflow-x-auto no-scrollbar pb-0.5 grow">
             <button
-              key={key}
-              onClick={() => pick(key)}
-              className={`btn btn-sm rounded-full gap-1.5 shrink-0 ${cat === key ? 'btn-primary' : 'btn-ghost bg-base-100 shadow-sm'}`}
+              onClick={() => pick('')}
+              className={`btn btn-sm rounded-full gap-1.5 shrink-0 ${!cat ? 'btn-primary' : 'btn-ghost bg-base-100 shadow-sm'}`}
             >
-              <Icon className="w-4 h-4" /> {t(`spot.category.${key}`)}
+              <Compass className="w-4 h-4" /> {t('explore.all')}
             </button>
-          ))}
+            {CATEGORIES.map(({ key, Icon }) => (
+              <button
+                key={key}
+                onClick={() => pick(key)}
+                className={`btn btn-sm rounded-full gap-1.5 shrink-0 ${cat === key ? 'btn-primary' : 'btn-ghost bg-base-100 shadow-sm'}`}
+              >
+                <Icon className="w-4 h-4" /> {t(`spot.category.${key}`)}
+              </button>
+            ))}
+          </div>
+
+          {/* list ↔ map */}
+          <div className="join shrink-0 shadow-sm">
+            <button
+              onClick={() => setView('list')}
+              className={`btn btn-sm join-item gap-1.5 ${view === 'list' ? 'btn-primary' : 'bg-base-100'}`}
+              aria-pressed={view === 'list'}
+            >
+              <List className="w-4 h-4" /> <span className="hidden sm:inline">{t('explore.viewList')}</span>
+            </button>
+            <button
+              onClick={() => setView('map')}
+              className={`btn btn-sm join-item gap-1.5 ${view === 'map' ? 'btn-primary' : 'bg-base-100'}`}
+              aria-pressed={view === 'map'}
+            >
+              <MapIcon className="w-4 h-4" /> <span className="hidden sm:inline">{t('explore.viewMap')}</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      {isLoading ? (
+      {view === 'map' ? (
+        mapLoading ? (
+          <Loader />
+        ) : (
+          <Suspense fallback={<Loader />}>
+            <ExploreMap spots={mapSpots} />
+          </Suspense>
+        )
+      ) : isLoading ? (
         <SkeletonGrid count={8} cols="sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" />
       ) : !spots.length ? (
         <EmptyState icon={Camera} title={t('explore.empty')} />

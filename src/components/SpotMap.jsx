@@ -17,7 +17,7 @@ L.Icon.Default.mergeOptions({
 // markers: [{ lat, lng, nameBn, slug }]
 export default function SpotMap({ center, zoom = 10, markers = [], height = '400px' }) {
   return (
-    <div className="rounded-xl overflow-hidden shadow-md" style={{ height }}>
+    <div className="relative isolate z-0 rounded-xl overflow-hidden shadow-md" style={{ height }}>
       <MapContainer center={[center.lat, center.lng]} zoom={zoom} style={{ height: '100%', width: '100%' }} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'

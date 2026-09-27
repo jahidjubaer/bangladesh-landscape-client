@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { recordView } from '../../lib/recent';
 import { motion, useScroll, useTransform } from 'motion/react';
 import {
-  Bus, UtensilsCrossed, CalendarDays, Siren, AlertTriangle, MapPin,
-  Camera, Sparkles, Phone, Users, BadgeCheck, Hospital, Flame, Hourglass,
+  Bus, UtensilsCrossed, CalendarDays, Siren, AlertTriangle, MapPin, Info,
+  Camera, Sparkles, Phone, Users, BadgeCheck, Hospital, Flame, Hourglass, BedDouble,
 } from 'lucide-react';
 import api from '../../lib/axios';
-import { useDistrict } from '../../features/districts/queries';
+import { useDistrict, useDistricts } from '../../features/districts/queries';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
 import WeatherStrip from '../../components/WeatherStrip';
@@ -22,6 +22,107 @@ import EmptyState from '../../components/ui/EmptyState';
 import NotFound from '../NotFound';
 import { t, lx, locale } from '../../i18n';
 
+
+// Lonely Planet-style guide tabs: sticky, tracks the visible section
+function SectionNav({ sections }) {
+  const [active, setActive] = useState(sections[0]?.id);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: '-25% 0px -65% 0px' }
+    );
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, [sections]);
+
+  return (
+    <div className="sticky top-16 z-30 bg-base-200/90 backdrop-blur-md border-b border-base-300/60">
+      <div className="max-w-7xl mx-auto px-4 flex gap-1 overflow-x-auto no-scrollbar">
+        {sections.map(({ id, label }) => (
+          <button
+            key={id}
+            onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            className={`px-4 py-3 text-sm font-semibold whitespace-nowrap border-b-2 -mb-px transition-colors cursor-pointer ${
+              active === id
+                ? 'border-primary text-primary'
+                : 'border-transparent text-base-content/60 hover:text-base-content'
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function QuickFacts({ district, spotCount }) {
+  const stayTypes = (district.stayTypesAvailable || []).filter(Boolean);
+  const rows = [
+    { Icon: MapPin, label: t('district.division'), value: t(`district.divisions.${district.division}`) || district.division },
+    { Icon: Camera, label: t('district.spots'), value: Number(spotCount).toLocaleString(locale()) },
+    stayTypes.length > 0 && { Icon: BedDouble, label: t('district.stayTypes'), value: stayTypes.join(' · ') },
+  ].filter(Boolean);
+
+  return (
+    <div className="card bg-base-100 shadow-md p-6">
+      <h3 className="font-bold mb-4 flex items-center gap-2">
+        <Info className="w-5 h-5 text-primary" /> {t('district.quickFacts')}
+      </h3>
+      <ul className="space-y-3 text-sm">
+        {rows.map(({ Icon, label, value }) => (
+          <li key={label} className="flex gap-2.5">
+            <Icon className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+            <span>
+              <span className="text-base-content/55">{label}:</span>{' '}
+              <span className="font-medium">{value}</span>
+            </span>
+          </li>
+        ))}
+        <li className="pt-1">
+          <VerifiedBadge verified={district.isVerified} />
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+function NearbyDistricts({ division, currentSlug }) {
+  const { data: districts } = useDistricts();
+  const others = (districts || []).filter((d) => d.division === division && d.slug !== currentSlug).slice(0, 4);
+  if (!others.length) return null;
+
+  return (
+    <section>
+      <Reveal>
+        <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-6">{t('district.nearby')}</h2>
+      </Reveal>
+      <div className="grid gap-6 grid-cols-2 lg:grid-cols-4">
+        {others.map((d, i) => (
+          <Reveal key={d.slug} delay={i * 0.06}>
+            <Link to={`/districts/${d.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block">
+              <figure className="h-32 relative">
+                <Img src={d.heroImageUrl} alt={lx(d.name)} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral/75 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 p-3 text-neutral-content pointer-events-none">
+                  <h3 className="font-display font-bold leading-tight">{lx(d.name)}</h3>
+                </div>
+              </figure>
+            </Link>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 function InfoCard({ icon: Icon, title, children }) {
   return (
@@ -85,6 +186,14 @@ export default function District() {
 
   const { district, spots } = data;
 
+  const sections = [
+    { id: 'overview', label: t('district.overviewTitle') },
+    spots.length > 0 && { id: 'spots', label: t('district.spots') },
+    spots.length > 0 && { id: 'map', label: t('district.mapTitle') },
+    { id: 'info', label: t('district.infoTitle') },
+    listings?.length > 0 && { id: 'stays', label: t('nav.stays') },
+  ].filter(Boolean);
+
   return (
     <div>
       <Seo title={lx(district.name)} description={lx(district.overview)} image={district.heroImageUrl} />
@@ -112,27 +221,34 @@ export default function District() {
         </div>
       </section>
 
+      <SectionNav sections={sections} />
+
       <div className="max-w-7xl mx-auto px-4 py-12 space-y-16">
         {/* Live weather */}
         <WeatherStrip slug={slug} />
 
-        {/* Overview + plan CTA */}
-        <Reveal>
-          <div className="grid gap-6 lg:grid-cols-[1fr_300px] items-start">
-            <p className="text-lg leading-relaxed text-base-content/85">{lx(district.overview)}</p>
-            <Link
-              to="/plan"
-              className="card bg-gradient-to-br from-primary to-secondary text-primary-content shadow-lg card-lift p-6 text-center"
-            >
-              <Sparkles className="w-8 h-8 mx-auto mb-2" />
-              <span className="font-bold text-lg">{t('home.ctaPlan')}</span>
-              <span className="text-sm opacity-85">{lx(district.name)} — AI ট্যুর প্ল্যান</span>
-            </Link>
-          </div>
-        </Reveal>
+        {/* Overview + quick facts + plan CTA */}
+        <section id="overview" className="scroll-mt-36">
+          <Reveal>
+            <div className="grid gap-6 lg:grid-cols-[1fr_300px] items-start">
+              <p className="text-lg leading-relaxed text-base-content/85">{lx(district.overview)}</p>
+              <div className="space-y-4">
+                <QuickFacts district={district} spotCount={spots.length} />
+                <Link
+                  to="/plan"
+                  className="card bg-gradient-to-br from-primary to-secondary text-primary-content shadow-lg card-lift p-6 text-center"
+                >
+                  <Sparkles className="w-8 h-8 mx-auto mb-2" />
+                  <span className="font-bold text-lg">{t('home.ctaPlan')}</span>
+                  <span className="text-sm opacity-85">{lx(district.name)} — AI ট্যুর প্ল্যান</span>
+                </Link>
+              </div>
+            </div>
+          </Reveal>
+        </section>
 
         {/* Spots */}
-        <section>
+        <section id="spots" className="scroll-mt-36">
           <Reveal>
             <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-6">{t('district.spots')}</h2>
           </Reveal>
@@ -149,7 +265,7 @@ export default function District() {
 
         {/* Map */}
         {spots.length > 0 && (
-          <section>
+          <section id="map" className="scroll-mt-36">
             <Reveal>
               <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-6">{t('district.mapTitle')}</h2>
               <SpotMap
@@ -162,7 +278,7 @@ export default function District() {
         )}
 
         {/* Info cards (only those with content) */}
-        <section className="grid gap-6 md:grid-cols-2">
+        <section id="info" className="scroll-mt-36 grid gap-6 md:grid-cols-2">
           {lx(district.transportInfo) && (
             <Reveal><InfoCard icon={Bus} title={t('district.transport')}>{lx(district.transportInfo)}</InfoCard></Reveal>
           )}
@@ -209,7 +325,7 @@ export default function District() {
 
         {/* Verified stay/transport listings */}
         {listings?.length > 0 && (
-          <section>
+          <section id="stays" className="scroll-mt-36">
             <Reveal>
               <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-6">{t('district.stayTransport')}</h2>
             </Reveal>
@@ -273,6 +389,9 @@ export default function District() {
             </section>
           </Reveal>
         )}
+
+        {/* More from this division */}
+        <NearbyDistricts division={district.division} currentSlug={district.slug} />
       </div>
     </div>
   );

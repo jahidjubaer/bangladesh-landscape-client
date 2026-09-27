@@ -177,6 +177,12 @@
     "fireService": "Fire service",
     "viewDetails": "View details",
     "mapTitle": "View on map",
+    "overviewTitle": "Overview",
+    "infoTitle": "Essential info",
+    "quickFacts": "At a glance",
+    "division": "Division",
+    "stayTypes": "Stay options",
+    "nearby": "More districts in this division",
     "hiddenGem": "Hidden gem",
     "noDistricts": "No districts live yet — coming soon!",
     "stayTransport": "Stay & transport (verified info)",
@@ -238,6 +244,7 @@
   },
   "spot": {
     "howToGo": "How to get there",
+    "moreNearby": "More places in this district",
     "entryCost": "Entry fee",
     "timeNeeded": "Time needed",
     "hours": "hours",
@@ -499,7 +506,9 @@
     "all": "All",
     "loadMore": "Load more",
     "empty": "No spots of this type found",
-    "count": "{n} spots"
+    "count": "{n} spots",
+    "viewList": "List",
+    "viewMap": "Map"
   },
   "search": {
     "title": "Search",

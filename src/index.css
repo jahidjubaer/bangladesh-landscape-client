@@ -233,6 +233,46 @@ body {
   }
 }
 
+/* Explore map markers */
+.bl-cluster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  color: var(--color-primary-content);
+  font-weight: 700;
+  font-family: var(--font-sans);
+  border: 3px solid color-mix(in oklab, var(--color-primary) 35%, white);
+  box-shadow: 0 4px 14px -4px rgb(0 0 0 / 0.45);
+  transition: transform 0.15s ease;
+}
+.bl-cluster:hover {
+  transform: scale(1.08);
+}
+.bl-pin {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.4);
+  transition: transform 0.15s ease;
+}
+.bl-pin:hover {
+  transform: scale(1.25);
+}
+/* Popup card matches the site instead of Leaflet defaults */
+.bl-map .leaflet-popup-content-wrapper {
+  border-radius: 1rem;
+  overflow: hidden;
+  padding: 0;
+}
+.bl-map .leaflet-popup-content {
+  margin: 0;
+  width: 200px !important;
+}
+
 /* Card lift on hover */
 .card-lift {
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;

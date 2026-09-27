@@ -9,7 +9,9 @@ import 'swiper/css/navigation';
 import {
   ArrowLeft, Bus, AlertTriangle, Construction, Ticket, Clock3, CalendarDays, Camera, Sparkles,
 } from 'lucide-react';
-import { useSpot } from '../../features/districts/queries';
+import { useSpot, useDistrict } from '../../features/districts/queries';
+import CardCarousel from '../../components/ui/CardCarousel';
+import FavoriteButton from '../../components/ui/FavoriteButton';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
 import Seo from '../../components/Seo';
@@ -17,6 +19,39 @@ import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import NotFound from '../NotFound';
 import { t, lx, locale } from '../../i18n';
+
+function MoreNearby({ districtSlug, currentSlug }) {
+  const { data } = useDistrict(districtSlug);
+  const others = (data?.spots || []).filter((s) => s.slug !== currentSlug).slice(0, 3);
+  if (!others.length) return null;
+
+  return (
+    <section className="mt-14">
+      <Reveal>
+        <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-6">{t('spot.moreNearby')}</h2>
+      </Reveal>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {others.map((s, i) => (
+          <Reveal key={s.slug} delay={i * 0.07}>
+            <Link to={`/spots/${s.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
+              <figure className="h-40 relative">
+                <CardCarousel images={s.images} alt={lx(s.name)} icon={Camera} className="w-full h-full" />
+                {s.isHidden && (
+                  <span className="absolute top-3 left-3 badge badge-secondary badge-sm shadow">💎 {t('district.hiddenGem')}</span>
+                )}
+                <FavoriteButton kind="spot" itemId={s._id} className="absolute top-3 right-3 z-20" />
+              </figure>
+              <div className="card-body p-4">
+                <h3 className="font-bold">{lx(s.name)}</h3>
+                <span className="badge badge-outline badge-sm">{t(`spot.category.${s.category}`)}</span>
+              </div>
+            </Link>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 function AlertList({ icon: Icon, title, items, tone }) {
   if (!items?.length) return null;
@@ -165,6 +200,8 @@ export default function Spot() {
           </Reveal>
         </div>
       </div>
+
+      <MoreNearby districtSlug={spot.district.slug} currentSlug={spot.slug} />
     </div>
   );
 }
