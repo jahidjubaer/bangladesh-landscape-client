@@ -489,6 +489,40 @@
     "notFoundDesc": "আপনি যে পেজটি খুঁজছেন সেটি নেই বা সরিয়ে ফেলা হয়েছে।",
     "backHome": "হোমে ফিরে যান"
   },
+  "analytics": {
+    "title": "অ্যানালিটিক্স",
+    "range": { "7": "৭ দিন", "30": "৩০ দিন", "90": "৯০ দিন" },
+    "views": "পেজ ভিউ",
+    "uniques": "ইউনিক ভিজিটর",
+    "revenue": "আয়",
+    "payments": "সফল পেমেন্ট",
+    "pendingVerification": "{n}টি bKash পেমেন্ট যাচাইয়ের অপেক্ষায়",
+    "plansCreated": "প্ল্যান তৈরি",
+    "plansPaid": "পেইড প্ল্যান",
+    "newUsers": "নতুন ইউজার",
+    "totalUsers": "মোট ইউজার",
+    "traffic": "ভিজিটর ট্রেন্ড",
+    "revenueTrend": "দৈনিক আয় (৳)",
+    "bookingFunnel": "বুকিং ফানেল",
+    "funnel": {
+      "requested": "রিকোয়েস্ট",
+      "confirmed": "কনফার্মড",
+      "completed": "সম্পন্ন",
+      "rejected": "প্রত্যাখ্যাত",
+      "expired": "মেয়াদোত্তীর্ণ",
+      "cancelled": "বাতিল"
+    },
+    "byType": { "guide": "গাইড", "boat": "বোট", "hotel": "হোটেল", "transport": "গাড়ি" },
+    "eventSeats": "গ্রুপ ট্যুর সিট কনফার্মড",
+    "topPages": "জনপ্রিয় পেজ",
+    "revenueSplit": "আয়ের উৎস",
+    "purpose": {
+      "plan": "ট্যুর প্ল্যান",
+      "guide-booking": "গাইড বুকিং",
+      "listing-booking": "হোটেল/বোট বুকিং"
+    },
+    "noData": "এখনও যথেষ্ট ডেটা নেই — সাইট চালু হলে এখানে ট্রেন্ড দেখা যাবে"
+  },
   "review": {
     "title": "রিভিউ ও রেটিং",
     "yourRating": "আপনার রেটিং",
