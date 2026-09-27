@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import {
-  Menu, X, Mountain, Map, Compass, PenLine, Sparkles, Tent, Camera,
+  Menu, X, Mountain, Map, Compass, PenLine, Sparkles, Tent, Camera, Search,
   User, LogOut, ShieldCheck, BookOpenText, CalendarCheck, FileText, Settings as SettingsIcon, BedDouble,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import ThemeToggle from './ui/ThemeToggle';
 import LanguageToggle from './ui/LanguageToggle';
 import NotificationBell from './NotificationBell';
+import SearchModal from './SearchModal';
 import { t } from '../i18n';
 
 const navItems = [
@@ -91,6 +92,19 @@ export default function Navbar() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  // Ctrl+K / Cmd+K opens search
+  useEffect(() => {
+    const onKey = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -141,6 +155,14 @@ export default function Navbar() {
         </div>
 
         <div className="navbar-end gap-1">
+          <button
+            className="btn btn-ghost btn-circle"
+            aria-label={t('search.title')}
+            title={`${t('search.title')} (Ctrl+K)`}
+            onClick={() => setSearchOpen(true)}
+          >
+            <Search className="w-5 h-5" />
+          </button>
           <LanguageToggle />
           <ThemeToggle />
           {user && <NotificationBell />}
@@ -197,6 +219,8 @@ export default function Navbar() {
           </motion.nav>
         )}
       </AnimatePresence>
+
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

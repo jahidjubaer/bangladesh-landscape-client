@@ -456,6 +456,19 @@
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to home"
   },
+  "search": {
+    "title": "Search",
+    "placeholder": "Districts, spots, blogs, events...",
+    "empty": "Nothing found",
+    "hint": "Type at least 2 characters",
+    "groups": {
+      "districts": "Districts",
+      "spots": "Places",
+      "blogs": "Blogs",
+      "events": "Group tours",
+      "listings": "Stays & boats"
+    }
+  },
   "gallery": {
     "title": "Photo Gallery",
     "subtitle": "The beauty of Bangladesh, district by district",

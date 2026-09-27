@@ -1,0 +1,17 @@
+{
+  "name": "বাংলাদেশ ল্যান্ডস্কেপ",
+  "short_name": "BD Landscape",
+  "description": "জেলাভিত্তিক ভ্রমণ তথ্য, AI ট্যুর প্ল্যান ও ভেরিফাইড লোকাল গাইড — সব এক প্ল্যাটফর্মে।",
+  "lang": "bn",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a2622",
+  "theme_color": "#0d7a68",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
