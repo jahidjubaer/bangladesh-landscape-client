@@ -451,6 +451,15 @@
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to home"
   },
+  "referral": {
+    "title": "Invite a friend",
+    "desc": "When a friend signs up with your link, you both get a free plan credit!",
+    "yourLink": "Your referral link",
+    "copy": "Copy link",
+    "copied": "Copied!",
+    "earned": "Successful referrals",
+    "applied": "Referral code applied — sign up and you get an extra free plan credit! 🎁"
+  },
   "weather": {
     "title": "Weather today",
     "humidity": "Humidity",
@@ -485,7 +494,8 @@
       "blog-approved": "Your blog “{title}” has been published 🎉",
       "blog-rejected": "Your blog “{title}” couldn't be published yet",
       "guide-approved": "Congratulations! You're now a verified tour guide 🎉",
-      "guide-rejected": "Your guide application wasn't accepted"
+      "guide-rejected": "Your guide application wasn't accepted",
+      "referral-joined": "{name} joined with your referral — you earned a free credit! 🎁"
     }
   },
   "credits": {

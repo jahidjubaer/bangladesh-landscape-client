@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { UserPlus } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -9,6 +9,8 @@ import { t } from '../../i18n';
 export default function Register() {
   const { register: registerUser } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const refCode = searchParams.get('ref') || '';
   const [serverError, setServerError] = useState('');
   const {
     register,
@@ -24,6 +26,7 @@ export default function Register() {
         phone: values.phone,
         email: values.email || undefined,
         password: values.password,
+        ref: refCode || undefined,
       });
       navigate('/', { replace: true });
     } catch (err) {
@@ -35,6 +38,7 @@ export default function Register() {
     <AuthShell title={t('auth.registerTitle')}>
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
+          {refCode && <div className="alert alert-success text-sm py-2">🎁 {t('referral.applied')}</div>}
           {serverError && (
             <div className="alert alert-error text-sm py-2" role="alert">
               {serverError}
