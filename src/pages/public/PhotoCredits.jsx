@@ -11,7 +11,7 @@ import { t } from '../../i18n';
 export default function PhotoCredits() {
   const { data: credits, isLoading } = useQuery({
     queryKey: ['photoCredits'],
-    queryFn: async () => (await api.get('/credits')).data.data.credits,
+    queryFn: async () => ((await api.get('/credits')).data.data.credits || []).filter((c) => c?.file),
     staleTime: 60 * 60 * 1000,
   });
 
@@ -30,7 +30,7 @@ export default function PhotoCredits() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {credits.map((c, i) => (
-            <Reveal key={c.file} delay={(i % 2) * 0.06}>
+            <Reveal key={`${c.file}-${i}`} delay={(i % 2) * 0.06}>
               <div className="card card-side bg-base-100 shadow-md h-full">
                 <figure className="w-32 shrink-0">
                   <Img src={`/uploads/${c.file}`} alt={c.author} icon={Camera} className="w-full h-full object-cover" />

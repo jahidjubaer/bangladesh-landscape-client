@@ -125,7 +125,11 @@ export default function SearchModal({ open, onClose }) {
                               {lx(item.title)}
                               {item.verified && <BadgeCheck className="w-3.5 h-3.5 text-success shrink-0" />}
                             </span>
-                            {item.sub && <span className="block text-xs text-base-content/50">{lx(item.sub)}</span>}
+                            {item.sub && (
+                              <span className="block text-xs text-base-content/50">
+                                {group === 'districts' ? t(`district.divisions.${item.sub}`) : lx(item.sub)}
+                              </span>
+                            )}
                           </span>
                           <ArrowRight className="w-4 h-4 text-base-content/30 shrink-0" />
                         </button>
