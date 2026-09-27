@@ -28,6 +28,31 @@
     "searchTitle": "Where do you want to go?",
     "searchDistrict": "Pick a district",
     "searchGo": "Start Planning",
+    "searchPill": "Search districts, spots, stays, events…",
+    "popularNow": "Popular",
+    "exploreTitle": "What do you want to see?",
+    "exploreSubtitle": "From haors to hills — pick the kind of place you love",
+    "exploreAll": "See all",
+    "seasonTitle": "Where to go this season?",
+    "seasonBadge": "Best time now",
+    "seasonExplore": "Browse this season's spots",
+    "season": {
+      "monsoon": {
+        "name": "Monsoon",
+        "title": "The haors are calling",
+        "desc": "June–September: the haors brim over — the best time to float across Tanguar Haor, and the waterfalls are in full flow."
+      },
+      "winter": {
+        "name": "Winter",
+        "title": "Hills and sea in winter",
+        "desc": "October–February is peak travel season — a sea of clouds in Bandarban, sunsets at Cox's Bazar, migratory birds on the haors."
+      },
+      "summer": {
+        "name": "Summer",
+        "title": "Into the green tea gardens",
+        "desc": "March–May: fresh leaves turn the tea gardens emerald — time to roam rain-washed Sylhet and the sloping tea country."
+      }
+    },
     "scrollHint": "Scroll down",
     "stats": {
       "districts": "Live districts",
@@ -455,6 +480,14 @@
     "notFoundTitle": "Page not found",
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to home"
+  },
+  "explore": {
+    "title": "Explore",
+    "subtitle": "Sights across all of Bangladesh — pick a type",
+    "all": "All",
+    "loadMore": "Load more",
+    "empty": "No spots of this type found",
+    "count": "{n} spots"
   },
   "search": {
     "title": "Search",

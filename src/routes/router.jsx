@@ -21,6 +21,7 @@ const router = createBrowserRouter([
       { path: 'register', lazy: lazyPage(() => import('../pages/auth/Register')) },
 
       // District content (Phase 2)
+      { path: 'explore', lazy: lazyPage(() => import('../pages/public/Explore')) },
       { path: 'districts', lazy: lazyPage(() => import('../pages/public/Districts')) },
       { path: 'districts/:slug', lazy: lazyPage(() => import('../pages/public/District')) },
       { path: 'spots/:slug', lazy: lazyPage(() => import('../pages/public/Spot')) },

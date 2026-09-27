@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'motion/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,9 +7,10 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import {
-  MapPin, Sparkles, Compass, ShieldCheck, ChevronDown, ArrowRight,
+  MapPin, Sparkles, Compass, ShieldCheck, ChevronDown, ArrowRight, Search,
   ListChecks, SlidersHorizontal, FileDown, Map as MapIcon, Camera, PenLine,
 } from 'lucide-react';
+import { CATEGORIES } from '../../lib/categories';
 import api from '../../lib/axios';
 import { useDistricts, useDistrict } from '../../features/districts/queries';
 import { useBlogs } from '../../features/blogs/queries';
@@ -71,13 +72,16 @@ function HeroMontage({ images }) {
 }
 
 function Hero({ districts, images }) {
-  const navigate = useNavigate();
-  const [selected, setSelected] = useState('');
+  const openSearch = () => window.dispatchEvent(new CustomEvent('bl:open-search'));
 
-  function go(e) {
-    e.preventDefault();
-    navigate(selected ? `/districts/${selected}` : '/plan');
-  }
+  // Popular quick-links under the search pill: two flagship districts + three categories
+  const quickChips = [
+    ...['sunamganj', 'coxs-bazar']
+      .map((slug) => (districts || []).find((d) => d.slug === slug))
+      .filter(Boolean)
+      .map((d) => ({ label: lx(d.name), to: `/districts/${d.slug}` })),
+    ...CATEGORIES.slice(0, 3).map(({ key }) => ({ label: t(`spot.category.${key}`), to: `/explore?cat=${key}` })),
+  ];
 
   return (
     <section className="relative min-h-[88vh] flex flex-col items-center justify-center overflow-hidden bg-neutral text-neutral-content">
@@ -136,34 +140,37 @@ function Hero({ districts, images }) {
           {t('home.heroSubtitle')}
         </motion.p>
 
-        {/* Search-style CTA card */}
-        <motion.form
-          onSubmit={go}
+        {/* Airbnb-style search pill: one tap opens the global search overlay */}
+        <motion.div
           initial={{ opacity: 0, y: 24, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 0.9, duration: 0.5 }}
-          className="bg-base-100/95 backdrop-blur rounded-2xl shadow-2xl p-3 sm:p-4 flex flex-col sm:flex-row items-stretch gap-3 max-w-xl mx-auto text-base-content"
         >
-          <label className="flex items-center gap-2 flex-1 px-3">
-            <Compass className="w-5 h-5 text-primary shrink-0" />
-            <select
-              className="select select-ghost w-full focus:outline-none font-medium"
-              value={selected}
-              onChange={(e) => setSelected(e.target.value)}
-              aria-label={t('home.searchDistrict')}
-            >
-              <option value="">{t('home.searchTitle')}</option>
-              {(districts || []).map((d) => (
-                <option key={d.slug} value={d.slug}>
-                  {lx(d.name)}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button type="submit" className="btn btn-primary rounded-xl px-8 shadow-lg shadow-primary/30 gap-2">
-            <Sparkles className="w-4 h-4" /> {t('home.searchGo')}
+          <button
+            onClick={openSearch}
+            className="w-full max-w-xl mx-auto flex items-center gap-3 bg-base-100/95 backdrop-blur rounded-full shadow-2xl pl-6 pr-2 py-2 text-base-content hover:shadow-primary/25 hover:scale-[1.015] transition-all cursor-pointer"
+          >
+            <Search className="w-5 h-5 text-primary shrink-0" />
+            <span className="grow text-start text-base-content/55 truncate py-2">{t('home.searchPill')}</span>
+            <span className="btn btn-primary btn-circle shadow-lg shadow-primary/30">
+              <Search className="w-5 h-5" />
+            </span>
           </button>
-        </motion.form>
+
+          {/* Popular quick-links */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-5 text-sm">
+            <span className="opacity-70">{t('home.popularNow')}:</span>
+            {quickChips.map(({ label, to }) => (
+              <Link
+                key={to}
+                to={to}
+                className="px-4 py-1.5 rounded-full bg-neutral-content/10 border border-neutral-content/20 backdrop-blur-sm hover:bg-primary hover:border-primary hover:text-primary-content transition-colors"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       {/* Scroll hint */}
@@ -213,6 +220,105 @@ function StatsStrip() {
               <div className="text-sm text-base-content/60 mt-1">{t(`home.stats.${key}`)}</div>
             </div>
           ))}
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+/* ---------------- Category explore row ---------------- */
+
+function CategoryRow() {
+  return (
+    <section className="max-w-7xl mx-auto px-4 pt-16">
+      <Reveal>
+        <div className="flex items-end justify-between mb-6">
+          <div>
+            <h2 className="font-display text-3xl md:text-4xl font-extrabold mb-1">{t('home.exploreTitle')}</h2>
+            <p className="text-base-content/60">{t('home.exploreSubtitle')}</p>
+          </div>
+          <Link to="/explore" className="link link-primary font-medium items-center gap-1 hidden sm:flex">
+            {t('home.exploreAll')} <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </Reveal>
+      <Reveal>
+        <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2 lg:justify-between">
+          {CATEGORIES.map(({ key, Icon }, i) => (
+            <motion.div
+              key={key}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06, duration: 0.4 }}
+              className="shrink-0 lg:flex-1"
+            >
+              <Link
+                to={`/explore?cat=${key}`}
+                className="card bg-base-100 shadow-md card-lift items-center text-center p-5 w-32 lg:w-auto"
+              >
+                <span className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/15 to-secondary/15 text-primary flex items-center justify-center mb-2">
+                  <Icon className="w-6 h-6" strokeWidth={1.8} />
+                </span>
+                <span className="font-semibold text-sm">{t(`spot.category.${key}`)}</span>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+/* ---------------- Seasonal picks ---------------- */
+
+// Month-aware curated picks — what Bangladesh is best at right now
+const SEASONS = [
+  { key: 'monsoon', months: [5, 6, 7, 8], cat: 'haor', slugs: ['sunamganj', 'kishoreganj', 'netrokona', 'moulvibazar'] },
+  { key: 'winter', months: [9, 10, 11, 0, 1], cat: 'hill', slugs: ['bandarban', 'rangamati', 'coxs-bazar', 'khagrachhari'] },
+  { key: 'summer', months: [2, 3, 4], cat: 'garden', slugs: ['sylhet', 'moulvibazar', 'habiganj', 'panchagarh'] },
+];
+
+function SeasonalPicks({ districts }) {
+  const season = SEASONS.find((s) => s.months.includes(new Date().getMonth())) || SEASONS[0];
+  const picks = season.slugs
+    .map((slug) => (districts || []).find((d) => d.slug === slug))
+    .filter(Boolean);
+  if (!picks.length) return null;
+
+  return (
+    <section className="max-w-7xl mx-auto px-4 pt-16">
+      <Reveal>
+        <div className="grid lg:grid-cols-[320px_1fr] gap-6 items-stretch">
+          {/* Season story card */}
+          <div className="card bg-gradient-to-br from-neutral via-[#14453b] to-primary text-neutral-content p-8 justify-center relative overflow-hidden">
+            <span className="badge badge-accent gap-1 mb-4 font-semibold w-fit">
+              ☀️ {t(`home.season.${season.key}.name`)} · {t('home.seasonBadge')}
+            </span>
+            <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-3">
+              {t(`home.season.${season.key}.title`)}
+            </h2>
+            <p className="opacity-85 leading-relaxed mb-6">{t(`home.season.${season.key}.desc`)}</p>
+            <Link to={`/explore?cat=${season.cat}`} className="btn btn-accent btn-sm rounded-full w-fit gap-1.5">
+              {t('home.seasonExplore')} <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* This season's districts */}
+          <div className="grid grid-cols-2 gap-4">
+            {picks.map((d) => (
+              <Link key={d.slug} to={`/districts/${d.slug}`} className="card shadow-md card-lift img-zoom block relative h-40 lg:h-auto overflow-hidden">
+                <Img src={d.heroImageUrl} alt={lx(d.name)} icon={MapIcon} className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral/80 via-neutral/10 to-transparent" />
+                <div className="absolute bottom-0 p-4 text-neutral-content">
+                  <h3 className="font-display text-lg font-bold leading-tight">{lx(d.name)}</h3>
+                  <span className="text-xs opacity-80 flex items-center gap-1">
+                    <MapPin className="w-3 h-3" /> {t(`district.divisions.${d.division}`) || d.division}
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </Reveal>
     </section>
@@ -448,6 +554,8 @@ export default function Home() {
       <AdBanner slot="hero-top" />
       <Hero districts={districts} images={heroImages} />
       <StatsStrip />
+      <CategoryRow />
+      <SeasonalPicks districts={districts} />
       <AdBanner slot="hero-bottom" />
       <DistrictShowcase districts={districts} />
       <HowItWorks />

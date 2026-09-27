@@ -190,6 +190,14 @@ body {
   padding-inline-start: 6rem;
 }
 
+/* Horizontal chip rows scroll without a visible scrollbar */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Shimmer placeholder shown behind images while they load */
 .img-loading {
   background: linear-gradient(

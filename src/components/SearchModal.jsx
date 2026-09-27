@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'motion/react';
 import { Search, X, MapPin, Camera, PenLine, Tent, BedDouble, BadgeCheck, ArrowRight } from 'lucide-react';
 import api from '../lib/axios';
+import { CATEGORIES } from '../lib/categories';
 import { t, lx } from '../i18n';
 
 const GROUP_ICONS = { districts: MapPin, spots: Camera, blogs: PenLine, events: Tent, listings: BedDouble };
@@ -86,7 +87,23 @@ export default function SearchModal({ open, onClose }) {
 
             <div className="max-h-[55vh] overflow-y-auto">
               {debounced.trim().length < 2 ? (
-                <p className="text-center text-sm text-base-content/45 py-10">{t('search.hint')}</p>
+                <div className="py-8 px-4">
+                  <p className="text-center text-sm text-base-content/45 mb-5">{t('search.hint')}</p>
+                  <p className="text-xs font-bold uppercase tracking-wide text-base-content/40 text-center mb-3">
+                    {t('home.popularNow')}
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {CATEGORIES.slice(0, 6).map(({ key, Icon }) => (
+                      <button
+                        key={key}
+                        onClick={() => go(`/explore?cat=${key}`)}
+                        className="btn btn-sm btn-ghost bg-base-200 rounded-full gap-1.5"
+                      >
+                        <Icon className="w-4 h-4 text-primary" /> {t(`spot.category.${key}`)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               ) : total === 0 && !isFetching ? (
                 <p className="text-center text-sm text-base-content/45 py-10">{t('search.empty')}</p>
               ) : (
