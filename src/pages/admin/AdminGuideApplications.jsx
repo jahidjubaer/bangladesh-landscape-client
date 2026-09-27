@@ -15,7 +15,7 @@ function useApplications(status) {
 
 async function openDoc(filename) {
   // Private docs need the session cookie — fetch as blob, open in new tab
-  const res = await api.get(`/moderation/files/${filename}`, { responseType: 'blob' });
+  const res = await api.get(`/moderation/files/${encodeURIComponent(filename)}`, { responseType: 'blob' });
   window.open(URL.createObjectURL(res.data), '_blank');
 }
 

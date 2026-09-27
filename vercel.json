@@ -1,8 +1,8 @@
 {
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://bangladesh-landscape-api.onrender.com/api/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://bangladesh-landscape-api.onrender.com/uploads/:path*" },
-    { "source": "/sitemap.xml", "destination": "https://bangladesh-landscape-api.onrender.com/sitemap.xml" },
+    { "source": "/api/:path*", "destination": "https://bangladesh-landscape-server-gcy4.vercel.app/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://bangladesh-landscape-server-gcy4.vercel.app/uploads/:path*" },
+    { "source": "/sitemap.xml", "destination": "https://bangladesh-landscape-server-gcy4.vercel.app/sitemap.xml" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
