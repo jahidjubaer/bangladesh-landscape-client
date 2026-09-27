@@ -15,6 +15,7 @@ const navItems = [
   { to: '/', label: t('nav.home'), icon: Mountain, end: true },
   { to: '/districts', label: t('nav.districts'), icon: Map },
   { to: '/plan', label: t('nav.planTour'), icon: Sparkles },
+  { to: '/stays', label: t('nav.stays'), icon: BedDouble },
   { to: '/events', label: t('nav.events'), icon: Tent },
   { to: '/guides', label: t('nav.guides'), icon: Compass },
   { to: '/blog', label: t('nav.blog'), icon: PenLine },

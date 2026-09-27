@@ -10,6 +10,7 @@
     "blog": "Blog",
     "planTour": "Plan a Tour",
     "events": "Group Tours",
+    "stays": "Stays & Boats",
     "login": "Log in",
     "register": "Sign up",
     "logout": "Log out",
@@ -453,6 +454,14 @@
     "notFoundTitle": "Page not found",
     "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to home"
+  },
+  "stays": {
+    "listTitle": "Hotels, Boats & Vehicles",
+    "listSubtitle": "Verified stays and transport — book online or contact directly",
+    "allTypes": "All types",
+    "bookable": "Booking open",
+    "callOnly": "Contact by phone",
+    "noListings": "Nothing found — coming soon!"
   },
   "events": {
     "listTitle": "Group Tours & Events",
