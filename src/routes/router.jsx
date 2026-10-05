@@ -48,6 +48,10 @@ const router = createBrowserRouter([
       { path: 'stays', lazy: lazyPage(() => import('../pages/public/Stays')) },
       { path: 'gallery', lazy: lazyPage(() => import('../pages/public/Gallery')) },
       { path: 'my-map', lazy: lazyPage(() => import('../pages/public/MyMap')) },
+      { path: 'tools', lazy: lazyPage(() => import('../pages/public/tools/ToolsHub')) },
+      { path: 'tools/quiz', lazy: lazyPage(() => import('../pages/public/tools/DistrictQuiz')) },
+      { path: 'tools/budget', lazy: lazyPage(() => import('../pages/public/tools/BudgetCalculator')) },
+      { path: 'tools/where-to-go', lazy: lazyPage(() => import('../pages/public/tools/TripMatcher')) },
       { path: 'events', lazy: lazyPage(() => import('../pages/public/Events')) },
       { path: 'events/:slug', lazy: lazyPage(() => import('../pages/public/EventDetail')) },
 

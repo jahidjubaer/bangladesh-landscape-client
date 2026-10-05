@@ -4,6 +4,7 @@
     "tagline": "District-by-district travel — everything in one place"
   },
   "nav": {
+    "tools": "Tools",
     "home": "Home",
     "districts": "Districts",
     "guides": "Tour Guides",
@@ -725,5 +726,95 @@
     "nav": "My map",
     "promoTitle": "How many districts have you visited?",
     "promoText": "Mark them on the map and make a shareable picture."
+  },
+  "tools": {
+    "title": "Fun travel tools",
+    "subtitle": "Maps, quizzes and calculators — play, plan and share before and after your trips.",
+    "myMap": {
+      "name": "My Bangladesh Map",
+      "desc": "Colour in the districts you have visited and make a shareable picture."
+    },
+    "quiz": {
+      "name": "Guess the District",
+      "desc": "Name the district that lights up on the map — how many of 10 can you get?",
+      "question": "Which district is highlighted?",
+      "division": "Division",
+      "again": "Play again",
+      "share": "Share score",
+      "shareText": "I scored {score}/{total} on the Guess the District quiz! Can you beat it?",
+      "rank1": "The journey begins — take another look at the map!",
+      "rank2": "Good! A little more travelling needed.",
+      "rank3": "Great! You are a seasoned traveller.",
+      "rank4": "Amazing! You are a living map of Bangladesh!"
+    },
+    "budget": {
+      "name": "Trip Budget Calculator",
+      "desc": "From where to where, how many people, how many days — transport, stay and food costs at a glance.",
+      "transport": "Transport (both ways)",
+      "stay": "Stay",
+      "food": "Food",
+      "local": "Local travel & tickets",
+      "nights": "nights",
+      "level": "Travel style",
+      "levels": {
+        "budget": "Budget",
+        "standard": "Standard",
+        "comfort": "Comfort"
+      },
+      "total": "Estimated total",
+      "note": "Approximate 2026 estimate with a 10% buffer. Costs vary by season and bargaining.",
+      "cta": "Build a full tour plan",
+      "sameDistrict": "Within the same district — no intercity fare needed."
+    },
+    "matcher": {
+      "name": "Where should I go?",
+      "desc": "Answer 5 quick questions and get your top 3 districts.",
+      "show": "Show results",
+      "results": "Best destinations for you",
+      "again": "Try again",
+      "q": {
+        "landscape": "What do you want to see?",
+        "season": "Which season are you travelling in?",
+        "days": "How many days do you have?",
+        "style": "What kind of trip?",
+        "from": "Where are you starting from?"
+      },
+      "a": {
+        "landscape": {
+          "sea": "🌊 Sea & beaches",
+          "hill": "⛰️ Hills & waterfalls",
+          "water": "🛶 Haors & rivers",
+          "heritage": "🏛️ History & architecture",
+          "nature": "🌿 Forests & greenery"
+        },
+        "season": {
+          "monsoon": "Monsoon (Jun–Sep)",
+          "winter": "Winter (Nov–Feb)",
+          "summer": "Summer (Mar–May)"
+        },
+        "days": {
+          "short": "1–2 days",
+          "medium": "3–4 days",
+          "long": "5+ days"
+        },
+        "style": {
+          "adventure": "Adventure",
+          "relaxed": "Relaxed",
+          "family": "With family"
+        }
+      },
+      "why": {
+        "sea": "Has the sea",
+        "hill": "Hill spots",
+        "water": "Haors & rivers",
+        "heritage": "Heritage sites",
+        "nature": "Green nature",
+        "season-monsoon": "Best in monsoon",
+        "season-winter": "Best in winter",
+        "season-summer": "Good in summer",
+        "hidden": "Hidden gems",
+        "near": "Close by"
+      }
+    }
   }
 }

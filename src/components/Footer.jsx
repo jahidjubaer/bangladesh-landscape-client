@@ -32,6 +32,7 @@ const columns = [
       { to: '/blog', label: t('nav.blog') },
       { to: '/gallery', label: t('nav.gallery') },
       { to: '/my-map', label: t('myMap.nav') },
+      { to: '/tools', label: t('nav.tools') },
     ],
   },
   {
