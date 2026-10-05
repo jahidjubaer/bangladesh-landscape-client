@@ -4,25 +4,31 @@ import { Gift, Copy, Check, Users, MapPinned, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import Reveal from '../../components/ui/Reveal';
 import MiniMap from '../../features/districtMap/MiniMap';
-import { TOTAL } from '../../features/districtMap/visited';
+import { TOTAL, visitedCount } from '../../features/districtMap/visited';
 import { t, locale } from '../../i18n';
 
-function VisitedMapCard({ visited }) {
+function VisitedMapCard({ user }) {
+  const map = {
+    visited: new Set(user.visitedDistricts || []),
+    passed: new Set(user.passedDistricts || []),
+    home: user.homeDistrict || '',
+  };
+  const count = visitedCount(map);
   const num = (n) => Number(n).toLocaleString(locale());
   return (
     <Reveal>
       <Link to="/my-map" className="card bg-base-100 shadow-md card-lift block">
         <div className="card-body flex-row items-center gap-5">
-          <MiniMap visited={new Set(visited)} className="w-24 shrink-0" />
+          <MiniMap map={map} className="w-24 shrink-0" />
           <div className="grow">
             <h2 className="card-title gap-2">
               <MapPinned className="w-5 h-5 text-primary" /> {t('myMap.title')}
             </h2>
             <p className="text-3xl font-extrabold text-primary">
-              {num(visited.length)}
+              {num(count)}
               <span className="text-base font-medium text-base-content/60"> / {num(TOTAL)} {t('myMap.districtsVisited')}</span>
             </p>
-            <progress className="progress progress-primary w-full" value={visited.length} max={TOTAL} />
+            <progress className="progress progress-primary w-full" value={count} max={TOTAL} />
           </div>
           <ArrowRight className="w-5 h-5 text-primary shrink-0" />
         </div>
@@ -131,7 +137,7 @@ export default function Profile() {
         </div>
       </Reveal>
 
-      <VisitedMapCard visited={user.visitedDistricts || []} />
+      <VisitedMapCard user={user} />
 
       <ReferralCard user={user} />
     </div>
