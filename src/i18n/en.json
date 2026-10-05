@@ -243,6 +243,12 @@
     "resort": "Resort"
   },
   "spot": {
+    "about": "About",
+    "highlights": "What to see & do",
+    "tips": "Travel tips",
+    "nearbyFood": "Food nearby",
+    "facilities": "Facilities",
+    "facility": {"toilet":"Toilet","food":"Food","parking":"Parking","shop":"Shops","lodging":"Lodging","boat":"Boats","guide":"Guides","prayer":"Prayer space","ticket":"Ticket counter","wheelchair":"Wheelchair access"},
     "howToGo": "How to get there",
     "moreNearby": "More places in this district",
     "entryCost": "Entry fee",
@@ -678,6 +684,8 @@
     "rights": "All rights reserved"
   },
   "myMap": {
+    "savedToAccount": "Saved to your account — available on every device",
+    "loginToSave": "Log in to keep your map on every device",
     "title": "My Bangladesh Map",
     "subtitle": "Mark the districts you have visited, then share the picture with your friends.",
     "tapHint": "Tap the districts you have visited",

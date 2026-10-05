@@ -1,9 +1,11 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Download, Share2, Link2, RotateCcw, Search, Eye, MapPinned, Check } from 'lucide-react';
 import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import { useToast } from '../../components/ui/Toast';
+import { useAuth } from '../../context/AuthContext';
+import api from '../../lib/axios';
 import { DISTRICTS, MAP_WIDTH, MAP_HEIGHT } from '../../features/districtMap/bdDistricts';
 import {
   DIVISIONS, TOTAL, loadVisited, saveVisited, loadName, saveName,
@@ -34,6 +36,29 @@ export default function MyMap() {
 
   useEffect(() => saveVisited(mine), [mine]);
   useEffect(() => saveName(name), [name]);
+
+  // Logged-in users: merge this device's map with the account copy once,
+  // then keep the account in sync (debounced) so it follows them across devices
+  const { user, refreshUser } = useAuth();
+  const synced = useRef(false);
+  useEffect(() => {
+    if (!user || synced.current) return;
+    synced.current = true;
+    setMine((prev) => new Set([...prev, ...(user.visitedDistricts || [])]));
+    if (!name && user.name) setName(user.name.split(' ')[0]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (!user || !synced.current) return;
+    const server = user.visitedDistricts || [];
+    if (server.length === mine.size && server.every((s) => mine.has(s))) return;
+    const timer = setTimeout(() => {
+      api
+        .put('/auth/me/visited-districts', { slugs: [...mine] })
+        .then(() => refreshUser())
+        .catch(() => {});
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [mine, user, refreshUser]);
 
   const toggle = (slug) => {
     if (viewingShared) return;
@@ -239,6 +264,15 @@ export default function MyMap() {
                   </button>
                 )}
               </div>
+              {!viewingShared && (
+                <p className="text-xs text-base-content/50 text-center">
+                  {user ? (
+                    t('myMap.savedToAccount')
+                  ) : (
+                    <Link to="/login" className="link link-primary">{t('myMap.loginToSave')}</Link>
+                  )}
+                </p>
+              )}
             </div>
           </div>
 

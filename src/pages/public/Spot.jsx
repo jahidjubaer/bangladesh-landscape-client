@@ -8,6 +8,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import {
   ArrowLeft, Bus, AlertTriangle, Construction, Ticket, Clock3, CalendarDays, Camera, Sparkles,
+  CheckCircle2, Lightbulb, UtensilsCrossed, Toilet, ParkingCircle, Store, BedDouble, Sailboat, UserRound,
+  Landmark, Accessibility,
 } from 'lucide-react';
 import { useSpot, useDistrict } from '../../features/districts/queries';
 import CardCarousel from '../../components/ui/CardCarousel';
@@ -53,6 +55,81 @@ function MoreNearby({ districtSlug, currentSlug }) {
         ))}
       </div>
     </section>
+  );
+}
+
+const FACILITY_ICONS = {
+  toilet: Toilet, food: UtensilsCrossed, parking: ParkingCircle, shop: Store, lodging: BedDouble,
+  boat: Sailboat, guide: UserRound, prayer: Landmark, ticket: Ticket, wheelchair: Accessibility,
+};
+
+function About({ spot }) {
+  const paragraphs = (lx(spot.about) || '').split(/\n\s*\n/).filter(Boolean);
+  const highlights = spot.highlights || [];
+  if (!paragraphs.length && !highlights.length) return null;
+  return (
+    <Reveal>
+      <section className="space-y-5">
+        {paragraphs.length > 0 && (
+          <div>
+            <h2 className="font-display text-2xl font-extrabold mb-3">{t('spot.about')}</h2>
+            <div className="space-y-4 leading-relaxed text-base-content/80">
+              {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+            </div>
+          </div>
+        )}
+        {highlights.length > 0 && (
+          <div className="rounded-2xl bg-primary/5 border border-primary/15 p-6">
+            <h3 className="font-bold mb-3">{t('spot.highlights')}</h3>
+            <ul className="grid gap-2.5 sm:grid-cols-2">
+              {highlights.map((h, i) => (
+                <li key={i} className="flex gap-2.5 leading-snug">
+                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0" /> {lx(h)}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </section>
+    </Reveal>
+  );
+}
+
+function NearbyAndFacilities({ spot }) {
+  const food = lx(spot.nearbyFood);
+  const facilities = spot.facilities || [];
+  if (!food && !facilities.length) return null;
+  return (
+    <div className="card bg-base-100 shadow-md">
+      <div className="card-body p-6 gap-4">
+        {food && (
+          <div className="flex items-start gap-3">
+            <span className="w-9 h-9 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center shrink-0">
+              <UtensilsCrossed className="w-[18px] h-[18px]" />
+            </span>
+            <div>
+              <div className="text-xs text-base-content/50">{t('spot.nearbyFood')}</div>
+              <div className="text-sm leading-relaxed">{food}</div>
+            </div>
+          </div>
+        )}
+        {facilities.length > 0 && (
+          <div>
+            <div className="text-xs text-base-content/50 mb-2">{t('spot.facilities')}</div>
+            <div className="flex flex-wrap gap-1.5">
+              {facilities.map((f) => {
+                const Icon = FACILITY_ICONS[f] || CheckCircle2;
+                return (
+                  <span key={f} className="badge badge-ghost gap-1 py-3">
+                    <Icon className="w-3.5 h-3.5" /> {t(`spot.facility.${f}`)}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -186,6 +263,8 @@ export default function Spot() {
             <p className="text-lg leading-relaxed text-base-content/85">{lx(spot.description)}</p>
           </Reveal>
 
+          <About spot={spot} />
+
           {/* How to go */}
           <Reveal>
             <div className="card bg-base-100 shadow-md">
@@ -201,6 +280,7 @@ export default function Spot() {
             </div>
           </Reveal>
 
+          <AlertList icon={Lightbulb} title={t('spot.tips')} items={spot.tips} />
           <AlertList icon={AlertTriangle} title={t('district.warnings')} items={spot.warnings} tone="warning" />
           <AlertList icon={Construction} title={t('spot.obstacles')} items={spot.obstacles} />
 
@@ -235,6 +315,9 @@ export default function Spot() {
                 ))}
               </div>
             </div>
+          </Reveal>
+          <Reveal delay={0.14}>
+            <NearbyAndFacilities spot={spot} />
           </Reveal>
           <Reveal delay={0.18}>
             <Link
