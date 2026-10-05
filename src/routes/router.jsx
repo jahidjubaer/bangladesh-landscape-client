@@ -47,6 +47,7 @@ const router = createBrowserRouter([
       { path: 'credits', lazy: lazyPage(() => import('../pages/public/PhotoCredits')) },
       { path: 'stays', lazy: lazyPage(() => import('../pages/public/Stays')) },
       { path: 'gallery', lazy: lazyPage(() => import('../pages/public/Gallery')) },
+      { path: 'my-map', lazy: lazyPage(() => import('../pages/public/MyMap')) },
       { path: 'events', lazy: lazyPage(() => import('../pages/public/Events')) },
       { path: 'events/:slug', lazy: lazyPage(() => import('../pages/public/EventDetail')) },
 

@@ -676,5 +676,31 @@
     "partnerPolicy": "Partner policy",
     "contact": "Contact",
     "rights": "All rights reserved"
+  },
+  "myMap": {
+    "title": "My Bangladesh Map",
+    "subtitle": "Mark the districts you have visited, then share the picture with your friends.",
+    "tapHint": "Tap the districts you have visited",
+    "districtsVisited": "districts visited",
+    "yourName": "Your name (shown on the picture)",
+    "namePlaceholder": "e.g. Jahid",
+    "share": "Share image",
+    "download": "Download image",
+    "copyLink": "Copy link",
+    "clear": "Clear all",
+    "confirmClear": "Sure? Tap again",
+    "selectAll": "Select all",
+    "unselectAll": "Clear",
+    "viewingShared": "You are viewing a map someone shared.",
+    "makeMine": "Make my own map",
+    "linkCopied": "Link copied",
+    "savedAndCopied": "Image saved and link copied",
+    "imageTitle": "My Bangladesh travels",
+    "imageTitleNamed": "{name}’s Bangladesh travels",
+    "exploreNext": "Find your next district",
+    "attribution": "Boundaries: geoBoundaries (BBS, OCHA) · CC BY 3.0 IGO",
+    "nav": "My map",
+    "promoTitle": "How many districts have you visited?",
+    "promoText": "Mark them on the map and make a shareable picture."
   }
 }

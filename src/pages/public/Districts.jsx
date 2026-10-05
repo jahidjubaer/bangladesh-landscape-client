@@ -60,6 +60,18 @@ export default function Districts() {
         </div>
       </Reveal>
 
+      <Link
+        to="/my-map"
+        className="flex items-center gap-4 rounded-2xl bg-primary/10 hover:bg-primary/15 transition-colors px-5 py-4 mb-8"
+      >
+        <MapPinned className="w-8 h-8 text-primary shrink-0" />
+        <div className="grow">
+          <div className="font-bold">{t('myMap.promoTitle')}</div>
+          <div className="text-sm text-base-content/60">{t('myMap.promoText')}</div>
+        </div>
+        <ArrowRight className="w-5 h-5 text-primary shrink-0" />
+      </Link>
+
       {isLoading ? (
         <SkeletonGrid count={6} />
       ) : isError ? (
