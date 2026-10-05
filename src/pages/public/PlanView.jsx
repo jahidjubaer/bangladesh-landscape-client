@@ -4,13 +4,14 @@ import { motion } from 'motion/react';
 import {
   Lock, LockOpen, Share2, Check, Download, Gift, CreditCard, MapPin, Users,
   CalendarDays, Wallet, UtensilsCrossed, BedDouble, Bus, Lightbulb, Gem,
-  AlertTriangle, ReceiptText, Smartphone, Copy, Hourglass,
+  AlertTriangle, ReceiptText, Smartphone, Copy, Hourglass, Route,
 } from 'lucide-react';
 import { usePlan, useUnlockPlan, useInitPayment } from '../../features/plans/queries';
 import { useSubmitManualBkash } from '../../features/guides/queries';
 import { useAuth } from '../../context/AuthContext';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
+import JourneyMap, { MODE_COLORS } from '../../components/JourneyMap';
 import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import NotFound from '../NotFound';
@@ -121,6 +122,106 @@ function TimelineDay({ day, isLast }) {
             {day.stay && <div className="flex gap-1.5"><BedDouble className="w-4 h-4 text-primary shrink-0 mt-0.5" /> {day.stay}</div>}
             {day.transport && <div className="flex gap-1.5 sm:col-span-3"><Bus className="w-4 h-4 text-primary shrink-0 mt-0.5" /> {day.transport}</div>}
           </div>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
+const hrs = (h) => `${Number(h).toLocaleString(locale())} ${t('spot.hours')}`;
+
+function JourneySection({ journey }) {
+  const legs = journey.legs || [];
+  if (!legs.length) return null;
+  const modes = [...new Set(legs.map((l) => l.mode))];
+  return (
+    <Reveal>
+      <div className="card bg-base-100 shadow-md">
+        <div className="card-body gap-5">
+          <h2 className="card-title gap-3 flex-wrap">
+            <span className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+              <Route className="w-5 h-5" strokeWidth={1.8} />
+            </span>
+            {t('plan.journey')}
+            {journey.from && (
+              <span className="text-base font-medium text-base-content/60">
+                {journey.from.name} → {journey.to.name}
+              </span>
+            )}
+          </h2>
+
+          <JourneyMap legs={legs} />
+          <div className="flex flex-wrap gap-3 text-xs text-base-content/70">
+            {modes.map((m) => (
+              <span key={m} className="flex items-center gap-1.5">
+                <span className="w-5 h-1.5 rounded-full" style={{ background: MODE_COLORS[m] }} />
+                {legs.find((l) => l.mode === m)?.modeLabel}
+              </span>
+            ))}
+          </div>
+
+          {journey.options?.length > 0 && (
+            <div>
+              <h3 className="font-bold mb-2">{t('plan.travelOptions')}</h3>
+              <div className="overflow-x-auto">
+                <table className="table table-sm">
+                  <thead>
+                    <tr>
+                      <th>{t('plan.mode')}</th>
+                      <th>{t('plan.distance')}</th>
+                      <th>{t('plan.duration')}</th>
+                      <th>{t('plan.farePerPerson')}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {journey.options.map((o) => (
+                      <tr key={o.mode} className={o.mode === journey.chosenMode ? 'bg-primary/5 font-semibold' : ''}>
+                        <td className="flex items-center gap-2">
+                          <span className="w-2.5 h-2.5 rounded-full" style={{ background: MODE_COLORS[o.mode] }} />
+                          {o.modeLabel}
+                          {o.mode === journey.chosenMode && <span className="badge badge-primary badge-xs">{t('plan.chosen')}</span>}
+                        </td>
+                        <td>{Number(o.km).toLocaleString(locale())} km</td>
+                        <td>{hrs(o.hours)}</td>
+                        <td>{money(o.fare.min)} – {money(o.fare.max)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          <div>
+            <h3 className="font-bold mb-2">{t('plan.route')}</h3>
+            <ol className="relative border-s-2 border-base-300 ms-2 space-y-3">
+              {legs.map((l, i) => (
+                <li key={i} className="ms-5">
+                  <span
+                    className="absolute -start-[7px] mt-1.5 w-3 h-3 rounded-full ring-2 ring-base-100"
+                    style={{ background: MODE_COLORS[l.mode] }}
+                  />
+                  <div className="font-medium leading-snug">
+                    {l.from.name} → {l.to.name}
+                  </div>
+                  <div className="text-xs text-base-content/60">
+                    {l.modeLabel} · {Number(l.km).toLocaleString(locale())} km · {hrs(l.hours)}
+                    {l.costPerPerson
+                      ? ` · ${t('plan.perPerson')} ${money(l.costPerPerson.min)}–${money(l.costPerPerson.max)}`
+                      : l.groupCost
+                        ? ` · ${t('plan.groupCost')} ~${money(l.groupCost)}`
+                        : ''}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-primary/5 px-4 py-3">
+            <span className="font-semibold">{t('plan.totalTransport')}</span>
+            <span className="text-lg font-extrabold text-primary">~{money(journey.totalTransportCost)}</span>
+          </div>
+          <p className="text-xs text-base-content/50">{journey.note}</p>
         </div>
       </div>
     </Reveal>
@@ -269,8 +370,10 @@ export default function PlanView() {
         </Reveal>
       )}
 
-      {/* Map */}
-      {o.mapPoints?.length > 0 && (
+      {/* Journey (route, transport options, costs) — older plans fall back to the spot map */}
+      {o.journey?.legs?.length > 0 ? (
+        <JourneySection journey={o.journey} />
+      ) : o.mapPoints?.length > 0 && (
         <Reveal>
           <SpotMap
             center={plan.district?.mapCenter || { lat: o.mapPoints[0].lat, lng: o.mapPoints[0].lng }}

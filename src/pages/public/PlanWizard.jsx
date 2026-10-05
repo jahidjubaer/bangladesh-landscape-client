@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import {
   MapPin, ListChecks, SlidersHorizontal, Sparkles, Check, ArrowLeft, ArrowRight,
-  Camera, Lock, Users, Wallet, CalendarDays, Moon, Sun,
+  Camera, Lock, Users, Wallet, CalendarDays, Moon, Sun, Navigation, Bus,
 } from 'lucide-react';
 import { useDistricts, useDistrict } from '../../features/districts/queries';
 import { useGeneratePlan } from '../../features/plans/queries';
@@ -16,6 +16,7 @@ import { t, lx, locale, getLang } from '../../i18n';
 const FOODS = ['local', 'special', 'regular'];
 const DIVISIONS = ['Dhaka', 'Chattogram', 'Rajshahi', 'Khulna', 'Barishal', 'Sylhet', 'Rangpur', 'Mymensingh'];
 const STYLES = ['adventure', 'relaxed', 'family', 'other'];
+const TRANSPORTS = ['any', 'bus', 'train', 'launch', 'air'];
 const STEPS = [
   { label: t('plan.step1'), Icon: MapPin },
   { label: t('plan.step2'), Icon: ListChecks },
@@ -138,6 +139,7 @@ export default function PlanWizard() {
   const [form, setForm] = useState({
     members: 4, days: 3, nights: 2, budget: 20000, startDate: '',
     foodPref: 'local', exploreStyle: 'adventure', stayPref: 'any',
+    originSlug: 'dhaka', transportPref: 'any',
   });
   const [error, setError] = useState('');
 
@@ -164,11 +166,13 @@ export default function PlanWizard() {
   async function handleGenerate() {
     setError('');
     try {
+      const { originSlug, ...rest } = form;
       const { publicId } = await generate.mutateAsync({
         district: district._id,
         spots: selectedSpots,
         lang: getLang(),
-        ...form,
+        ...rest,
+        origin: (districts || []).find((d) => d.slug === originSlug)?._id,
         members: Number(form.members),
         days: Number(form.days),
         nights: Number(form.nights),
@@ -340,6 +344,41 @@ export default function PlanWizard() {
                     <span className="badge badge-primary gap-1"><MapPin className="w-3 h-3" /> {lx(district?.name)}</span>
                     <span className="badge badge-ghost">{t('plan.selectedCount')}: {selectedSpots.length.toLocaleString(locale())} স্পট</span>
                   </div>
+
+                  {/* Where the journey starts — drives the route, transport options and cost */}
+                  <div className="grid gap-4 sm:grid-cols-[1fr_auto_1fr] items-end">
+                    <label className="form-control">
+                      <span className="label-text font-semibold flex items-center gap-2 mb-1">
+                        <Navigation className="w-4 h-4 text-primary" /> {t('plan.startFrom')}
+                      </span>
+                      <select
+                        className="select select-bordered"
+                        value={form.originSlug}
+                        onChange={(e) => setField('originSlug', e.target.value)}
+                      >
+                        {[...(districts || [])]
+                          .sort((a, b) => lx(a.name).localeCompare(lx(b.name)))
+                          .map((d) => (
+                            <option key={d.slug} value={d.slug}>{lx(d.name)}</option>
+                          ))}
+                      </select>
+                    </label>
+                    <ArrowRight className="w-5 h-5 text-base-content/40 mb-3.5 hidden sm:block" />
+                    <div className="form-control">
+                      <span className="label-text font-semibold flex items-center gap-2 mb-1">
+                        <MapPin className="w-4 h-4 text-primary" /> {t('plan.destination')}
+                      </span>
+                      <div className="input input-bordered flex items-center bg-base-200">{lx(district?.name)}</div>
+                    </div>
+                  </div>
+                  <ChoiceChips
+                    label={t('plan.transportPref')}
+                    options={TRANSPORTS}
+                    value={form.transportPref}
+                    onChange={(v) => setField('transportPref', v)}
+                    labelKey="plan.transports"
+                    icon={Bus}
+                  />
 
                   <div className="grid gap-4 sm:grid-cols-2">
                     <label className="form-control">
