@@ -10,7 +10,11 @@ import api from '../../../lib/axios';
 import { t, lx, locale } from '../../../i18n';
 
 // Landscapes the DB categories can't express on their own
-const COASTAL = new Set(['coxs-bazar', 'chattogram', 'patuakhali', 'barguna', 'bhola', 'noakhali', 'bagerhat', 'satkhira', 'khulna', 'lakshmipur', 'feni']);
+// How strongly each coastal district delivers a 'sea' trip (beaches > islands > mangrove coast)
+const COASTAL = {
+  'coxs-bazar': 22, patuakhali: 17, chattogram: 13, noakhali: 11, bhola: 10, barguna: 10,
+  bagerhat: 7, satkhira: 6, khulna: 6, lakshmipur: 3, feni: 3,
+};
 const LANDSCAPES = {
   sea: { cats: [], coastal: true },
   hill: { cats: ['hill', 'waterfall'] },
@@ -32,6 +36,8 @@ const QUESTIONS = [
   { key: 'from', options: null }, // district select
 ];
 const MAX_KM = { short: 220, medium: 420, long: 9999 };
+// Points lost per km travelled — short trips care most about distance
+const KM_COST = { short: 1 / 25, medium: 1 / 70, long: 1 / 200 };
 
 function km(a, b) {
   const R = (d) => (d * Math.PI) / 180;
@@ -48,8 +54,8 @@ function rank(districts, answers) {
       const reasons = [];
       const match = land.cats.reduce((s, c) => s + (d.categories[c] || 0), 0);
       let score = match * 3;
-      if (land.coastal && COASTAL.has(d.slug)) {
-        score += 10;
+      if (land.coastal && COASTAL[d.slug]) {
+        score += COASTAL[d.slug];
         reasons.push('sea');
       } else if (match) reasons.push(answers.landscape);
       const seasonal = SEASON_BOOST[answers.season].reduce((s, c) => s + (d.categories[c] || 0), 0);
@@ -61,11 +67,9 @@ function rank(districts, answers) {
       }
       if (answers.style === 'family' && (d.categories.garden || d.categories.heritage)) score += 2;
       const dist = origin ? km(origin.center, d.center) : 0;
+      score -= dist * KM_COST[answers.days];
       if (dist > MAX_KM[answers.days]) score -= 8 + (dist - MAX_KM[answers.days]) / 40;
-      else if (answers.days === 'short') {
-        score += 3;
-        reasons.push('near');
-      }
+      else if (answers.days === 'short' && dist < 120) reasons.push('near');
       return { ...d, score, dist, reasons: [...new Set(reasons)] };
     })
     .sort((a, b) => b.score - a.score)
