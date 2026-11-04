@@ -103,12 +103,14 @@
 @theme inline {
   --color-season: var(--season);
   --color-season-ink: var(--season-ink);
+  --color-season-bright: var(--season-bright);
   --color-season-soft: color-mix(in oklab, var(--season) 14%, var(--color-base-100));
 }
 
 :root {
   --season: #0f766e;
   --season-ink: #0f766e;
+  --season-bright: #2dd4bf;
   font-family: var(--font-sans);
   scroll-behavior: smooth;
 }
@@ -118,6 +120,13 @@
 [data-season='hemanta'] { --season: #a16207; --season-ink: #a16207; }
 [data-season='sheet'] { --season: #475569; --season-ink: #475569; }
 [data-season='basanta'] { --season: #be185d; --season-ink: #be185d; }
+/* Bright variant for dots/rules on always-dark surfaces (alert strip, footer) */
+[data-season='grishma'] { --season-bright: #fb923c; }
+[data-season='barsha'] { --season-bright: #2dd4bf; }
+[data-season='sharat'] { --season-bright: #93b4f0; }
+[data-season='hemanta'] { --season-bright: #facc15; }
+[data-season='sheet'] { --season-bright: #a5b4c8; }
+[data-season='basanta'] { --season-bright: #f472b6; }
 /* Dark theme: brighter accents, dark text on fills */
 [data-theme='landscape-dark'][data-season='grishma'] { --season: #fb923c; --season-ink: #fb923c; }
 [data-theme='landscape-dark'][data-season='barsha'] { --season: #2dd4bf; --season-ink: #2dd4bf; }

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Map as MapIcon, MapPinned, Search, Camera } from 'lucide-react';
 import { useDistricts } from '../../features/districts/queries';
 import { SkeletonGrid } from '../../components/ui/Skeleton';
@@ -16,7 +16,19 @@ const DIVISIONS = ['Dhaka', 'Chattogram', 'Rajshahi', 'Khulna', 'Barishal', 'Syl
 export default function Districts() {
   const { data: districts, isLoading, isError } = useDistricts();
   const [q, setQ] = useState('');
-  const [division, setDivision] = useState('');
+  // ?division= comes from the navbar menu; the select keeps it in the URL
+  const [params, setParams] = useSearchParams();
+  const division = DIVISIONS.includes(params.get('division')) ? params.get('division') : '';
+  const setDivision = (dv) =>
+    setParams(
+      (p) => {
+        const next = new URLSearchParams(p);
+        if (dv) next.set('division', dv);
+        else next.delete('division');
+        return next;
+      },
+      { replace: true }
+    );
 
   const filtered = useMemo(() => {
     let list = districts || [];

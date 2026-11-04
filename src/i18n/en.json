@@ -249,7 +249,18 @@
     "tips": "Travel tips",
     "nearbyFood": "Food nearby",
     "facilities": "Facilities",
-    "facility": {"toilet":"Toilet","food":"Food","parking":"Parking","shop":"Shops","lodging":"Lodging","boat":"Boats","guide":"Guides","prayer":"Prayer space","ticket":"Ticket counter","wheelchair":"Wheelchair access"},
+    "facility": {
+      "toilet": "Toilet",
+      "food": "Food",
+      "parking": "Parking",
+      "shop": "Shops",
+      "lodging": "Lodging",
+      "boat": "Boats",
+      "guide": "Guides",
+      "prayer": "Prayer space",
+      "ticket": "Ticket counter",
+      "wheelchair": "Wheelchair access"
+    },
     "howToGo": "How to get there",
     "moreNearby": "More places in this district",
     "entryCost": "Entry fee",
@@ -279,7 +290,13 @@
     "startFrom": "Starting from",
     "destination": "Destination",
     "transportPref": "Preferred transport",
-    "transports": {"any":"Any (pick the best)","bus":"Bus","train":"Train","launch":"Launch","air":"Flight"},
+    "transports": {
+      "any": "Any (pick the best)",
+      "bus": "Bus",
+      "train": "Train",
+      "launch": "Launch",
+      "air": "Flight"
+    },
     "journey": "Your journey",
     "travelOptions": "Travel options",
     "mode": "Mode",
@@ -313,11 +330,26 @@
     "budget": "Total budget (BDT)",
     "startDate": "Start date",
     "foodPref": "Food preference",
-    "food": { "local": "Local", "special": "Special", "regular": "Regular" },
+    "food": {
+      "local": "Local",
+      "special": "Special",
+      "regular": "Regular"
+    },
     "explorePref": "How do you want to explore?",
-    "explore": { "adventure": "Adventure", "relaxed": "Relaxed", "family": "Family", "other": "Casual" },
+    "explore": {
+      "adventure": "Adventure",
+      "relaxed": "Relaxed",
+      "family": "Family",
+      "other": "Casual"
+    },
     "stayPref": "Stay preference",
-    "stay": { "houseboat": "Houseboat", "cottage": "Cottage", "hotel": "Hotel", "resort": "Resort", "any": "Any" },
+    "stay": {
+      "houseboat": "Houseboat",
+      "cottage": "Cottage",
+      "hotel": "Hotel",
+      "resort": "Resort",
+      "any": "Any"
+    },
     "loginRequired": "Log in to build a plan",
     "previewBadge": "Preview — unlock to see the full plan",
     "paidBadge": "Unlocked",
@@ -353,7 +385,11 @@
     "experience": "Experience",
     "years": "years",
     "languages": "Languages",
-    "lang": { "bangla": "Bangla", "english": "English", "local": "Local dialect" },
+    "lang": {
+      "bangla": "Bangla",
+      "english": "English",
+      "local": "Local dialect"
+    },
     "knownSpots": "Knows these places well",
     "reviews": "Reviews",
     "noReviews": "No reviews yet",
@@ -387,7 +423,12 @@
     "blockedDates": "Blocked dates (no bookings on these days)",
     "addDate": "Add date",
     "saveDates": "Save calendar",
-    "appStatus": { "pending": "Under review", "screened": "Initial screening done", "approved": "Approved", "rejected": "Rejected" }
+    "appStatus": {
+      "pending": "Under review",
+      "screened": "Initial screening done",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    }
   },
   "booking": {
     "bookGuide": "Book this guide",
@@ -447,7 +488,12 @@
     "writeFirst": "Write your first blog",
     "edit": "Edit",
     "delete": "Delete",
-    "status": { "draft": "Draft", "pending": "In review", "approved": "Published", "rejected": "Rejected" },
+    "status": {
+      "draft": "Draft",
+      "pending": "In review",
+      "approved": "Published",
+      "rejected": "Rejected"
+    },
     "moderationNote": "Moderator's note",
     "loginToWrite": "Log in to write a blog",
     "guidelines": "Content must be at least 100 characters. Original writing only — copied content will be rejected."
@@ -513,7 +559,11 @@
   },
   "analytics": {
     "title": "Analytics",
-    "range": { "7": "7 days", "30": "30 days", "90": "90 days" },
+    "range": {
+      "7": "7 days",
+      "30": "30 days",
+      "90": "90 days"
+    },
     "views": "Page views",
     "uniques": "Unique visitors",
     "revenue": "Revenue",
@@ -534,7 +584,12 @@
       "expired": "Expired",
       "cancelled": "Cancelled"
     },
-    "byType": { "guide": "Guide", "boat": "Boat", "hotel": "Hotel", "transport": "Vehicle" },
+    "byType": {
+      "guide": "Guide",
+      "boat": "Boat",
+      "hotel": "Hotel",
+      "transport": "Vehicle"
+    },
     "eventSeats": "Group tour seats confirmed",
     "topPages": "Top pages",
     "revenueSplit": "Revenue sources",
@@ -701,7 +756,12 @@
   },
   "myMap": {
     "brush": "Mark as",
-    "brushes": {"visited":"Visited","passed":"Passed through","home":"Home","erase":"Erase"},
+    "brushes": {
+      "visited": "Visited",
+      "passed": "Passed through",
+      "home": "Home",
+      "erase": "Erase"
+    },
     "legendVisited": "Visited",
     "legendPassed": "Only passed through",
     "legendHome": "Home district",
@@ -894,5 +954,62 @@
     "updatedTitle": "The site was just updated",
     "updatedDesc": "A new version is available. Reload the page to continue.",
     "reload": "Reload"
+  },
+  "nav2": {
+    "places": "Places to go",
+    "todo": "Things to do",
+    "plan": "Plan your trip",
+    "stories": "Stories",
+    "myMap": "My Map",
+    "byDivision": "By division",
+    "discover": "Discover",
+    "byType": "By type of place",
+    "bookable": "Book & join",
+    "planning": "Plan it",
+    "handy": "Handy tools",
+    "read": "Read & share",
+    "allDistricts": "All 64 districts",
+    "exploreMap": "Explore on the map",
+    "gallery": "Photo gallery",
+    "credits": "Photo credits",
+    "events": "Group tours & events",
+    "stays": "Hotels & houseboats",
+    "guides": "Local guides",
+    "aiPlan": "AI trip planner",
+    "budget": "Budget calculator",
+    "whereToGo": "Where should I go?",
+    "quiz": "District quiz",
+    "toolsHub": "All tools",
+    "blog": "Travel blog",
+    "writeBlog": "Write a story",
+    "featPlaces": "Every spot on one map",
+    "featPlacesSub": "Filter by type, zoom into any district.",
+    "featTodo": "Join a group tour",
+    "featTodoSub": "Fixed-date trips with verified hosts.",
+    "featPlan": "A full plan in a minute",
+    "featPlanSub": "Day-by-day route with an itemised budget.",
+    "featStories": "Stories from the road",
+    "featStoriesSub": "Real trips, written by travellers.",
+    "open": "Open menu",
+    "close": "Close menu",
+    "showSub": "Show {x} links",
+    "menu": "Menu"
+  },
+  "alert": {
+    "label": "Travel update",
+    "emergency": "Emergency 999",
+    "dismiss": "Dismiss update",
+    "grishma": "Grishma — hot days: start outdoor plans early and carry water. Mango season in Rajshahi.",
+    "barsha": "Barsha — haors are full and houseboats are running. Check the weather before boat trips.",
+    "sharat": "Sharat — clear skies and kash flowers on the char lands. Best light for photos.",
+    "hemanta": "Hemanta — harvest season: golden paddy, calm water and pleasant days.",
+    "sheet": "Sheet — dense morning fog can delay ferries and buses. Leave buffer time.",
+    "basanta": "Basanta — shimul and palash are in bloom. Popular spots get crowded on weekends."
+  },
+  "search2": {
+    "recent": "Recently viewed",
+    "navigate": "navigate",
+    "open": "open",
+    "close": "close"
   }
 }
