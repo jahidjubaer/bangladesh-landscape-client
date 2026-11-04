@@ -4,11 +4,11 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { Camera, MapPin, Compass, List, Map as MapIcon } from 'lucide-react';
 import api from '../../lib/axios';
 import { CATEGORIES } from '../../lib/categories';
+import { CATEGORY_SCENE } from '../../lib/scenes';
 import Loader from '../../components/Loader';
 
 // Leaflet is heavy — pull the map chunk only when someone switches views
 const ExploreMap = lazy(() => import('../../components/ExploreMap'));
-import { CATEGORY_SCENE } from '../../lib/scenes';
 import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import StarRating from '../../components/ui/StarRating';

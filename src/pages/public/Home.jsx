@@ -17,6 +17,7 @@ import { useDistricts, useDistrict } from '../../features/districts/queries';
 import { useBlogs } from '../../features/blogs/queries';
 import AdBanner from '../../components/AdBanner';
 import Seo from '../../components/Seo';
+import SeasonSection from '../../components/season/SeasonSection';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import CountUp from '../../components/ui/CountUp';
@@ -306,61 +307,6 @@ function CategoryRow() {
   );
 }
 
-/* ---------------- Seasonal picks ---------------- */
-
-// Month-aware curated picks — what Bangladesh is best at right now
-const SEASONS = [
-  { key: 'monsoon', months: [5, 6, 7, 8], cat: 'haor', slugs: ['sunamganj', 'kishoreganj', 'netrokona', 'moulvibazar'] },
-  { key: 'winter', months: [9, 10, 11, 0, 1], cat: 'hill', slugs: ['bandarban', 'rangamati', 'coxs-bazar', 'khagrachhari'] },
-  { key: 'summer', months: [2, 3, 4], cat: 'garden', slugs: ['sylhet', 'moulvibazar', 'habiganj', 'panchagarh'] },
-];
-
-function SeasonalPicks({ districts }) {
-  const season = SEASONS.find((s) => s.months.includes(new Date().getMonth())) || SEASONS[0];
-  const picks = season.slugs
-    .map((slug) => (districts || []).find((d) => d.slug === slug))
-    .filter(Boolean);
-  if (!picks.length) return null;
-
-  return (
-    <section className="max-w-7xl mx-auto px-4 pt-16">
-      <Reveal>
-        <div className="grid lg:grid-cols-[320px_1fr] gap-6 items-stretch">
-          {/* Season story card */}
-          <div className="card bg-gradient-to-br from-neutral via-[#14453b] to-primary text-neutral-content p-8 justify-center relative overflow-hidden">
-            <span className="badge badge-accent gap-1 mb-4 font-semibold w-fit">
-              ☀️ {t(`home.season.${season.key}.name`)} · {t('home.seasonBadge')}
-            </span>
-            <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-3">
-              {t(`home.season.${season.key}.title`)}
-            </h2>
-            <p className="opacity-85 leading-relaxed mb-6">{t(`home.season.${season.key}.desc`)}</p>
-            <Link to={`/explore?cat=${season.cat}`} className="btn btn-accent btn-sm rounded-full w-fit gap-1.5">
-              {t('home.seasonExplore')} <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {/* This season's districts */}
-          <div className="grid grid-cols-2 gap-4">
-            {picks.map((d) => (
-              <Link key={d.slug} to={`/districts/${d.slug}`} className="card shadow-md card-lift img-zoom block relative h-40 lg:h-auto overflow-hidden">
-                <Img src={d.heroImageUrl} alt={lx(d.name)} icon={MapIcon} className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral/80 via-neutral/10 to-transparent" />
-                <div className="absolute bottom-0 p-4 text-neutral-content">
-                  <h3 className="font-display text-lg font-bold leading-tight">{lx(d.name)}</h3>
-                  <span className="text-xs opacity-80 flex items-center gap-1">
-                    <MapPin className="w-3 h-3" /> {t(`district.divisions.${d.division}`) || d.division}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-    </section>
-  );
-}
-
 /* ---------------- Districts showcase ---------------- */
 
 function DistrictShowcase({ districts }) {
@@ -602,7 +548,7 @@ export default function Home() {
       <StatsStrip />
       <RecentlyViewed />
       <CategoryRow />
-      <SeasonalPicks districts={districts} />
+      <SeasonSection />
       <AdBanner slot="hero-bottom" />
       <DistrictShowcase districts={districts} />
       <HowItWorks />

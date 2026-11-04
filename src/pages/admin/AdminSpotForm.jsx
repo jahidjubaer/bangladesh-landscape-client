@@ -5,6 +5,7 @@ import { useAdminDistricts, useAdminSpot, useSaveSpot } from '../../features/dis
 import ImageUploader from '../../components/ImageUploader';
 import Loader from '../../components/Loader';
 import { t } from '../../i18n';
+import { SEASONS } from '../../lib/seasons';
 
 const CATEGORIES = ['haor', 'hill', 'river', 'waterfall', 'garden', 'heritage', 'other'];
 const TAGS = ['adventure', 'family', 'relaxed'];
@@ -26,6 +27,7 @@ const emptyValues = {
   warningsText: '',
   obstaclesText: '',
   tags: [],
+  seasons: [],
 };
 
 const lines = (text) =>
@@ -50,6 +52,8 @@ function toPayload(values) {
   const { imagesText, warningsText, obstaclesText, _id, __v, createdAt, updatedAt, ...rest } = values;
   return {
     ...rest,
+    // RHF gives false/string when one or no box is ticked
+    seasons: [].concat(values.seasons || []).filter(Boolean),
     entryCost: { min: Number(values.entryCost.min) || 0, max: Number(values.entryCost.max) || 0 },
     timeNeededHours: Number(values.timeNeededHours) || 0,
     location: {
@@ -179,6 +183,22 @@ export default function AdminSpotForm() {
             <input className="input input-bordered" {...register('bestTime.bn')} />
           </label>
         </div>
+
+        {/* Structured best seasons; empty = derived from the best-time text on the server */}
+        <fieldset>
+          <legend className="label-text font-semibold mb-1">{t('season.ui.fieldLabel')}</legend>
+          <p className="text-xs text-base-content/55 mb-2">{t('season.ui.fieldHint')}</p>
+          <div className="flex flex-wrap gap-x-5 gap-y-1">
+            {SEASONS.map((s) => (
+              <label key={s.key} className="label cursor-pointer gap-2">
+                <input type="checkbox" value={s.key} className="checkbox checkbox-sm" {...register('seasons')} />
+                <span className="label-text">
+                  {s.bn} <span className="text-base-content/50">· {s.en}</span>
+                </span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
 
         {/* English content (optional — shown to foreign tourists) */}
         <div className="collapse collapse-arrow bg-base-200 rounded-xl">

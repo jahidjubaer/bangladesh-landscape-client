@@ -19,6 +19,7 @@ import Reviews from '../../components/Reviews';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
 import { CATEGORY_SCENE } from '../../lib/scenes';
+import { SEASON_COLORS } from '../../lib/seasons';
 import Seo, { absUrl } from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
@@ -315,6 +316,24 @@ export default function Spot() {
                   </div>
                 ))}
               </div>
+              {spot.seasonsResolved?.length > 0 && spot.seasonsResolved.length < 6 && (
+                <div className="mt-5 pt-4 border-t border-base-300">
+                  <div className="text-xs text-base-content/50 mb-2">{t('season.ui.bestSeasons')}</div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {spot.seasonsResolved.map((k) => (
+                      <Link
+                        key={k}
+                        to={`/seasons/${k}`}
+                        style={{ '--c': SEASON_COLORS[k] }}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-base-300 px-3 py-1 text-sm hover:border-[var(--c)] transition-colors"
+                      >
+                        <span className="w-2 h-2 rounded-full bg-[var(--c)]" aria-hidden />
+                        {t(`season.name.${k}`)}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </Reveal>
           <Reveal delay={0.14}>

@@ -29,3 +29,14 @@ export function applySeason(key = seasonFor().key) {
   if (SEASON_KEYS.includes(key)) document.documentElement.dataset.season = key;
   return key;
 }
+
+// Text-safe accent per season (light theme), used where one season's colour is
+// shown next to the others (season dial, tiles). Matches index.css tokens.
+export const SEASON_COLORS = {
+  grishma: '#c2410c',
+  barsha: '#0f766e',
+  sharat: '#4361a6',
+  hemanta: '#a16207',
+  sheet: '#475569',
+  basanta: '#be185d',
+};

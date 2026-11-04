@@ -14,6 +14,7 @@ import SpotMap from '../../components/SpotMap';
 import WeatherStrip from '../../components/WeatherStrip';
 import { CATEGORY_SCENE } from '../../lib/scenes';
 import Seo, { absUrl } from '../../components/Seo';
+import WhenToGo from '../../components/season/WhenToGo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import CardCarousel from '../../components/ui/CardCarousel';
@@ -191,6 +192,7 @@ export default function District() {
 
   const sections = [
     { id: 'overview', label: t('district.overviewTitle') },
+    spots.some((x) => x.seasons?.length) && { id: 'when', label: t('season.ui.whenToGo') },
     spots.length > 0 && { id: 'spots', label: t('district.spots') },
     spots.length > 0 && { id: 'map', label: t('district.mapTitle') },
     { id: 'info', label: t('district.infoTitle') },
@@ -264,6 +266,9 @@ export default function District() {
             </div>
           </Reveal>
         </section>
+
+        {/* Six-season strip from the spots' resolved seasons */}
+        <WhenToGo spots={spots} />
 
         {/* Spots */}
         <section id="spots" className="scroll-mt-36">

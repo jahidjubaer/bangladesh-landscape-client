@@ -14,8 +14,10 @@ import SearchModal from './SearchModal';
 import SeasonStrip from './SeasonStrip';
 import Scene from './ui/Scene';
 import { CATEGORIES } from '../lib/categories';
+import { SEASONS, seasonFor } from '../lib/seasons';
 import { t } from '../i18n';
 
+const NOW = seasonFor();
 const DIVISIONS = ['Sylhet', 'Chattogram', 'Dhaka', 'Khulna', 'Rajshahi', 'Barishal', 'Rangpur', 'Mymensingh'];
 
 // Intent-grouped navigation (docs/09 §4). Every top item is a real link;
@@ -62,6 +64,31 @@ const MENUS = [
           { to: '/events', label: t('nav2.events'), icon: Tent },
           { to: '/stays', label: t('nav2.stays'), icon: BedDouble },
           { to: '/guides', label: t('nav2.guides'), icon: Compass },
+        ],
+      },
+    ],
+  },
+  {
+    key: 'seasons',
+    to: `/seasons/${NOW.key}`,
+    label: t('nav2.seasons'),
+    scene: NOW.scene,
+    feature: {
+      to: `/seasons/${NOW.key}`,
+      title: t('season.ui.nowIn').replace('{x}', t(`season.name.${NOW.key}`)),
+      sub: t(`season.tagline.${NOW.key}`),
+    },
+    groups: [
+      {
+        title: t('season.ui.pick'),
+        cols: 2,
+        links: SEASONS.map((x) => ({ to: `/seasons/${x.key}`, label: `${t(`season.name.${x.key}`)} · ${t(`season.gloss.${x.key}`)}` })),
+      },
+      {
+        title: t('nav2.planning'),
+        links: [
+          { to: '/plan', label: t('nav2.aiPlan'), icon: Sparkles },
+          { to: '/events', label: t('nav2.events'), icon: Tent },
         ],
       },
     ],
@@ -447,11 +474,11 @@ export default function Navbar() {
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
-          <Link to="/" className="flex items-center gap-2 group shrink-0 mr-2 xl:mr-4">
+          <Link to="/" aria-label={t('site.name')} className="flex items-center gap-2 group shrink-0 mr-2 xl:mr-4">
             <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
               <Mountain className="w-5 h-5 text-primary-content" strokeWidth={2.2} aria-hidden />
             </span>
-            <span className="font-display text-lg sm:text-xl font-bold text-base-content leading-none">
+            <span className="font-display text-lg sm:text-xl font-bold text-base-content leading-none lg:hidden xl:inline">
               {t('site.name')}
             </span>
           </Link>

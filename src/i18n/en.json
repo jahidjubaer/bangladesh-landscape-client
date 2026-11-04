@@ -993,7 +993,8 @@
     "open": "Open menu",
     "close": "Close menu",
     "showSub": "Show {x} links",
-    "menu": "Menu"
+    "menu": "Menu",
+    "seasons": "Seasons"
   },
   "alert": {
     "label": "Travel update",
@@ -1011,5 +1012,74 @@
     "navigate": "navigate",
     "open": "open",
     "close": "close"
+  },
+  "season": {
+    "name": {
+      "grishma": "Grishma",
+      "barsha": "Barsha",
+      "sharat": "Sharat",
+      "hemanta": "Hemanta",
+      "sheet": "Sheet",
+      "basanta": "Basanta"
+    },
+    "gloss": {
+      "grishma": "Summer",
+      "barsha": "Monsoon",
+      "sharat": "Autumn",
+      "hemanta": "Late autumn",
+      "sheet": "Winter",
+      "basanta": "Spring"
+    },
+    "dates": {
+      "grishma": "14 Apr – 14 Jun",
+      "barsha": "15 Jun – 15 Aug",
+      "sharat": "16 Aug – 16 Oct",
+      "hemanta": "17 Oct – 15 Dec",
+      "sheet": "16 Dec – 13 Feb",
+      "basanta": "14 Feb – 13 Apr"
+    },
+    "tagline": {
+      "grishma": "Mango orchards, kalbaishakhi storms and empty beaches.",
+      "barsha": "The haors become inland seas and the waterfalls wake up.",
+      "sharat": "White kash flowers, blue skies and shapla-filled beels.",
+      "hemanta": "Golden paddy, harvest festivals and calm water.",
+      "sheet": "Morning fog, migratory birds and date-palm juice at dawn.",
+      "basanta": "Shimul and palash turn the countryside red."
+    },
+    "intro": {
+      "grishma": "Pohela Boishakh opens the year with fairs across the country. Days are hot, so travel early and late: terracotta temples and old capitals glow at golden hour, Rajshahi and Chapainawabganj fill with mangoes, and the coast is quiet and cheap before the monsoon.",
+      "barsha": "Rain changes the map. Tanguar and Hakaluki haors flood into open water you cross by houseboat, Ratargul’s trees stand in the water, and the hill-tract waterfalls run at full power. Check the weather before boat trips and keep plans flexible.",
+      "sharat": "The rain stops and the sky clears. Char lands along the Jamuna and Padma fill with white kash, shapla lilies cover the beels at dawn, and Durga Puja lights up towns and villages. Water is still high, so haor and river trips are at their most beautiful.",
+      "hemanta": "Harvest season: paddy turns gold, villages celebrate Nabanna, and the weather is pleasant almost everywhere. Hill roads are dry again, tea gardens are green, and it is the start of the main travel season, so book stays early for long weekends.",
+      "sheet": "Peak season. Migratory birds arrive on the haors and beels, the Sundarbans and Saint Martin’s open for cruises, and villages tap khejur rosh before sunrise. Dense fog can delay ferries and buses in the morning; leave buffer time.",
+      "basanta": "Pohela Falgun brings yellow saris and flower fairs. Shimul and palash bloom across the north-east, Shimul Bagan in Sunamganj turns red, and days are warm and dry. Popular spots get crowded on weekends."
+    },
+    "ui": {
+      "label": "The six seasons",
+      "now": "Now",
+      "nowIn": "Now: {x}",
+      "pick": "Pick a season",
+      "goNow": "At its best in {x}",
+      "titleHome": "One country, six different trips.",
+      "subHome": "Each season changes where to go. Pick one to see the places at their best.",
+      "seeAll": "Everything for {x}",
+      "pageTitle": "Travel in {x}",
+      "spotsTitle": "Places at their best",
+      "spotsCount": "{n} places",
+      "noSpots": "No places are tagged for this season yet.",
+      "planCta": "Plan a {x} trip",
+      "planSub": "A day-by-day route with an itemised budget, made in a minute.",
+      "other": "Other seasons",
+      "eventsTitle": "Group tours this season",
+      "whenToGo": "When to go",
+      "whenSub": "How many of this district’s places are at their best in each season.",
+      "best": "Best",
+      "good": "Good",
+      "quiet": "Fewer picks",
+      "placesN": "{n} places",
+      "fieldLabel": "Best seasons",
+      "fieldHint": "Leave all unticked to derive the seasons from the best-time text.",
+      "bestSeasons": "Best seasons"
+    }
   }
 }

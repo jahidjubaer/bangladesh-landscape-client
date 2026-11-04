@@ -371,3 +371,13 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 16px 40px -12px color-mix(in oklab, var(--color-neutral) 30%, transparent);
 }
+
+/* Slow drift for illustrated/photo heroes (UI v2) */
+@keyframes bl-drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08) translateX(-1.5%);
+  }
+}
