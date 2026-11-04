@@ -50,3 +50,11 @@ export function lx(localized) {
 export function locale() {
   return currentLang === 'en' ? 'en-GB' : 'bn-BD';
 }
+
+// Count string: uses `${path}_one` when n is 1 and that key exists, and fills
+// {n} with the number in the current locale. tn('season.ui.placesN', 3)
+export function tn(path, n) {
+  const one = n === 1 ? t(`${path}_one`) : null;
+  const str = one && one !== `${path}_one` ? one : t(path);
+  return str.replace('{n}', Number(n).toLocaleString(locale()));
+}

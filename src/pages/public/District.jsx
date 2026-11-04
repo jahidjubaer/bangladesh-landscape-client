@@ -15,6 +15,8 @@ import WeatherStrip from '../../components/WeatherStrip';
 import { CATEGORY_SCENE } from '../../lib/scenes';
 import Seo, { absUrl } from '../../components/Seo';
 import WhenToGo from '../../components/season/WhenToGo';
+import PhotoCredit from '../../components/ui/PhotoCredit';
+import { seasonFor } from '../../lib/seasons';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
 import CardCarousel from '../../components/ui/CardCarousel';
@@ -23,7 +25,7 @@ import StarRating from '../../components/ui/StarRating';
 import VerifiedBadge from '../../components/ui/VerifiedBadge';
 import EmptyState from '../../components/ui/EmptyState';
 import NotFound from '../NotFound';
-import { t, lx, locale } from '../../i18n';
+import { t, tn, lx, locale } from '../../i18n';
 
 
 // Lonely Planet-style guide tabs: sticky, tracks the visible section
@@ -189,6 +191,8 @@ export default function District() {
   if (isError || !data) return <NotFound />;
 
   const { district, spots } = data;
+  const nowSeason = seasonFor().key;
+  const inSeasonNow = spots.filter((x) => x.seasons?.includes(nowSeason)).length;
 
   const sections = [
     { id: 'overview', label: t('district.overviewTitle') },
@@ -219,26 +223,48 @@ export default function District() {
       />
 
       {/* Parallax hero */}
-      <section className="relative h-[52vh] min-h-80 overflow-hidden flex items-end">
+      <section className="relative h-[66vh] min-h-96 max-h-[760px] overflow-hidden flex items-end text-white">
         <motion.div style={{ y: heroY }} className="absolute inset-0 scale-110">
-          {district.heroImageUrl ? (
-            <Img src={district.heroImageUrl} alt={lx(district.name)} className="w-full h-full object-cover" />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#0a2622] via-primary to-secondary" />
-          )}
+          <Img
+            src={district.heroImageUrl}
+            alt={lx(district.name)}
+            scene={CATEGORY_SCENE[spots[0]?.category] || 'haor'}
+            className="w-full h-full object-cover"
+            fetchPriority="high"
+            loading="eager"
+          />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral/85 via-neutral/25 to-transparent" />
-        <div className="relative max-w-7xl mx-auto px-4 pb-10 w-full text-neutral-content">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a2622]/90 via-[#0a2622]/25 to-[#0a2622]/30" />
+        <div className="relative max-w-7xl mx-auto px-4 pb-10 md:pb-14 w-full">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="flex flex-wrap gap-2 mb-3">
-              <span className="badge badge-accent gap-1">
-                <MapPin className="w-3.5 h-3.5" /> {t(`district.divisions.${district.division}`) || district.division}
-              </span>
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              <Link
+                to={`/districts?division=${district.division}`}
+                className="inline-flex items-center gap-1.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md px-3 py-1 text-sm hover:bg-white/25"
+              >
+                <MapPin className="w-3.5 h-3.5" aria-hidden /> {t(`district.divisions.${district.division}`) || district.division}
+              </Link>
               <VerifiedBadge verified={district.isVerified} />
+              {inSeasonNow > 0 && (
+                <a
+                  href="#when"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/15 border border-white/25 backdrop-blur-md pl-1 pr-3 py-1 text-sm hover:bg-white/25"
+                >
+                  <span className="rounded-full bg-season px-2.5 py-0.5 font-semibold">{t(`season.name.${nowSeason}`)}</span>
+                  {tn('season.ui.placesN', inSeasonNow)}
+                </a>
+              )}
             </div>
             <h1 className="font-display text-hero font-extrabold">{lx(district.name)}</h1>
+            <Link
+              to={`/plan?district=${district.slug}`}
+              className="btn bg-season hover:brightness-110 text-white border-0 rounded-full px-6 mt-6 gap-2 shadow-lg"
+            >
+              <Sparkles className="w-4 h-4" aria-hidden /> {t('home.ctaPlan')}
+            </Link>
           </motion.div>
         </div>
+        <PhotoCredit src={district.heroImageUrl} className="absolute right-4 bottom-4" />
       </section>
 
       <SectionNav sections={sections} />

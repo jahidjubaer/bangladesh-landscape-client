@@ -9,7 +9,7 @@ import SeasonDial, { useSeasonAccent } from '../../components/season/SeasonDial'
 import SeasonSpotCard from '../../components/season/SeasonSpotCard';
 import { useSeasonSpots } from '../../features/seasons/queries';
 import { SEASONS, SEASON_KEYS, seasonFor } from '../../lib/seasons';
-import { t, getLang } from '../../i18n';
+import { t, tn, getLang } from '../../i18n';
 
 const fill = (s, x) => s.replace('{x}', x).replace('{n}', x);
 
@@ -79,7 +79,7 @@ export default function Season() {
       <section id="season-page-panel" className="max-w-7xl mx-auto px-4 pb-16">
         <div className="flex items-end justify-between gap-4 mb-6">
           <h2 className="font-display text-display font-bold">{t('season.ui.spotsTitle')}</h2>
-          {total > 0 && <span className="text-base-content/60 shrink-0">{fill(t('season.ui.spotsCount'), total)}</span>}
+          {total > 0 && <span className="text-base-content/60 shrink-0">{tn('season.ui.spotsCount', total)}</span>}
         </div>
         {isLoading ? (
           <SkeletonGrid count={6} />

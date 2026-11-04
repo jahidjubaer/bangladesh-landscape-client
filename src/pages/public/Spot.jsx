@@ -20,6 +20,7 @@ import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
 import { CATEGORY_SCENE } from '../../lib/scenes';
 import { SEASON_COLORS } from '../../lib/seasons';
+import PhotoCredit from '../../components/ui/PhotoCredit';
 import Seo, { absUrl } from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
@@ -251,13 +252,19 @@ export default function Spot() {
                 className="rounded-2xl overflow-hidden shadow-lg [--swiper-theme-color:var(--color-primary)]"
               >
                 {spot.images.map((img, i) => (
-                  <SwiperSlide key={i}>
-                    <Img src={img} alt={`${lx(spot.name)} ${i + 1}`} className="w-full h-72 md:h-[26rem] object-cover" />
+                  <SwiperSlide key={i} className="relative">
+                    <Img
+                      src={img}
+                      alt={`${lx(spot.name)} ${i + 1}`}
+                      className="w-full h-72 md:h-[26rem] object-cover"
+                      loading={i === 0 ? 'eager' : 'lazy'}
+                    />
+                    <PhotoCredit src={img} className="absolute left-3 top-3 z-10" />
                   </SwiperSlide>
                 ))}
               </Swiper>
             ) : (
-              <Img alt={lx(spot.name)} icon={Camera} className="w-full h-72 rounded-2xl" />
+              <Img alt={lx(spot.name)} icon={Camera} scene={CATEGORY_SCENE[spot.category]} className="w-full h-72 md:h-[26rem] rounded-2xl" />
             )}
           </Reveal>
 
@@ -316,6 +323,12 @@ export default function Spot() {
                   </div>
                 ))}
               </div>
+              <Link
+                to={`/plan?district=${spot.district.slug}`}
+                className="btn bg-season hover:brightness-110 text-white border-0 rounded-full w-full mt-5 gap-2"
+              >
+                <Sparkles className="w-4 h-4" aria-hidden /> {t('spot2.planHere')}
+              </Link>
               {spot.seasonsResolved?.length > 0 && spot.seasonsResolved.length < 6 && (
                 <div className="mt-5 pt-4 border-t border-base-300">
                   <div className="text-xs text-base-content/50 mb-2">{t('season.ui.bestSeasons')}</div>

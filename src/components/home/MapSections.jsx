@@ -7,7 +7,7 @@ import { DISTRICTS, MAP_WIDTH, MAP_HEIGHT } from '../../features/districtMap/bdD
 import { DIVISIONS, loadMap, stateOf } from '../../features/districtMap/visited';
 import MiniMap from '../../features/districtMap/MiniMap';
 import Reveal from '../ui/Reveal';
-import { t, lx, getLang } from '../../i18n';
+import { t, tn, lx, getLang } from '../../i18n';
 
 const num = (n) => Number(n).toLocaleString(getLang() === 'bn' ? 'bn-BD' : 'en-GB');
 const fill = (s, vars) => Object.entries(vars).reduce((acc, [k, v]) => acc.replace(`{${k}}`, v), s);
@@ -60,9 +60,9 @@ export function DivisionExplorer({ launched = [] }) {
             <h3 className="font-display text-title font-bold">{divName}</h3>
             <dl className="flex flex-wrap gap-x-8 gap-y-2 mt-3">
               {[
-                [fill(t('home2.divDistricts'), { n: num(info.total) })],
+                [tn('home2.divDistricts', info.total)],
                 [fill(t('home2.divOpen'), { n: num(info.open.length) })],
-                spots > 0 && [fill(t('home2.divSpots'), { n: num(spots) })],
+                spots > 0 && [tn('home2.divSpots', spots)],
               ]
                 .filter(Boolean)
                 .map(([label]) => (

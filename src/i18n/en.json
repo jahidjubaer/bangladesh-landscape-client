@@ -1079,7 +1079,9 @@
       "placesN": "{n} places",
       "fieldLabel": "Best seasons",
       "fieldHint": "Leave all unticked to derive the seasons from the best-time text.",
-      "bestSeasons": "Best seasons"
+      "bestSeasons": "Best seasons",
+      "placesN_one": "1 place",
+      "spotsCount_one": "1 place"
     }
   },
   "home2": {
@@ -1159,7 +1161,10 @@
     "mapCta": "Colour my map",
     "legendVisited": "Visited",
     "legendHome": "Home",
-    "legendPassed": "Passed through"
+    "legendPassed": "Passed through",
+    "divSpots_one": "1 spot",
+    "divDistricts_one": "1 district",
+    "daysN_one": "1 day"
   },
   "footer2": {
     "explore": "Explore",
@@ -1185,5 +1190,36 @@
     "myMap": "My Bangladesh Map",
     "credits": "Photo credits",
     "started": "Started in Sunamganj · on the way to all 64 districts"
+  },
+  "spot2": {
+    "planHere": "Plan a trip here"
+  },
+  "exp": {
+    "eyebrow": "Things to do",
+    "anySeason": "Any season",
+    "bestIn": "Best in",
+    "count": "{n} places",
+    "empty": "No places match this filter yet.",
+    "planCta": "Plan a trip around it",
+    "others": "More things to do",
+    "title": {
+      "haor": "Haors & wetlands",
+      "hill": "Hills & treks",
+      "river": "Rivers & boats",
+      "waterfall": "Waterfalls",
+      "garden": "Tea gardens & green escapes",
+      "heritage": "Heritage & history",
+      "other": "Everything else worth a stop"
+    },
+    "intro": {
+      "haor": "In the monsoon the haors of the north-east flood into inland seas you cross by houseboat; in winter they shrink into grasslands full of migratory birds. Go for sunsets on the water, swamp forests and nights on deck.",
+      "hill": "The Chittagong Hill Tracts and the Sylhet borderlands rise into ridges, cloud valleys and indigenous villages. Most treks need a local guide and some need permits; the dry months from October to March are the easiest.",
+      "river": "Bangladesh is a delta of more than 700 rivers. Ride a launch, drift past floating markets, watch fishermen at dawn or follow a clear hill river over its stones.",
+      "waterfall": "Waterfalls are at their fullest in the monsoon and right after it. Trails get slippery, so go with a guide, start early and check the weather the day before.",
+      "garden": "Rolling tea estates, rubber and lemon gardens, and quiet green parks. Mornings are best, when mist sits between the bushes and the pickers are out.",
+      "heritage": "Buddhist monasteries, terracotta temples, sultanate mosques, zamindar palaces and Mughal forts. Two of Bangladesh’s three UNESCO World Heritage Sites are here.",
+      "other": "Markets, museums, viewpoints, parks and local favourites that do not fit one box but are worth the detour."
+    },
+    "count_one": "1 place"
   }
 }

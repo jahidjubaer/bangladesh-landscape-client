@@ -83,7 +83,7 @@ export function ExperienceRail() {
             ))}
         {!isLoading && (
           <Link
-            to={`/explore?cat=${cat}`}
+            to={`/things-to-do/${cat}`}
             className="shrink-0 w-[60vw] sm:w-64 snap-start rounded-3xl border-2 border-dashed border-base-300 grid place-items-center text-center p-6 hover:border-season hover:text-season-ink transition-colors"
           >
             <span className="font-display text-xl font-bold">

@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight, Search, MapPin, CalendarDays, Users } from 'lucide-react';
 import Scene from '../ui/Scene';
 import { SEASONS, seasonFor } from '../../lib/seasons';
-import { t, lx, getLang } from '../../i18n';
+import { t, tn, lx, getLang } from '../../i18n';
 
 const SLIDE_MS = 6000;
 const WHO = [
@@ -92,7 +92,7 @@ function IntentSearch({ districts }) {
         <select id="hero-days" className={select} value={days} onChange={(e) => setDays(Number(e.target.value))}>
           {DAYS.map((n) => (
             <option key={n} value={n}>
-              {n === 1 ? t('home2.dayTrip') : t('home2.daysN').replace('{n}', n.toLocaleString(getLang() === 'bn' ? 'bn-BD' : 'en-GB'))}
+              {n === 1 ? t('home2.dayTrip') : tn('home2.daysN', n)}
             </option>
           ))}
         </select>

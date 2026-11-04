@@ -54,6 +54,7 @@ const router = createBrowserRouter([
       { path: 'tools/quiz', lazy: lazyPage(() => import('../pages/public/tools/DistrictQuiz')) },
       { path: 'tools/budget', lazy: lazyPage(() => import('../pages/public/tools/BudgetCalculator')) },
       { path: 'tools/where-to-go', lazy: lazyPage(() => import('../pages/public/tools/TripMatcher')) },
+      { path: 'things-to-do/:type', lazy: lazyPage(() => import('../pages/public/Experience')) },
       { path: 'seasons/:key?', lazy: lazyPage(() => import('../pages/public/Season')) },
       { path: 'events', lazy: lazyPage(() => import('../pages/public/Events')) },
       { path: 'events/:slug', lazy: lazyPage(() => import('../pages/public/EventDetail')) },

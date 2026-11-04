@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { SEASONS, SEASON_COLORS, seasonFor } from '../../lib/seasons';
 import Reveal from '../ui/Reveal';
-import { t } from '../../i18n';
+import { t, tn } from '../../i18n';
 
 // District "when to go": per season, how many of the district's spots are at
 // their best (spots carry resolved `seasons` from the API). Hidden when no
@@ -53,7 +53,7 @@ export default function WhenToGo({ spots = [] }) {
                     <span className={lv === 'best' ? 'font-semibold text-base-content' : 'text-base-content/60'}>
                       {t(`season.ui.${lv}`)}
                     </span>
-                    <span className="text-base-content/50">{t('season.ui.placesN').replace('{n}', n)}</span>
+                    <span className="text-base-content/50">{tn('season.ui.placesN', n)}</span>
                   </span>
                 </Link>
               </li>

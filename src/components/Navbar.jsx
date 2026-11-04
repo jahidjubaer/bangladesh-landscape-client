@@ -56,7 +56,7 @@ const MENUS = [
       {
         title: t('nav2.byType'),
         cols: 2,
-        links: CATEGORIES.map(({ key, Icon }) => ({ to: `/explore?cat=${key}`, label: t(`spot.category.${key}`), icon: Icon })),
+        links: CATEGORIES.map(({ key, Icon }) => ({ to: `/things-to-do/${key}`, label: t(`exp.title.${key}`), icon: Icon })),
       },
       {
         title: t('nav2.bookable'),
