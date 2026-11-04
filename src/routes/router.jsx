@@ -94,6 +94,7 @@ const router = createBrowserRouter([
             children: [
               { index: true, lazy: lazyPage(() => import('../pages/admin/AdminDashboard')) },
               { path: 'analytics', lazy: lazyPage(() => import('../pages/admin/AdminAnalytics')) },
+              { path: 'content-review', lazy: lazyPage(() => import('../pages/admin/AdminContentReview')) },
               { path: 'districts', lazy: lazyPage(() => import('../pages/admin/AdminDistricts')) },
               { path: 'districts/:id', lazy: lazyPage(() => import('../pages/admin/AdminDistrictForm')) },
               { path: 'spots', lazy: lazyPage(() => import('../pages/admin/AdminSpots')) },

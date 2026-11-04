@@ -825,5 +825,52 @@
         "near": "Close by"
       }
     }
+  },
+  "contentReview": {
+    "title": "Content review",
+    "subtitle": "Confirm or correct facts flagged as uncertain during desk research, and track data gaps.",
+    "tabs": {
+      "flags": "Facts to verify",
+      "gaps": "Data gaps"
+    },
+    "status": {
+      "open": "Open",
+      "confirmed": "Confirmed",
+      "fixed": "Fixed"
+    },
+    "target": {
+      "spot": "Spot",
+      "district": "District"
+    },
+    "field": {
+      "history": "History/dates",
+      "fee": "Entry fee",
+      "hours": "Opening hours",
+      "location": "Location",
+      "name": "Name",
+      "facility": "Facilities",
+      "safety": "Safety/rules",
+      "other": "Other"
+    },
+    "allFields": "All types",
+    "edit": "Edit",
+    "confirm": "Correct",
+    "markFixed": "Fixed it",
+    "reopen": "Reopen",
+    "resolvedBy": "Checked by",
+    "notePlaceholder": "Verification note (optional) — what did you find?",
+    "newFlag": "Report a doubtful fact",
+    "newNote": "What needs checking?",
+    "add": "Add",
+    "gap": {
+      "noPhoto": "Spots without a photo",
+      "unknownFee": "Entry fee unknown/free",
+      "noEnglish": "No English description",
+      "noCoordinates": "No coordinates",
+      "noAbout": "No long-form content",
+      "noHero": "Districts without a cover photo",
+      "notVerified": "Districts not field-verified",
+      "noWarnings": "Districts without warnings"
+    }
   }
 }
