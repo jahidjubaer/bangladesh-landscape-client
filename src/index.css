@@ -390,3 +390,8 @@ header[data-over-hero] .btn-ghost {
 header[data-over-hero] .btn-ghost:hover {
   --btn-bg: rgb(255 255 255 / 0.14);
 }
+
+/* Data saver (lib/dataSaver.js): stop looping animations */
+html.data-saver [class*='animate-'] {
+  animation: none !important;
+}

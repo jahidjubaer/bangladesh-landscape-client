@@ -58,7 +58,7 @@ export function DivisionExplorer({ launched = [] }) {
 
           <div id="division-panel" role="tabpanel" aria-live="polite" className="mt-6 rounded-3xl bg-base-100 border border-base-300 p-6 md:p-7">
             <h3 className="font-display text-title font-bold">{divName}</h3>
-            <dl className="flex flex-wrap gap-x-8 gap-y-2 mt-3">
+            <ul className="flex flex-wrap gap-x-8 gap-y-2 mt-3">
               {[
                 [tn('home2.divDistricts', info.total)],
                 [fill(t('home2.divOpen'), { n: num(info.open.length) })],
@@ -66,11 +66,11 @@ export function DivisionExplorer({ launched = [] }) {
               ]
                 .filter(Boolean)
                 .map(([label]) => (
-                  <dd key={label} className="text-base-content/70">
+                  <li key={label} className="text-base-content/70">
                     {label}
-                  </dd>
+                  </li>
                 ))}
-            </dl>
+            </ul>
             {info.open.length ? (
               <ul className="flex flex-wrap gap-2 mt-5">
                 {info.open.map((d) => (

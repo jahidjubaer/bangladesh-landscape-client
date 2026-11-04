@@ -23,62 +23,17 @@
     "heroTitle": "Your next adventure starts here",
     "heroSubtitle": "District travel info, AI tour plans and verified local guides — all on one platform.",
     "ctaPlan": "Build a Tour Plan",
-    "ctaExplore": "Explore Districts",
     "comingSoon": "Coming soon",
-    "launchDistrict": "First district: Sunamganj",
-    "searchTitle": "Where do you want to go?",
-    "searchDistrict": "Pick a district",
-    "searchGo": "Start Planning",
-    "searchPill": "Search districts, spots, stays, events…",
     "popularNow": "Popular",
-    "exploreTitle": "What do you want to see?",
-    "exploreSubtitle": "From haors to hills — pick the kind of place you love",
     "exploreAll": "See all",
-    "seasonTitle": "Where to go this season?",
-    "seasonBadge": "Best time now",
-    "seasonExplore": "Browse this season's spots",
-    "season": {
-      "monsoon": {
-        "name": "Monsoon",
-        "title": "The haors are calling",
-        "desc": "June–September: the haors brim over — the best time to float across Tanguar Haor, and the waterfalls are in full flow."
-      },
-      "winter": {
-        "name": "Winter",
-        "title": "Hills and sea in winter",
-        "desc": "October–February is peak travel season — a sea of clouds in Bandarban, sunsets at Cox's Bazar, migratory birds on the haors."
-      },
-      "summer": {
-        "name": "Summer",
-        "title": "Into the green tea gardens",
-        "desc": "March–May: fresh leaves turn the tea gardens emerald — time to roam rain-washed Sylhet and the sloping tea country."
-      }
-    },
-    "scrollHint": "Scroll down",
     "stats": {
       "districts": "Live districts",
       "spots": "Places to visit",
       "guides": "Verified guides",
       "plans": "Plans created"
     },
-    "districtsTitle": "Which district will you visit?",
-    "districtsSubtitle": "Explore districts with field-verified travel information",
-    "moreDistrictsTitle": "See all 64 districts",
-    "moreDistrictsDesc": "Each district is being field-verified one by one — verified ones carry a green badge",
-    "howTitle": "How it works",
-    "howSubtitle": "Your whole tour ready in three steps",
-    "how1Title": "Pick a district & spots",
-    "how1Desc": "Choose where to go and what to see from a checklist",
-    "how2Title": "Tell us your preferences",
-    "how2Desc": "Budget, days, food, stay — your trip, your way",
-    "how3Title": "Get the plan, book a guide",
-    "how3Desc": "AI builds a full day-by-day plan (PDF), and you can book a verified local guide too",
-    "featuredSpots": "Popular spots",
     "latestBlogs": "Latest blogs",
     "seeAll": "See all",
-    "guideCtaTitle": "Know your area like the back of your hand?",
-    "guideCtaDesc": "Become a verified tour guide, show travelers the way — and earn on your own terms.",
-    "guideCtaBtn": "Apply as a Guide",
     "features": {
       "planTitle": "AI Tour Plans",
       "planDesc": "Complete tour plans built from field-verified data around your budget, time and preferences — PDF included.",
@@ -1189,7 +1144,10 @@
     "becomeGuide": "Become a guide",
     "myMap": "My Bangladesh Map",
     "credits": "Photo credits",
-    "started": "Started in Sunamganj · on the way to all 64 districts"
+    "started": "Started in Sunamganj · on the way to all 64 districts",
+    "dataSaver": "Data saver",
+    "on": "On",
+    "off": "Off"
   },
   "spot2": {
     "planHere": "Plan a trip here"
@@ -1221,5 +1179,8 @@
       "other": "Markets, museums, viewpoints, parks and local favourites that do not fit one box but are worth the detour."
     },
     "count_one": "1 place"
+  },
+  "a11y": {
+    "skip": "Skip to content"
   }
 }

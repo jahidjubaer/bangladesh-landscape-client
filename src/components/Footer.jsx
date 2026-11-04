@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mountain, MapPin, Phone } from 'lucide-react';
 
@@ -21,6 +22,7 @@ const InstagramIcon = (props) => (
 );
 import { t } from '../i18n';
 import { seasonFor } from '../lib/seasons';
+import { isDataSaver, setDataSaver } from '../lib/dataSaver';
 
 const columns = [
   {
@@ -67,6 +69,11 @@ const socials = [
 
 export default function Footer() {
   const season = seasonFor().key;
+  const [saver, setSaver] = useState(isDataSaver);
+  const toggleSaver = () => {
+    setDataSaver(!saver);
+    setSaver(!saver);
+  };
   return (
     <footer className="relative mt-auto bg-[#071c19] text-[#a9c3bc]">
       {/* Hill silhouette joining the page to the footer */}
@@ -133,8 +140,19 @@ export default function Footer() {
           <span>
             © {new Date().getFullYear()} {t('site.name')} · {t('footer.rights')}
           </span>
-          <span className="flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5" aria-hidden /> {t('footer2.started')}
+          <span className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <span className="flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5" aria-hidden /> {t('footer2.started')}
+            </span>
+            <button
+              type="button"
+              onClick={toggleSaver}
+              aria-pressed={saver}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1 hover:text-white hover:border-white/40 transition-colors"
+            >
+              <span className={`w-2 h-2 rounded-full ${saver ? 'bg-season-bright' : 'bg-white/30'}`} aria-hidden />
+              {t('footer2.dataSaver')}: {saver ? t('footer2.on') : t('footer2.off')}
+            </button>
           </span>
         </div>
       </div>

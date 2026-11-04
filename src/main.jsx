@@ -8,10 +8,12 @@ import { ConfirmProvider } from './components/ui/ConfirmModal';
 import router from './routes/router';
 import { installGlobalErrorHandlers } from './lib/errorReporter';
 import { applySeason } from './lib/seasons';
+import { applyDataSaver } from './lib/dataSaver';
 import './index.css';
 
 installGlobalErrorHandlers();
 applySeason();
+applyDataSaver();
 
 const queryClient = new QueryClient({
   defaultOptions: {

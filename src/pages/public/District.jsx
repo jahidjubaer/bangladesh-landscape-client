@@ -79,9 +79,9 @@ function QuickFacts({ district, spotCount }) {
 
   return (
     <div className="card bg-base-100 shadow-md p-6">
-      <h3 className="font-bold mb-4 flex items-center gap-2">
+      <h2 className="font-bold mb-4 flex items-center gap-2">
         <Info className="w-5 h-5 text-primary" /> {t('district.quickFacts')}
-      </h3>
+      </h2>
       <ul className="space-y-3 text-sm">
         {rows.map(({ Icon, label, value }) => (
           <li key={label} className="flex gap-2.5">

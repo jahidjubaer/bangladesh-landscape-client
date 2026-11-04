@@ -15,8 +15,8 @@ export default function Img({ src, alt = '', className = '', icon: Icon, scene, 
     return (
       <div
         className={`${/\b(absolute|fixed|sticky)\b/.test(className) ? '' : 'relative '}overflow-hidden bg-base-300 ${className}`}
-        role="img"
-        aria-label={alt}
+        // Empty alt = decorative, same as an <img alt="">
+        {...(alt ? { role: 'img', 'aria-label': alt } : { 'aria-hidden': true })}
       >
         <Scene type={scene || sceneForText(alt)} className="absolute inset-0 w-full h-full" />
         <span className="absolute left-3 bottom-3 grid place-items-center w-8 h-8 rounded-full bg-black/25 backdrop-blur-sm text-white/90">

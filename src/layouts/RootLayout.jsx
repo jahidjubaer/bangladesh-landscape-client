@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation, ScrollRestoration } from 'react-router-dom';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, MotionConfig, motion } from 'motion/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BottomNav from '../components/BottomNav';
 import api from '../lib/axios';
+import { t } from '../i18n';
 
 // Anonymous per-browser id for first-party unique-visitor counts (no cookies, no PII)
 function visitorId() {
@@ -30,9 +31,17 @@ export default function RootLayout() {
   }, [location.pathname]);
 
   return (
+    // reducedMotion="user": Motion skips transform animations when the OS asks for less motion
+    <MotionConfig reducedMotion="user">
     <div className="flex flex-col min-h-screen bg-base-200 pb-bottom-nav">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:rounded-full focus:bg-base-100 focus:px-4 focus:py-2 focus:shadow-lg"
+      >
+        {t('a11y.skip')}
+      </a>
       <Navbar />
-      <main className="flex-1">
+      <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={location.pathname}
@@ -49,5 +58,6 @@ export default function RootLayout() {
       <BottomNav />
       <ScrollRestoration />
     </div>
+    </MotionConfig>
   );
 }

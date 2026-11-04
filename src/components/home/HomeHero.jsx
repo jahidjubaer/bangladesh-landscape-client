@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight, Search, MapPin, CalendarDays, Users } from 'lucide-react';
 import Scene from '../ui/Scene';
 import { SEASONS, seasonFor } from '../../lib/seasons';
+import { isDataSaver } from '../../lib/dataSaver';
 import { t, tn, lx, getLang } from '../../i18n';
 
 const SLIDE_MS = 6000;
@@ -23,7 +24,7 @@ const reducedMotion = () =>
 function Montage({ images }) {
   const [idx, setIdx] = useState(0);
   useEffect(() => {
-    if (reducedMotion() || images.length < 2) return undefined;
+    if (reducedMotion() || isDataSaver() || images.length < 2) return undefined;
     images.slice(1).forEach((src) => {
       const im = new window.Image();
       im.src = src;
