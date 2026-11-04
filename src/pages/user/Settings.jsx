@@ -82,10 +82,10 @@ function ProfileSection({ user, refreshUser }) {
           </label>
           <label className="form-control">
             <span className="label-text font-semibold mb-1">{t('settings.email')}</span>
-            <input type="email" className="input input-bordered" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+            <input type="email" className="input input-bordered" readOnly={user?.google} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
           </label>
         </div>
-        <div className="text-sm text-base-content/50">📱 {user?.phone}</div>
+        {user?.phone && <div className="text-sm text-base-content/50">📱 {user.phone}</div>}
 
         <button type="submit" className="btn btn-primary btn-sm rounded-full w-fit" disabled={saving}>
           {saving ? t('admin.saving') : t('settings.saveProfile')}
@@ -158,7 +158,8 @@ export default function Settings() {
     <div className="max-w-2xl mx-auto px-4 py-10 space-y-6">
       <h1 className="font-display text-3xl font-extrabold">{t('settings.title')}</h1>
       <Reveal><ProfileSection user={user} refreshUser={refreshUser} /></Reveal>
-      <Reveal delay={0.08}><PasswordSection /></Reveal>
+      {/* Accounts created with Google have no password to change */}
+      {!(user?.google && !user?.phone) && <Reveal delay={0.08}><PasswordSection /></Reveal>}
     </div>
   );
 }

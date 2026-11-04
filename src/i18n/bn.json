@@ -62,7 +62,11 @@
     "registerNow": "রেজিস্টার করুন",
     "loginNow": "লগইন করুন",
     "loggingIn": "লগইন হচ্ছে...",
-    "registering": "রেজিস্টার হচ্ছে..."
+    "registering": "রেজিস্টার হচ্ছে...",
+    "google": "Google দিয়ে চালিয়ে যান",
+    "googleWorking": "Google খুলছে...",
+    "or": "অথবা",
+    "googleFailed": "Google দিয়ে লগইন হয়নি, আবার চেষ্টা করুন"
   },
   "settings": {
     "title": "অ্যাকাউন্ট সেটিংস",

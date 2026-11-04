@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import api from '../lib/api';
+import { getGoogleIdToken } from '../lib/firebase';
 
 const AuthContext = createContext(null);
 
@@ -31,6 +32,15 @@ export function AuthProvider({ children }) {
     return res.data.data.user;
   }, []);
 
+  // Resolves to null when the user closes the Google popup
+  const loginWithGoogle = useCallback(async (ref) => {
+    const idToken = await getGoogleIdToken();
+    if (!idToken) return null;
+    const res = await api.post('/auth/google', { idToken, ...(ref && { ref }) });
+    setUser(res.data.data.user);
+    return res.data.data.user;
+  }, []);
+
   const register = useCallback(async (payload) => {
     const res = await api.post('/auth/register', payload);
     setUser(res.data.data.user);
@@ -55,7 +65,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, hasRole, refreshUser }}>
+    <AuthContext.Provider value={{ user, loading, login, loginWithGoogle, register, logout, hasRole, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

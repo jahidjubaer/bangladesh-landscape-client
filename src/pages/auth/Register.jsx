@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { UserPlus } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import AuthShell from '../../layouts/AuthShell';
+import GoogleSignInButton from '../../components/GoogleSignInButton';
 import { t } from '../../i18n';
 
 export default function Register() {
@@ -44,6 +45,12 @@ export default function Register() {
               {serverError}
             </div>
           )}
+
+          <GoogleSignInButton
+            referralCode={refCode}
+            onSuccess={() => navigate('/', { replace: true })}
+            onError={setServerError}
+          />
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
             <div className="form-control">

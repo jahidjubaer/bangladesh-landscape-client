@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Phone, KeyRound, LogIn } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import AuthShell from '../../layouts/AuthShell';
+import GoogleSignInButton from '../../components/GoogleSignInButton';
 import { t } from '../../i18n';
 
 export default function Login() {
@@ -36,6 +37,11 @@ export default function Login() {
               {serverError}
             </div>
           )}
+
+          <GoogleSignInButton
+            onSuccess={() => navigate(location.state?.from || '/', { replace: true })}
+            onError={setServerError}
+          />
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
             <div className="form-control">

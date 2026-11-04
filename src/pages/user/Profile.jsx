@@ -89,7 +89,7 @@ export default function Profile() {
 
   const rows = [
     [t('profile.name'), user.name],
-    [t('profile.phone'), user.phone],
+    [t('profile.phone'), user.phone || '—'],
     [t('profile.email'), user.email || '—'],
     [t('profile.roles'), user.roles.join(', ')],
     [t('profile.freeCredits'), Number(user.freePlanCredits).toLocaleString(locale())],

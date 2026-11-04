@@ -62,7 +62,11 @@
     "registerNow": "Sign up",
     "loginNow": "Log in",
     "loggingIn": "Logging in...",
-    "registering": "Signing up..."
+    "registering": "Signing up...",
+    "google": "Continue with Google",
+    "googleWorking": "Opening Google...",
+    "or": "or",
+    "googleFailed": "Google sign-in failed, please try again"
   },
   "settings": {
     "title": "Account Settings",
