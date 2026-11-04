@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from '../../lib/router';
 import { BadgeCheck, MapPin, MessageSquareText, Compass, CalendarDays, Users } from 'lucide-react';
 import { useGuide, useCreateBooking } from '../../features/guides/queries';
 import { useAuth } from '../../context/AuthContext';

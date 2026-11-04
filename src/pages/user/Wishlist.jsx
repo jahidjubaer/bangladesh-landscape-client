@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, morphFrom } from '../../lib/router';
 import { useQuery } from '@tanstack/react-query';
 import { Heart, Map as MapIcon, Camera, BedDouble, MapPin, Compass } from 'lucide-react';
 import api from '../../lib/api';
@@ -84,8 +84,8 @@ export default function Wishlist() {
           {spots.length > 0 && (
             <Section title={t('search.groups.spots')} icon={Camera}>
               {spots.map((s) => (
-                <Link key={s._id} to={`/spots/${s.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block">
-                  <figure className="h-44 relative">
+                <Link key={s._id} to={`/spots/${s.slug}`} onClick={morphFrom} className="card bg-base-100 shadow-md card-lift img-zoom block">
+                  <figure data-morph className="h-44 relative">
                     <CardCarousel images={s.images} alt={lx(s.name)} icon={Camera} className="w-full h-full" />
                     <div className="absolute inset-0 bg-gradient-to-t from-neutral/70 via-transparent to-transparent pointer-events-none" />
                     <FavoriteButton kind="spot" itemId={s._id} className="absolute top-3 right-3 z-20" />

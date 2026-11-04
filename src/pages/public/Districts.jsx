@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from '../../lib/router';
 import { ArrowRight, Map as MapIcon, MapPinned, Search, Camera } from 'lucide-react';
 import { useDistricts } from '../../features/districts/queries';
 import { SkeletonGrid } from '../../components/ui/Skeleton';

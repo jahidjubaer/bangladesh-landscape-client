@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ExternalLink, Pencil, CheckCircle2, Wrench, RotateCcw, Plus, ChevronDown } from 'lucide-react';
 import api from '../../lib/api';

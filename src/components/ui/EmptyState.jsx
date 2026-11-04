@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { m as motion } from 'motion/react';
 
 // Friendly empty state: icon (lucide component), title, optional description + action

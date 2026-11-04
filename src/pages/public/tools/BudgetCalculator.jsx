@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../../lib/router';
 import { useQuery } from '@tanstack/react-query';
 import { Calculator, Users, Sun, Bus, BedDouble, UtensilsCrossed, Ticket, Sparkles, ArrowRight } from 'lucide-react';
 import Seo from '../../../components/Seo';

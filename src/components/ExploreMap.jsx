@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import Supercluster from 'supercluster';
-import { Link } from 'react-router-dom';
+import { Link } from '../lib/router';
 import Img from './ui/Img';
 import { t, lx } from '../i18n';
 

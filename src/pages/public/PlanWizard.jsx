@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, Link, useSearchParams } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from '../../lib/router';
 import { AnimatePresence, m as motion } from 'motion/react';
 import {
   MapPin, ListChecks, SlidersHorizontal, Sparkles, Check, ArrowLeft, ArrowRight,

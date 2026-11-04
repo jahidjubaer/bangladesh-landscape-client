@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from '../../lib/router';
 import { CalendarDays, Sparkles, ArrowRight, Leaf } from 'lucide-react';
 import Scene from '../../components/ui/Scene';
 import Reveal from '../../components/ui/Reveal';

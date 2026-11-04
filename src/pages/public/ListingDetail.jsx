@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from '../../lib/router';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { recordView } from '../../lib/recent';
 import { Swiper, SwiperSlide } from 'swiper/react';

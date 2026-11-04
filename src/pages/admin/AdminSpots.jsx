@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { useAdminDistricts, useAdminSpots, useDeleteSpot } from '../../features/districts/queries';
 import Loader from '../../components/Loader';
 import { useConfirm } from '../../components/ui/ConfirmModal';

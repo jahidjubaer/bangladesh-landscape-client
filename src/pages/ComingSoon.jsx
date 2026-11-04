@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '../lib/router';
 import { t } from '../i18n';
 
 // Placeholder for routes that ship in later phases (districts, guides, blog, plan wizard)

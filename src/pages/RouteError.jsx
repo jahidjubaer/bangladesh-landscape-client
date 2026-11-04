@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import { Link, isRouteErrorResponse, useRouteError } from '../lib/router';
 import { RefreshCw, Home, TriangleAlert } from 'lucide-react';
 import NotFound from './NotFound';
 import Loader from '../components/Loader';

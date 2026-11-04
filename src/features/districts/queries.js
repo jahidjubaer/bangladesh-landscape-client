@@ -18,12 +18,15 @@ export function useDistrict(slug) {
   });
 }
 
+// Shared with the /spots/:slug route loader, which warms the cache so the page
+// can render its hero inside the card-to-hero view transition
+export const spotQuery = (slug) => ({
+  queryKey: ['spot', slug],
+  queryFn: async () => (await api.get(`/spots/${slug}`)).data.data.spot,
+});
+
 export function useSpot(slug) {
-  return useQuery({
-    queryKey: ['spot', slug],
-    queryFn: async () => (await api.get(`/spots/${slug}`)).data.data.spot,
-    enabled: Boolean(slug),
-  });
+  return useQuery({ ...spotQuery(slug), enabled: Boolean(slug) });
 }
 
 // ---------- Admin ----------

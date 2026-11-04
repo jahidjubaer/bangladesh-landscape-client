@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '../../../lib/router';
 import { MapPinned, Brain, Calculator, Compass, ArrowRight } from 'lucide-react';
 import Seo from '../../../components/Seo';
 import Reveal from '../../../components/ui/Reveal';

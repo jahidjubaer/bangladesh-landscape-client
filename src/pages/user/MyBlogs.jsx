@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { PenLine } from 'lucide-react';
 import { useMyBlogs, useDeleteBlog } from '../../features/blogs/queries';
 import Loader from '../../components/Loader';

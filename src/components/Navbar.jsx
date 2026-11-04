@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState, useEffect, useCallback, useRef } from 'react';
-import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from '../lib/router';
 import { AnimatePresence, m as motion } from 'motion/react';
 import {
   Menu, X, Mountain, Map, Compass, PenLine, Sparkles, Tent, Camera, Search, Heart, Gamepad2, ChevronDown,
@@ -474,6 +474,7 @@ export default function Navbar() {
       <SeasonStrip />
       <header
         ref={headerRef}
+        data-site-header
         data-over-hero={overHero || undefined}
         className={`sticky top-0 z-50 transition-[background-color,box-shadow,color] duration-300 ${
           overHero

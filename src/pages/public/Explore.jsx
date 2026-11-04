@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, morphFrom } from '../../lib/router';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { Camera, MapPin, Compass, List, Map as MapIcon } from 'lucide-react';
 import api from '../../lib/api';
@@ -20,8 +20,8 @@ import { t, lx, locale } from '../../i18n';
 
 function SpotCard({ s }) {
   return (
-    <Link to={`/spots/${s.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
-      <figure className="h-44 relative">
+    <Link to={`/spots/${s.slug}`} onClick={morphFrom} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
+      <figure data-morph className="h-44 relative">
         <CardCarousel images={s.images} alt={lx(s.name)} icon={Camera} scene={CATEGORY_SCENE[s.category]} className="w-full h-full" />
         <div className="absolute inset-0 bg-gradient-to-t from-neutral/70 via-transparent to-transparent pointer-events-none" />
         {s.isHidden && (

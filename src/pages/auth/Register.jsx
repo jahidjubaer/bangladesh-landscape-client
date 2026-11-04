@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from '../../lib/router';
 import { useForm } from 'react-hook-form';
 import { UserPlus } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';

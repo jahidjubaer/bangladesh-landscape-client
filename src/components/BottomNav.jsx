@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from '../lib/router';
 import { Mountain, Map, Sparkles, Search, User } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { t } from '../i18n';
@@ -33,6 +33,7 @@ export default function BottomNav() {
 
   return (
     <nav
+      data-bottom-nav
       className={`fixed bottom-0 inset-x-0 z-40 lg:hidden bg-base-100/92 backdrop-blur-lg border-t border-base-200 shadow-[0_-4px_20px_-8px_rgba(0,0,0,0.15)] transition-transform duration-300 ${
         hidden ? 'translate-y-full' : 'translate-y-0'
       }`}

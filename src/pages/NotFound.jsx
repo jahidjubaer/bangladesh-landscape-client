@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '../lib/router';
 import { m as motion } from 'motion/react';
 import { Compass, Home, Map as MapIcon } from 'lucide-react';
 import { t } from '../i18n';

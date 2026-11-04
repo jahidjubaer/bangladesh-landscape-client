@@ -1,7 +1,7 @@
 // Below-the-fold home sections that need the district geometry (~130 KB);
 // Home lazy-loads this module so the hero does not wait for it.
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { ArrowRight } from 'lucide-react';
 import { DISTRICTS, MAP_WIDTH, MAP_HEIGHT } from '../../features/districtMap/bdDistricts';
 import { DIVISIONS, loadMap, stateOf } from '../../features/districtMap/visited';

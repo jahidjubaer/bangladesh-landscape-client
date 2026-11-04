@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, morphFrom } from '../../lib/router';
 import { Camera, MapPin, Clock } from 'lucide-react';
 import Img from '../ui/Img';
 import FavoriteButton from '../ui/FavoriteButton';
@@ -12,15 +12,18 @@ export default function SeasonSpotCard({ spot, size = 'md' }) {
   return (
     <Link
       to={`/spots/${spot.slug}`}
+      onClick={morphFrom}
       className={`group relative block overflow-hidden rounded-3xl text-white isolate ${tall} shadow-lg shadow-neutral/10`}
     >
-      <Img
-        src={spot.images?.[0]}
-        alt={lx(spot.name)}
-        icon={Camera}
-        scene={CATEGORY_SCENE[spot.category]}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-brand group-hover:scale-[1.06]"
-      />
+      <span data-morph className="absolute inset-0 overflow-hidden rounded-3xl">
+        <Img
+          src={spot.images?.[0]}
+          alt={lx(spot.name)}
+          icon={Camera}
+          scene={CATEGORY_SCENE[spot.category]}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-brand group-hover:scale-[1.06]"
+        />
+      </span>
       <span className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/75 pointer-events-none" />
       <FavoriteButton kind="spot" itemId={spot._id} className="absolute top-3 right-3 z-20" />
       <span className="absolute inset-x-0 bottom-0 p-5 md:p-6 pointer-events-none">

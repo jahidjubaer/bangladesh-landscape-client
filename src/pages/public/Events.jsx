@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { CalendarDays, MapPin, Users, ArrowRight, Tent } from 'lucide-react';
 import { useEvents } from '../../features/events/queries';
 import { SkeletonGrid } from '../../components/ui/Skeleton';

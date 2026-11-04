@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { CalendarCheck, Tent, Users } from 'lucide-react';
 import { useMyBookings, useBookingAction } from '../../features/guides/queries';
 import { useMyEventBookings, useCancelEventBooking } from '../../features/events/queries';

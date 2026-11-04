@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, m as motion } from 'motion/react';
 import { X, ChevronLeft, ChevronRight, MapPin, ArrowRight, Camera } from 'lucide-react';

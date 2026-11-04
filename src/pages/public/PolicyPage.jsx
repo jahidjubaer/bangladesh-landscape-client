@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from '../../lib/router';
 import policies from '../../content/policies';
 import Seo from '../../components/Seo';
 import NotFound from '../NotFound';

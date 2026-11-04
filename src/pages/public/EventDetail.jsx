@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from '../../lib/router';
 import {
   ArrowLeft, CalendarDays, MapPin, Users, Tent, ListChecks, PackageCheck, Flag, Minus, Plus,
 } from 'lucide-react';

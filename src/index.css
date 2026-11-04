@@ -395,3 +395,96 @@ header[data-over-hero] .btn-ghost:hover {
 html.data-saver [class*='animate-'] {
   animation: none !important;
 }
+
+/* ---------- View transitions (lib/router.jsx) ----------
+   Page changes: the old page fades out quickly, the new one fades up into place.
+   The header and bottom tab bar have their own names, so they stay put instead
+   of sliding with the page. A clicked spot card's photo (data-morph) and the spot
+   page gallery share the name "spot-photo", so the photo grows into the hero. */
+header[data-site-header] {
+  view-transition-name: site-header;
+}
+nav[data-bottom-nav] {
+  view-transition-name: bottom-nav;
+}
+::view-transition-old(root) {
+  animation: vt-fade-out 140ms ease-in both;
+}
+::view-transition-new(root) {
+  animation: vt-fade-up 300ms var(--ease-brand) 60ms both;
+}
+::view-transition-group(spot-photo) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease-brand);
+}
+/* Card and hero have different aspect ratios: crop instead of stretching */
+::view-transition-old(spot-photo),
+::view-transition-new(spot-photo) {
+  height: 100%;
+  object-fit: cover;
+  overflow: clip;
+}
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+html.data-saver::view-transition-group(*),
+html.data-saver::view-transition-old(*),
+html.data-saver::view-transition-new(*) {
+  animation: none !important;
+}
+
+/* Navigation pending (page chunk or route data): thin bar under the top edge.
+   It only shows after 150ms, so fast navigations don't flash it. */
+.nav-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 120;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(0);
+  opacity: 0;
+  background: var(--color-season, var(--color-primary));
+}
+.nav-progress.is-busy {
+  opacity: 1;
+  animation: nav-progress 8s cubic-bezier(0.1, 0.6, 0.2, 1) 150ms both;
+}
+@keyframes nav-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(0.92);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-progress.is-busy {
+    animation: none;
+    transform: scaleX(0.6);
+    transition: opacity 0s 150ms;
+  }
+}
+
+/* Quiet transition (filter changes via useSearchParams in lib/router.jsx):
+   still a view transition, so it can't collide with a running one, but nothing animates */
+html.vt-quiet::view-transition-group(*),
+html.vt-quiet::view-transition-old(*),
+html.vt-quiet::view-transition-new(*) {
+  animation: none !important;
+}

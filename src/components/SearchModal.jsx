@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '../lib/router';
 import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence, m as motion } from 'motion/react';
 import { Search, X, MapPin, Camera, PenLine, Tent, BedDouble, BadgeCheck, ArrowRight, History } from 'lucide-react';

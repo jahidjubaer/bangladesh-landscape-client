@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, SPOT_MORPH } from '../../lib/router';
 import { recordView } from '../../lib/recent';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
@@ -241,8 +241,9 @@ export default function Spot() {
 
       <div className="grid gap-8 lg:grid-cols-[1fr_320px] items-start">
         <div className="space-y-8 min-w-0">
-          {/* Gallery */}
-          <Reveal>
+          {/* Gallery: shown at once (no Reveal fade), and named so a clicked
+              spot card's photo grows into it (view transition, lib/router.jsx) */}
+          <div style={{ viewTransitionName: SPOT_MORPH }} className="rounded-2xl">
             {spot.images?.length > 0 ? (
               <Swiper
                 modules={[Pagination, Navigation]}
@@ -266,7 +267,7 @@ export default function Spot() {
             ) : (
               <Img alt={lx(spot.name)} icon={Camera} scene={CATEGORY_SCENE[spot.category]} className="w-full h-72 md:h-[26rem] rounded-2xl" />
             )}
-          </Reveal>
+          </div>
 
           <Reveal>
             <p className="text-lg leading-relaxed text-base-content/85">{lx(spot.description)}</p>

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { Outlet, useLocation, ScrollRestoration } from 'react-router-dom';
-import { AnimatePresence, MotionConfig, m as motion } from 'motion/react';
+import { Outlet, useLocation, useNavigation, ScrollRestoration } from '../lib/router';
+import { MotionConfig } from 'motion/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BottomNav from '../components/BottomNav';
@@ -23,6 +23,8 @@ function visitorId() {
 
 export default function RootLayout() {
   const location = useLocation();
+  // A page chunk or route loader is pending: the current page stays up meanwhile
+  const busy = useNavigation().state !== 'idle';
 
   // First-party page-view beacon; admin pages are never counted
   useEffect(() => {
@@ -40,19 +42,11 @@ export default function RootLayout() {
       >
         {t('a11y.skip')}
       </a>
+      <div className={`nav-progress ${busy ? 'is-busy' : ''}`} role="progressbar" aria-hidden={!busy} aria-label={t('common.loading')} />
       <Navbar />
       <main id="main" tabIndex={-1} className="flex-1 outline-none">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={location.pathname}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Outlet />
-          </motion.div>
-        </AnimatePresence>
+        {/* Page changes animate with view transitions (lib/router.jsx, index.css) */}
+        <Outlet />
       </main>
       <Footer />
       <BottomNav />

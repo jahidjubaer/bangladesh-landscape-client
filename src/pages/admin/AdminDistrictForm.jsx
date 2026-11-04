@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from '../../lib/router';
 import { useForm } from 'react-hook-form';
 import { useAdminDistrict, useSaveDistrict } from '../../features/districts/queries';
 import ImageUploader from '../../components/ImageUploader';

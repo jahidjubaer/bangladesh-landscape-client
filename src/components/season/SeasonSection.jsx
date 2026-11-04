@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { AnimatePresence, m as motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import SeasonDial, { useSeasonAccent } from './SeasonDial';

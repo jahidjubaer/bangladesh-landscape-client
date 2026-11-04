@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { Search, PenLine, BadgeCheck, MapPin } from 'lucide-react';
 import { useBlogs } from '../../features/blogs/queries';
 import { useDistricts } from '../../features/districts/queries';

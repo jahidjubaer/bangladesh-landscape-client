@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { SEASONS, SEASON_COLORS, seasonFor } from '../../lib/seasons';
 import Reveal from '../ui/Reveal';
 import { t, tn } from '../../i18n';

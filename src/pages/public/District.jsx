@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, morphFrom } from '../../lib/router';
 import { useQuery } from '@tanstack/react-query';
 import { recordView } from '../../lib/recent';
 import { m as motion, useScroll, useTransform } from 'motion/react';
@@ -148,8 +148,8 @@ function InfoCard({ icon: Icon, title, children }) {
 function SpotCard({ s, delay }) {
   return (
     <Reveal delay={delay}>
-      <Link to={`/spots/${s.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
-        <figure className="h-44 relative">
+      <Link to={`/spots/${s.slug}`} onClick={morphFrom} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
+        <figure data-morph className="h-44 relative">
           <CardCarousel images={s.images} alt={lx(s.name)} icon={Camera} scene={CATEGORY_SCENE[s.category]} className="w-full h-full" />
           {s.isHidden && (
             <span className="absolute top-3 left-3 badge badge-secondary badge-sm shadow">💎 {t('district.hiddenGem')}</span>

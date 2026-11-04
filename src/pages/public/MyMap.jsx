@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from '../../lib/router';
 import {
   Download, Share2, Link2, RotateCcw, Search, Eye, MapPinned, Check, Home, Footprints, Eraser, Type,
 } from 'lucide-react';

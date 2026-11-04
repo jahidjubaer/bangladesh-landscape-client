@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from '../lib/router';
 import {
   LayoutDashboard, Map, MapPin, Compass, Wallet, PenLine, BedDouble, Megaphone, Users, Settings, ShieldCheck, Tent, Star, TrendingUp,
   ClipboardCheck, Bug,

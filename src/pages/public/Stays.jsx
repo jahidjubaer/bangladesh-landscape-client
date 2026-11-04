@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from '../../lib/router';
 import { useQuery } from '@tanstack/react-query';
 import { BedDouble, Users, Phone, MapPin, ArrowRight } from 'lucide-react';
 import api from '../../lib/api';

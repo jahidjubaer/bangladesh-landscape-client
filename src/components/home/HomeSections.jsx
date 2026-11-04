@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { useQuery } from '@tanstack/react-query';
 import { m as motion, useScroll, useTransform } from 'motion/react';
 import { ArrowLeft, ArrowRight, PenLine, MapPin, Route, FileDown, Star, BadgeCheck, Languages } from 'lucide-react';

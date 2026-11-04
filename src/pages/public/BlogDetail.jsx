@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from '../../lib/router';
 import { m as motion, useScroll, useSpring } from 'motion/react';
 import { ArrowLeft, BadgeCheck, CalendarDays, Eye, MapPin } from 'lucide-react';
 import { useBlog } from '../../features/blogs/queries';

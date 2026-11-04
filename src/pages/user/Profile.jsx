@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { Gift, Copy, Check, Users, MapPinned, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import Reveal from '../../components/ui/Reveal';

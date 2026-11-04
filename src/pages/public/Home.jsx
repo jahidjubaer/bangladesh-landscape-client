@@ -1,5 +1,5 @@
 import { lazy, Suspense, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { useQuery } from '@tanstack/react-query';
 import { ArrowRight, Camera, FileDown, History, Map as MapIcon, PenLine, ShieldCheck } from 'lucide-react';
 import { getRecent } from '../../lib/recent';

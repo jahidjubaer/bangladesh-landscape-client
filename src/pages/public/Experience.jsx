@@ -1,4 +1,4 @@
-import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
+import { Link, Navigate, useParams, useSearchParams } from '../../lib/router';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { ArrowRight, Leaf, Sparkles } from 'lucide-react';
 import api from '../../lib/api';

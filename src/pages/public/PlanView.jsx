@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from '../../lib/router';
 import { m as motion } from 'motion/react';
 import {
   Lock, LockOpen, Share2, Check, Download, Gift, CreditCard, MapPin, Users,

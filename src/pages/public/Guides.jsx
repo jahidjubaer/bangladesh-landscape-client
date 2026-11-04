@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { BadgeCheck, Compass, ArrowRight } from 'lucide-react';
 import { useDistricts } from '../../features/districts/queries';
 import { useDistrictGuides } from '../../features/guides/queries';

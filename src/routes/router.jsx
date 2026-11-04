@@ -1,10 +1,12 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from '../lib/router';
 import RootLayout from '../layouts/RootLayout';
 import ProtectedRoute from '../components/ProtectedRoute';
 import Loader from '../components/Loader';
 import Home from '../pages/public/Home';
 import NotFound from '../pages/NotFound';
 import RouteError from '../pages/RouteError';
+import { warmQuery } from '../lib/queryClient';
+import { spotQuery } from '../features/districts/queries';
 
 // Route-level code splitting: each page ships as its own chunk and the
 // router waits for it during navigation, so the previous page stays
@@ -26,7 +28,13 @@ const router = createBrowserRouter([
       { path: 'explore', lazy: lazyPage(() => import('../pages/public/Explore')) },
       { path: 'districts', lazy: lazyPage(() => import('../pages/public/Districts')) },
       { path: 'districts/:slug', lazy: lazyPage(() => import('../pages/public/District')) },
-      { path: 'spots/:slug', lazy: lazyPage(() => import('../pages/public/Spot')) },
+      {
+        path: 'spots/:slug',
+        // Briefly wait for the spot so the page commits with its hero photo
+        // (the view-transition target) instead of a loading screen
+        loader: ({ params }) => warmQuery(spotQuery(params.slug)),
+        lazy: lazyPage(() => import('../pages/public/Spot')),
+      },
       { path: 'listings/:id', lazy: lazyPage(() => import('../pages/public/ListingDetail')) },
 
       // Tour plans (Phase 3)

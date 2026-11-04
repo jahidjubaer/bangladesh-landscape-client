@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/router';
 import { Sparkles, Map as MapIcon } from 'lucide-react';
 import { useMyPlans } from '../../features/plans/queries';
 import { SkeletonList } from '../../components/ui/Skeleton';
