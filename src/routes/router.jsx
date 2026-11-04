@@ -4,6 +4,7 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import Loader from '../components/Loader';
 import Home from '../pages/public/Home';
 import NotFound from '../pages/NotFound';
+import RouteError from '../pages/RouteError';
 
 // Route-level code splitting: each page ships as its own chunk and the
 // router waits for it during navigation, so the previous page stays
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    errorElement: <RouteError />,
     hydrateFallbackElement: <Loader fullScreen />,
     children: [
       { index: true, element: <Home /> },
@@ -94,6 +96,7 @@ const router = createBrowserRouter([
             children: [
               { index: true, lazy: lazyPage(() => import('../pages/admin/AdminDashboard')) },
               { path: 'analytics', lazy: lazyPage(() => import('../pages/admin/AdminAnalytics')) },
+              { path: 'errors', lazy: lazyPage(() => import('../pages/admin/AdminErrors')) },
               { path: 'content-review', lazy: lazyPage(() => import('../pages/admin/AdminContentReview')) },
               { path: 'districts', lazy: lazyPage(() => import('../pages/admin/AdminDistricts')) },
               { path: 'districts/:id', lazy: lazyPage(() => import('../pages/admin/AdminDistrictForm')) },

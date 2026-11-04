@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import {
   LayoutDashboard, Map, MapPin, Compass, Wallet, PenLine, BedDouble, Megaphone, Users, Settings, ShieldCheck, Tent, Star, TrendingUp,
-  ClipboardCheck,
+  ClipboardCheck, Bug,
 } from 'lucide-react';
 import { t } from '../i18n';
 
@@ -11,6 +11,7 @@ const links = [
   { to: '/admin/districts', label: t('admin.districts'), Icon: Map },
   { to: '/admin/spots', label: t('admin.spots'), Icon: MapPin },
   { to: '/admin/content-review', label: t('contentReview.title'), Icon: ClipboardCheck },
+  { to: '/admin/errors', label: t('errorLog.title'), Icon: Bug },
   { to: '/admin/guide-applications', label: t('admin.guideApps'), Icon: Compass },
   { to: '/admin/payments', label: t('admin.payments'), Icon: Wallet },
   { to: '/admin/blogs', label: t('nav.blog'), Icon: PenLine },

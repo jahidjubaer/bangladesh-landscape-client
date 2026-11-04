@@ -872,5 +872,27 @@
       "notVerified": "Districts not field-verified",
       "noWarnings": "Districts without warnings"
     }
+  },
+  "errorLog": {
+    "title": "Errors",
+    "subtitle": "Server crashes and browser errors, grouped. Repeats are counted; entries quiet for 30 days are removed automatically.",
+    "server": "Server",
+    "client": "Browser",
+    "allSources": "All sources",
+    "open": "Open",
+    "resolved": "Resolved",
+    "resolve": "Resolve",
+    "reopen": "Reopen",
+    "clearResolved": "Clear resolved",
+    "lastSeen": "Last seen",
+    "firstSeen": "first seen",
+    "none": "No errors here. 🎉"
+  },
+  "errorPage": {
+    "title": "Something went wrong",
+    "desc": "This page hit an unexpected problem. We have been notified; reloading usually fixes it.",
+    "updatedTitle": "The site was just updated",
+    "updatedDesc": "A new version is available. Reload the page to continue.",
+    "reload": "Reload"
   }
 }

@@ -6,7 +6,10 @@ import { AuthProvider } from './context/AuthContext';
 import { ToastProvider } from './components/ui/Toast';
 import { ConfirmProvider } from './components/ui/ConfirmModal';
 import router from './routes/router';
+import { installGlobalErrorHandlers } from './lib/errorReporter';
 import './index.css';
+
+installGlobalErrorHandlers();
 
 const queryClient = new QueryClient({
   defaultOptions: {
