@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m as motion } from 'motion/react';
 import { X, ChevronLeft, ChevronRight, MapPin, ArrowRight, Camera } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import { SkeletonGrid } from '../../components/ui/Skeleton';
 import EmptyState from '../../components/ui/EmptyState';
 import Reveal from '../../components/ui/Reveal';

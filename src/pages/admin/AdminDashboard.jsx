@@ -4,7 +4,7 @@ import {
   Wallet, Compass, PenLine, Users, FileText, BadgeCheck, CalendarCheck, Tent,
   HandCoins, ArrowRight, PartyPopper,
 } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import { useAuth } from '../../context/AuthContext';
 import Loader from '../../components/Loader';
 import { t } from '../../i18n';

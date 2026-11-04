@@ -2,7 +2,7 @@ import { lazy, Suspense, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { Camera, MapPin, Compass, List, Map as MapIcon } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import { CATEGORIES } from '../../lib/categories';
 import { CATEGORY_SCENE } from '../../lib/scenes';
 import Loader from '../../components/Loader';

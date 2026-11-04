@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { lazy, Suspense, useState, useEffect, useCallback, useRef } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m as motion } from 'motion/react';
 import {
   Menu, X, Mountain, Map, Compass, PenLine, Sparkles, Tent, Camera, Search, Heart, Gamepad2, ChevronDown,
   User, LogOut, ShieldCheck, BookOpenText, CalendarCheck, FileText, Settings as SettingsIcon, BedDouble,
@@ -9,8 +9,12 @@ import {
 import { useAuth } from '../context/AuthContext';
 import ThemeToggle from './ui/ThemeToggle';
 import LanguageToggle from './ui/LanguageToggle';
-import NotificationBell from './NotificationBell';
-import SearchModal from './SearchModal';
+
+// Search and notifications load on demand: the search modal on first open (or
+// hover/focus of the button), the bell only for signed-in users.
+const loadSearch = () => import('./SearchModal');
+const SearchModal = lazy(loadSearch);
+const NotificationBell = lazy(() => import('./NotificationBell'));
 import SeasonStrip from './SeasonStrip';
 import Scene from './ui/Scene';
 import { CATEGORIES } from '../lib/categories';
@@ -408,6 +412,8 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [sheetTop, setSheetTop] = useState(64);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchUsed, setSearchUsed] = useState(false);
+  if (searchOpen && !searchUsed) setSearchUsed(true);
   const [openKey, setOpenKey] = useState(null);
 
   // Ctrl+K / Cmd+K opens search; the mobile bottom nav asks via event
@@ -421,7 +427,13 @@ export default function Navbar() {
     const onOpen = () => setSearchOpen(true);
     window.addEventListener('keydown', onKey);
     window.addEventListener('bl:open-search', onOpen);
+    // Fetch the search chunk once the page is idle so Ctrl+K opens instantly
+    const idle = window.requestIdleCallback
+      ? window.requestIdleCallback(() => loadSearch(), { timeout: 5000 })
+      : setTimeout(loadSearch, 3000);
     return () => {
+      if (window.cancelIdleCallback) window.cancelIdleCallback(idle);
+      else clearTimeout(idle);
       window.removeEventListener('keydown', onKey);
       window.removeEventListener('bl:open-search', onOpen);
     };
@@ -500,6 +512,8 @@ export default function Navbar() {
               aria-label={t('search.title')}
               title={`${t('search.title')} (Ctrl+K)`}
               onClick={() => setSearchOpen(true)}
+              onPointerEnter={loadSearch}
+              onFocus={loadSearch}
             >
               <Search className="w-5 h-5" aria-hidden />
               <kbd className="hidden xl:inline text-[0.7rem] font-sans font-medium border border-base-content/20 rounded-md px-1.5 py-0.5 opacity-70">
@@ -508,7 +522,11 @@ export default function Navbar() {
             </button>
             <LanguageToggle />
             <ThemeToggle />
-            {user && <NotificationBell />}
+            {user && (
+              <Suspense fallback={<span className="inline-block w-8 h-8" aria-hidden />}>
+                <NotificationBell />
+              </Suspense>
+            )}
             {user ? (
               <UserMenu user={user} hasRole={hasRole} onLogout={handleLogout} />
             ) : (
@@ -526,7 +544,11 @@ export default function Navbar() {
 
       </header>
 
-      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
+      {searchUsed && (
+        <Suspense fallback={null}>
+          <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
+        </Suspense>
+      )}
 
       <AnimatePresence>
         {mobileOpen && <MobileSheet user={user} onClose={closeMobile} top={sheetTop} />}

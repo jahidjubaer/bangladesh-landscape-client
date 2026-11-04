@@ -1,12 +1,14 @@
 import bn from './bn.json';
-import en from './en.json';
 
-const dictionaries = { bn, en };
+// Bangla is the default language and ships in the main bundle. English is only
+// downloaded for readers who chose it; top-level await makes modules that call
+// t() at import time wait for it.
+const LANGS = ['bn', 'en'];
 
 function savedLang() {
   try {
     const l = localStorage.getItem('bl-lang');
-    if (dictionaries[l]) return l;
+    if (LANGS.includes(l)) return l;
   } catch {
     /* private mode */
   }
@@ -16,6 +18,8 @@ function savedLang() {
 let currentLang = savedLang();
 document.documentElement.lang = currentLang;
 
+const dictionaries = { bn, en: currentLang === 'en' ? (await import('./en.json')).default : null };
+
 export function getLang() {
   return currentLang;
 }
@@ -23,7 +27,7 @@ export function getLang() {
 // Many components capture t() results at module scope, so a language
 // change persists + reloads instead of re-rendering in place.
 export function setLang(lang) {
-  if (!dictionaries[lang] || lang === currentLang) return;
+  if (!LANGS.includes(lang) || lang === currentLang) return;
   try {
     localStorage.setItem('bl-lang', lang);
   } catch {

@@ -7,7 +7,7 @@ import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { ArrowLeft, Users, Phone, BedDouble, CalendarDays, Wallet, Info } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import { useAuth } from '../../context/AuthContext';
 import Loader from '../../components/Loader';
 import Img from '../../components/ui/Img';

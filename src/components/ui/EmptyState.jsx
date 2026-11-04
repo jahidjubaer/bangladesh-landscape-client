@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { m as motion } from 'motion/react';
 
 // Friendly empty state: icon (lucide component), title, optional description + action
 export default function EmptyState({ icon: Icon, title, description, actionLabel, actionTo, onAction }) {

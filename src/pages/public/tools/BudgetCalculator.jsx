@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Calculator, Users, Sun, Bus, BedDouble, UtensilsCrossed, Ticket, Sparkles, ArrowRight } from 'lucide-react';
 import Seo from '../../../components/Seo';
 import { useDistricts } from '../../../features/districts/queries';
-import api from '../../../lib/axios';
+import api from '../../../lib/api';
 import { t, lx, locale } from '../../../i18n';
 
 // Per person per day (BDT, 2026 desk estimates). Rooms assume 2 people sharing.

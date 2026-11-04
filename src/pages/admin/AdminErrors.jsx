@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { CheckCircle2, RotateCcw, Trash2, Server, MonitorSmartphone } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import Loader from '../../components/Loader';
 import { t, locale } from '../../i18n';
 

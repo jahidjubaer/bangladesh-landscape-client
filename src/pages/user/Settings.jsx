@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { UserRound, KeyRound, Camera } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../components/ui/Toast';
 import Reveal from '../../components/ui/Reveal';

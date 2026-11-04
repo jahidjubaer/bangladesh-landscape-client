@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m as motion } from 'motion/react';
 import { Search, X, MapPin, Camera, PenLine, Tent, BedDouble, BadgeCheck, ArrowRight, History } from 'lucide-react';
-import api from '../lib/axios';
+import api from '../lib/api';
 import { CATEGORIES } from '../lib/categories';
 import { getRecent } from '../lib/recent';
 import { t, lx } from '../i18n';

@@ -1,5 +1,5 @@
 import { Heart } from 'lucide-react';
-import { motion } from 'motion/react';
+import { m as motion } from 'motion/react';
 import { useFavorites } from '../../features/favorites/useFavorites';
 import { t } from '../../i18n';
 

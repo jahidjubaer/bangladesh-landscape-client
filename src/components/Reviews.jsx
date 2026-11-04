@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Star, MessageSquareText, Hourglass } from 'lucide-react';
-import api from '../lib/axios';
+import api from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from './ui/Toast';
 import StarRating from './ui/StarRating';

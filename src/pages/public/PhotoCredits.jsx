@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Camera, ExternalLink } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import Loader from '../../components/Loader';
 import EmptyState from '../../components/ui/EmptyState';
 import Reveal from '../../components/ui/Reveal';

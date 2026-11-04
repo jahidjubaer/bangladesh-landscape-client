@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import api from '../lib/axios';
+import api from '../lib/api';
 import { t } from '../i18n';
 
 // Uploads one image to /admin/uploads and calls onUploaded(url)

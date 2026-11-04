@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation, ScrollRestoration } from 'react-router-dom';
-import { AnimatePresence, MotionConfig, motion } from 'motion/react';
+import { AnimatePresence, MotionConfig, m as motion } from 'motion/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BottomNav from '../components/BottomNav';
-import api from '../lib/axios';
+import api from '../lib/api';
 import { t } from '../i18n';
 
 // Anonymous per-browser id for first-party unique-visitor counts (no cookies, no PII)

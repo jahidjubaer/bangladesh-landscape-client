@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import Loader from '../../components/Loader';
 import { useConfirm } from '../../components/ui/ConfirmModal';
 import { t } from '../../i18n';

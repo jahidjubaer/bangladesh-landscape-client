@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { m as motion, useScroll, useTransform } from 'motion/react';
 import { ArrowLeft, ArrowRight, PenLine, MapPin, Route, FileDown, Star, BadgeCheck, Languages } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import { CATEGORIES } from '../../lib/categories';
 import { useBlogs } from '../../features/blogs/queries';
 import SeasonSpotCard from '../season/SeasonSpotCard';

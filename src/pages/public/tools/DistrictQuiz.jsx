@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { m as motion } from 'motion/react';
 import { Brain, Check, X, RotateCcw, Share2, Trophy } from 'lucide-react';
 import Seo from '../../../components/Seo';
 import { useToast } from '../../../components/ui/Toast';

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Heart, Map as MapIcon, Camera, BedDouble, MapPin, Compass } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import CardCarousel from '../../components/ui/CardCarousel';

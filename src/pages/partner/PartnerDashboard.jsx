@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { BedDouble, CalendarCheck, Phone } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import Loader from '../../components/Loader';
 import EmptyState from '../../components/ui/EmptyState';
 import { useToast } from '../../components/ui/Toast';

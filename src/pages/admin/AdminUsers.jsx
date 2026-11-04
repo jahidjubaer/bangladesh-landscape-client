@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Search, ShieldCheck, BadgeCheck, Ban, CircleCheck, Lock } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import Loader from '../../components/Loader';
 import { useToast } from '../../components/ui/Toast';
 import { useConfirm } from '../../components/ui/ConfirmModal';

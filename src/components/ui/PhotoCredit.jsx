@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Camera } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 
 // Attribution list (uploads/image-credits.json), fetched once per session
 export function useCredits() {

@@ -1,4 +1,4 @@
-import api from './axios';
+import api from './api';
 
 // First-party crash reporting → POST /client-errors (admin → Errors).
 // Capped per page load and de-duplicated so a render loop can't spam the API.
@@ -50,8 +50,8 @@ export function reloadForNewBuild() {
 export function installGlobalErrorHandlers() {
   window.addEventListener('error', (e) => reportError(e.error || e.message));
   window.addEventListener('unhandledrejection', (e) => {
-    // Axios rejections are API errors the UI already handles
-    if (e.reason?.isAxiosError) return;
+    // API rejections are errors the UI already handles
+    if (e.reason?.isApiError) return;
     reportError(e.reason);
   });
   // Vite fires this when a preloaded chunk 404s after a redeploy

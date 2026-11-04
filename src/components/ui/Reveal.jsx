@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { m as motion } from 'motion/react';
 
 // Scroll-into-view fade-up. Wrap sections/cards; use `delay` for stagger.
 export default function Reveal({ children, delay = 0, y = 28, className, once = true }) {

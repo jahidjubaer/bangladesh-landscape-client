@@ -1,7 +1,7 @@
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { ArrowRight, Leaf, Sparkles } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import { CATEGORIES } from '../../lib/categories';
 import { CATEGORY_SCENE } from '../../lib/scenes';
 import { SEASONS, SEASON_KEYS, SEASON_COLORS } from '../../lib/seasons';

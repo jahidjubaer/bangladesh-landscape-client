@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { m as motion } from 'motion/react';
 import { Mountain, Sparkles, ShieldCheck, Map as MapIcon } from 'lucide-react';
 import { t } from '../i18n';
 

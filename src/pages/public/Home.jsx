@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { ArrowRight, Camera, FileDown, History, Map as MapIcon, PenLine, ShieldCheck } from 'lucide-react';
 import { getRecent } from '../../lib/recent';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import { useDistricts, useDistrict } from '../../features/districts/queries';
 import { useBlogs } from '../../features/blogs/queries';
 import AdBanner from '../../components/AdBanner';
@@ -13,12 +13,17 @@ import Img from '../../components/ui/Img';
 import CountUp from '../../components/ui/CountUp';
 import HomeHero from '../../components/home/HomeHero';
 import SeasonSection from '../../components/season/SeasonSection';
-import { ExperienceRail, StoryBand, PlanPreview, GuidesStrip } from '../../components/home/HomeSections';
 import { t, lx, locale } from '../../i18n';
 
 // Map sections carry the district geometry; load them after the hero
 const DivisionExplorer = lazy(() => import('../../components/home/MapSections').then((m) => ({ default: m.DivisionExplorer })));
 const MyMapTeaser = lazy(() => import('../../components/home/MapSections').then((m) => ({ default: m.MyMapTeaser })));
+// Below-fold story sections (and their scroll-linked motion) load after the hero
+const loadSections = () => import('../../components/home/HomeSections');
+const ExperienceRail = lazy(() => loadSections().then((m) => ({ default: m.ExperienceRail })));
+const StoryBand = lazy(() => loadSections().then((m) => ({ default: m.StoryBand })));
+const PlanPreview = lazy(() => loadSections().then((m) => ({ default: m.PlanPreview })));
+const GuidesStrip = lazy(() => loadSections().then((m) => ({ default: m.GuidesStrip })));
 
 /* ---------------- Stats ---------------- */
 
@@ -162,11 +167,15 @@ export default function Home() {
       <Suspense fallback={lazyFallback}>
         <DivisionExplorer launched={districts || []} />
       </Suspense>
-      <ExperienceRail />
-      <StoryBand />
+      <Suspense fallback={lazyFallback}>
+        <ExperienceRail />
+        <StoryBand />
+      </Suspense>
       <BlogStrip />
-      <PlanPreview />
-      <GuidesStrip />
+      <Suspense fallback={lazyFallback}>
+        <PlanPreview />
+        <GuidesStrip />
+      </Suspense>
       <Suspense fallback={lazyFallback}>
         <MyMapTeaser />
       </Suspense>

@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { motion, useScroll, useSpring } from 'motion/react';
+import { m as motion, useScroll, useSpring } from 'motion/react';
 import { ArrowLeft, BadgeCheck, CalendarDays, Eye, MapPin } from 'lucide-react';
 import { useBlog } from '../../features/blogs/queries';
 import Loader from '../../components/Loader';

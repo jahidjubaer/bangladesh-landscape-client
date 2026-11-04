@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { BedDouble, Users, Phone, MapPin, ArrowRight } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import { useDistricts } from '../../features/districts/queries';
 import { SkeletonGrid } from '../../components/ui/Skeleton';
 import EmptyState from '../../components/ui/EmptyState';

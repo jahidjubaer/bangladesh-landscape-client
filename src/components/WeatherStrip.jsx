@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Sun, CloudSun, Cloud, CloudFog, CloudDrizzle, CloudRain, CloudLightning, Droplets, Wind } from 'lucide-react';
-import api from '../lib/axios';
+import api from '../lib/api';
 import Reveal from './ui/Reveal';
 import { t, locale } from '../i18n';
 

@@ -1,5 +1,5 @@
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 
 // Top picks for a season (home dial, menus)
 export function useSeasonPicks(season, limit = 6) {

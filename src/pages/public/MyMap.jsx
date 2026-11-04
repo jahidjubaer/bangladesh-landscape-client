@@ -7,7 +7,7 @@ import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import { useToast } from '../../components/ui/Toast';
 import { useAuth } from '../../context/AuthContext';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import { DISTRICTS, MAP_WIDTH, MAP_HEIGHT } from '../../features/districtMap/bdDistricts';
 import {
   DIVISIONS, TOTAL, loadMap, saveMap, loadName, saveName, encodeMap, decodeMap, divisionStats,

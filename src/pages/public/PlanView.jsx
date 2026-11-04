@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { m as motion } from 'motion/react';
 import {
   Lock, LockOpen, Share2, Check, Download, Gift, CreditCard, MapPin, Users,
   CalendarDays, Wallet, UtensilsCrossed, BedDouble, Bus, Lightbulb, Gem,
@@ -15,7 +15,7 @@ import JourneyMap, { MODE_COLORS } from '../../components/JourneyMap';
 import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import NotFound from '../NotFound';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import { t, lx, locale } from '../../i18n';
 
 const money = (n) => `${Number(n || 0).toLocaleString(locale())} ৳`;

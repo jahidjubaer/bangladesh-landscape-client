@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { recordView } from '../../lib/recent';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { m as motion, useScroll, useTransform } from 'motion/react';
 import {
   Bus, UtensilsCrossed, CalendarDays, Siren, AlertTriangle, MapPin, Info,
   Camera, Sparkles, Phone, Users, BadgeCheck, Hospital, Flame, Hourglass, BedDouble,
 } from 'lucide-react';
-import api from '../../lib/axios';
+import api from '../../lib/api';
 import { useDistrict, useDistricts } from '../../features/districts/queries';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';

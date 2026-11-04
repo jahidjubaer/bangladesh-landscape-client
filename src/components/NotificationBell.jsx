@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m as motion } from 'motion/react';
 import { Bell, CheckCheck, Inbox } from 'lucide-react';
-import api from '../lib/axios';
+import api from '../lib/api';
 import { t } from '../i18n';
 
 function renderMessage(n) {

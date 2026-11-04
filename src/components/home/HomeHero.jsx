@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m as motion } from 'motion/react';
 import { ArrowRight, Search, MapPin, CalendarDays, Users } from 'lucide-react';
 import Scene from '../ui/Scene';
 import { SEASONS, seasonFor } from '../../lib/seasons';

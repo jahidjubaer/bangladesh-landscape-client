@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useRef } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m as motion } from 'motion/react';
 import { AlertTriangle, MessageSquareText } from 'lucide-react';
 import { t } from '../../i18n';
 

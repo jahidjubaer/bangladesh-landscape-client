@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { motion } from 'motion/react';
+import { m as motion } from 'motion/react';
 import { Compass, ArrowRight, ArrowLeft, RotateCcw, Sparkles, MapPin } from 'lucide-react';
 import Seo from '../../../components/Seo';
 import Img from '../../../components/ui/Img';
 import Loader from '../../../components/Loader';
-import api from '../../../lib/axios';
+import api from '../../../lib/api';
 import { t, lx, locale } from '../../../i18n';
 
 // Landscapes the DB categories can't express on their own
