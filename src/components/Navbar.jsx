@@ -454,14 +454,21 @@ export default function Navbar() {
   }
 
   const solid = scrolled || openKey || mobileOpen;
+  // Home: transparent over the full-bleed hero until the visitor scrolls
+  const overHero = location.pathname === '/' && !solid;
 
   return (
     <>
       <SeasonStrip />
       <header
         ref={headerRef}
-        className={`sticky top-0 z-50 transition-[background-color,box-shadow] duration-300 ${
-          solid ? 'bg-base-100/90 backdrop-blur-lg shadow-md' : 'bg-base-100/60 backdrop-blur-md'
+        data-over-hero={overHero || undefined}
+        className={`sticky top-0 z-50 transition-[background-color,box-shadow,color] duration-300 ${
+          overHero
+            ? 'bg-transparent text-white'
+            : solid
+              ? 'bg-base-100/90 backdrop-blur-lg shadow-md'
+              : 'bg-base-100/60 backdrop-blur-md'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center gap-2">
@@ -478,7 +485,7 @@ export default function Navbar() {
             <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
               <Mountain className="w-5 h-5 text-primary-content" strokeWidth={2.2} aria-hidden />
             </span>
-            <span className="font-display text-lg sm:text-xl font-bold text-base-content leading-none lg:hidden xl:inline">
+            <span className={`font-display text-lg sm:text-xl font-bold leading-none lg:hidden xl:inline ${overHero ? '' : 'text-base-content'}`}>
               {t('site.name')}
             </span>
           </Link>

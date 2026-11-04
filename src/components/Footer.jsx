@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mountain, MapPin } from 'lucide-react';
+import { Mountain, MapPin, Phone } from 'lucide-react';
 
 // lucide dropped brand icons — minimal inline paths instead
 const FacebookIcon = (props) => (
@@ -20,29 +20,41 @@ const InstagramIcon = (props) => (
   </svg>
 );
 import { t } from '../i18n';
+import { seasonFor } from '../lib/seasons';
 
 const columns = [
   {
-    title: t('footer.quickLinks'),
+    title: t('footer2.explore'),
     links: [
-      { to: '/districts', label: t('nav.districts') },
-      { to: '/plan', label: t('nav.planTour') },
-      { to: '/guides', label: t('nav.guides') },
-      { to: '/become-guide', label: t('guide.becomeGuide') },
-      { to: '/blog', label: t('nav.blog') },
-      { to: '/gallery', label: t('nav.gallery') },
-      { to: '/my-map', label: t('myMap.nav') },
-      { to: '/tools', label: t('nav.tools') },
+      { to: '/districts', label: t('footer2.allDistricts') },
+      { to: '/explore', label: t('footer2.map') },
+      { to: `/seasons/${seasonFor().key}`, label: t('footer2.seasons') },
+      { to: '/events', label: t('footer2.events') },
+      { to: '/stays', label: t('footer2.stays') },
+      { to: '/blog', label: t('footer2.journal') },
+      { to: '/gallery', label: t('footer2.gallery') },
     ],
   },
   {
-    title: t('footer.policies'),
+    title: t('footer2.plan'),
+    links: [
+      { to: '/plan', label: t('footer2.ai') },
+      { to: '/guides', label: t('footer2.guides') },
+      { to: '/tools/budget', label: t('footer2.budget') },
+      { to: '/tools/where-to-go', label: t('footer2.whereToGo') },
+      { to: '/my-map', label: t('footer2.myMap') },
+      { to: '/become-guide', label: t('footer2.becomeGuide') },
+    ],
+  },
+  {
+    title: t('footer2.about'),
     links: [
       { to: '/policies/user', label: t('footer.userPolicy') },
       { to: '/policies/guide', label: t('footer.guidePolicy') },
       { to: '/policies/partner', label: t('footer.partnerPolicy') },
-      { to: '/policies/sponsor', label: 'বিজ্ঞাপন নীতিমালা' },
-      { to: '/policies/blog', label: 'ব্লগ নীতিমালা' },
+      { to: '/policies/sponsor', label: t('footer2.sponsorPolicy') },
+      { to: '/policies/blog', label: t('footer2.blogPolicy') },
+      { to: '/credits', label: t('footer2.credits') },
     ],
   },
 ];
@@ -54,19 +66,37 @@ const socials = [
 ];
 
 export default function Footer() {
+  const season = seasonFor().key;
   return (
-    <footer className="bg-neutral text-neutral-content mt-auto">
-      <div className="max-w-7xl mx-auto px-4 py-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-        {/* Brand */}
-        <div className="sm:col-span-2 lg:col-span-2 max-w-md">
-          <Link to="/" className="flex items-center gap-2 mb-4">
+    <footer className="relative mt-auto bg-[#071c19] text-[#a9c3bc]">
+      {/* Hill silhouette joining the page to the footer */}
+      <svg className="absolute bottom-full left-0 w-full h-10 md:h-16 text-[#071c19]" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden>
+        <path fill="currentColor" d="M0 80V52c120-18 220-40 340-30s190 34 320 22 220-46 360-40 240 34 420 16V80Z" />
+      </svg>
+
+      <div className="max-w-7xl mx-auto px-4 pt-14 pb-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+        <div className="sm:col-span-2 lg:col-span-1 max-w-sm">
+          <Link to="/" className="flex items-center gap-2.5 text-white">
             <span className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <Mountain className="w-6 h-6 text-primary-content" strokeWidth={2.2} />
+              <Mountain className="w-6 h-6 text-primary-content" strokeWidth={2.2} aria-hidden />
             </span>
             <span className="font-display text-xl font-bold">{t('site.name')}</span>
           </Link>
-          <p className="text-sm opacity-75 leading-relaxed mb-5">{t('footer.about')}</p>
-          <div className="flex gap-2">
+          <p className="font-display text-2xl text-white mt-6">{t('footer2.tagline')}</p>
+          <p className="text-sm leading-relaxed mt-2">{t('footer.about')}</p>
+          <div className="flex flex-wrap gap-2 mt-6 text-sm">
+            <Link
+              to={`/seasons/${season}`}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1.5 hover:border-season-bright hover:text-white transition-colors"
+            >
+              <span className="w-2 h-2 rounded-full bg-season-bright" aria-hidden />
+              {t('footer2.seasonNow').replace('{x}', t(`season.name.${season}`))}
+            </Link>
+            <a href="tel:999" className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3 py-1.5 hover:text-white transition-colors">
+              <Phone className="w-3.5 h-3.5" aria-hidden /> {t('footer2.emergency')}
+            </a>
+          </div>
+          <div className="flex gap-2 mt-6">
             {socials.map(({ Icon, href, label }) => (
               <a
                 key={label}
@@ -74,21 +104,21 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-9 h-9 rounded-full bg-neutral-content/10 hover:bg-primary flex items-center justify-center transition-colors"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-season-bright hover:text-[#071c19] flex items-center justify-center transition-colors"
               >
-                <Icon className="w-4 h-4" />
+                <Icon className="w-4 h-4" aria-hidden />
               </a>
             ))}
           </div>
         </div>
 
         {columns.map((col) => (
-          <nav key={col.title}>
-            <h3 className="font-bold mb-4 text-neutral-content/90">{col.title}</h3>
+          <nav key={col.title} aria-label={col.title}>
+            <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-white mb-4">{col.title}</h2>
             <ul className="space-y-2.5 text-sm">
               {col.links.map((l) => (
                 <li key={l.to}>
-                  <Link className="opacity-70 hover:opacity-100 hover:text-primary transition-all" to={l.to}>
+                  <Link className="hover:text-white transition-colors" to={l.to}>
                     {l.label}
                   </Link>
                 </li>
@@ -98,14 +128,13 @@ export default function Footer() {
         ))}
       </div>
 
-      <div className="border-t border-neutral-content/10">
-        <div className="max-w-7xl mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-3 text-sm opacity-70">
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-3 text-xs">
           <span>
-            © {new Date().getFullYear()} {t('site.name')} — {t('footer.rights')} ·{' '}
-            <Link className="link link-hover" to="/credits">{t('credits.title')}</Link>
+            © {new Date().getFullYear()} {t('site.name')} · {t('footer.rights')}
           </span>
           <span className="flex items-center gap-1.5">
-            <MapPin className="w-4 h-4" /> সুনামগঞ্জ থেকে শুরু · ৬৪ জেলার পথে
+            <MapPin className="w-3.5 h-3.5" aria-hidden /> {t('footer2.started')}
           </span>
         </div>
       </div>

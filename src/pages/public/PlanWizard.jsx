@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import {
   MapPin, ListChecks, SlidersHorizontal, Sparkles, Check, ArrowLeft, ArrowRight,
@@ -124,20 +124,30 @@ function ChoiceChips({ label, options, value, onChange, labelKey, icon: Icon }) 
   );
 }
 
+const clampInt = (v, lo, hi, dflt) => {
+  const n = parseInt(v, 10);
+  return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : dflt;
+};
+
 export default function PlanWizard() {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { data: districts } = useDistricts();
   const generate = useGeneratePlan();
 
-  const [step, setStep] = useState(1);
+  // Homepage search hands over ?district=&days=&members= so the trip starts pre-filled
+  const [params] = useSearchParams();
+  const preDistrict = params.get('district') || '';
+  const preDays = clampInt(params.get('days'), 1, 15, 3);
+
+  const [step, setStep] = useState(preDistrict ? 2 : 1);
   const [dir, setDir] = useState(1);
-  const [districtSlug, setDistrictSlug] = useState('');
+  const [districtSlug, setDistrictSlug] = useState(preDistrict);
   const [districtQuery, setDistrictQuery] = useState('');
   const [divisionFilter, setDivisionFilter] = useState('');
   const [selectedSpots, setSelectedSpots] = useState([]);
   const [form, setForm] = useState({
-    members: 4, days: 3, nights: 2, budget: 20000, startDate: '',
+    members: clampInt(params.get('members'), 1, 50, 4), days: preDays, nights: preDays - 1, budget: 20000, startDate: '',
     foodPref: 'local', exploreStyle: 'adventure', stayPref: 'any',
     originSlug: 'dhaka', transportPref: 'any',
   });
@@ -194,7 +204,7 @@ export default function PlanWizard() {
           <Lock className="w-9 h-9" strokeWidth={1.5} />
         </div>
         <h1 className="text-2xl font-bold mb-6">{t('plan.loginRequired')}</h1>
-        <Link to="/login" state={{ from: '/plan' }} className="btn btn-primary rounded-full px-8">
+        <Link to="/login" state={{ from: `/plan${params.size ? `?${params}` : ''}` }} className="btn btn-primary rounded-full px-8">
           {t('nav.login')}
         </Link>
       </div>

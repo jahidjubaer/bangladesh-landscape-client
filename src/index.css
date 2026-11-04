@@ -381,3 +381,12 @@ body {
     transform: scale(1.08) translateX(-1.5%);
   }
 }
+
+/* Navbar over the home hero: ghost buttons and links follow the white text */
+header[data-over-hero] .btn-ghost {
+  --btn-rest-fg: #fff;
+  --btn-color: #fff;
+}
+header[data-over-hero] .btn-ghost:hover {
+  --btn-bg: rgb(255 255 255 / 0.14);
+}
