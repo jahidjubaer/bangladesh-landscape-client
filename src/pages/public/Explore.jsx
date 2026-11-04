@@ -8,6 +8,7 @@ import Loader from '../../components/Loader';
 
 // Leaflet is heavy — pull the map chunk only when someone switches views
 const ExploreMap = lazy(() => import('../../components/ExploreMap'));
+import { CATEGORY_SCENE } from '../../lib/scenes';
 import Seo from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import StarRating from '../../components/ui/StarRating';
@@ -21,7 +22,7 @@ function SpotCard({ s }) {
   return (
     <Link to={`/spots/${s.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
       <figure className="h-44 relative">
-        <CardCarousel images={s.images} alt={lx(s.name)} icon={Camera} className="w-full h-full" />
+        <CardCarousel images={s.images} alt={lx(s.name)} icon={Camera} scene={CATEGORY_SCENE[s.category]} className="w-full h-full" />
         <div className="absolute inset-0 bg-gradient-to-t from-neutral/70 via-transparent to-transparent pointer-events-none" />
         {s.isHidden && (
           <span className="absolute top-3 left-3 badge badge-secondary badge-sm shadow">💎 {t('district.hiddenGem')}</span>

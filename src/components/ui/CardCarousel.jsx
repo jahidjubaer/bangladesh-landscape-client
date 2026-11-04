@@ -4,12 +4,12 @@ import Img from './Img';
 
 // Airbnb-style in-card photo stepper: arrows on hover, dots below.
 // Falls back to a plain <Img> when there's one photo or none.
-export default function CardCarousel({ images = [], alt = '', icon, className = '' }) {
+export default function CardCarousel({ images = [], alt = '', icon, scene, className = '' }) {
   const pics = (images || []).filter(Boolean);
   const [idx, setIdx] = useState(0);
 
   if (pics.length <= 1) {
-    return <Img src={pics[0]} alt={alt} icon={icon} className={className} />;
+    return <Img src={pics[0]} alt={alt} icon={icon} scene={scene} className={className} />;
   }
 
   const go = (e, dir) => {
@@ -23,7 +23,7 @@ export default function CardCarousel({ images = [], alt = '', icon, className = 
 
   return (
     <div className={`relative group overflow-hidden ${className}`}>
-      <Img key={pics[idx]} src={pics[idx]} alt={alt} icon={icon} className="w-full h-full object-cover" />
+      <Img key={pics[idx]} src={pics[idx]} alt={alt} icon={icon} scene={scene} className="w-full h-full object-cover" />
 
       <button onClick={(e) => go(e, -1)} className={`${arrowCls} left-2`} aria-label="previous photo">
         <ChevronLeft className="w-5 h-5" />

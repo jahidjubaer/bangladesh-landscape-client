@@ -12,6 +12,7 @@ import { useDistrict, useDistricts } from '../../features/districts/queries';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
 import WeatherStrip from '../../components/WeatherStrip';
+import { CATEGORY_SCENE } from '../../lib/scenes';
 import Seo, { absUrl } from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
@@ -146,7 +147,7 @@ function SpotCard({ s, delay }) {
     <Reveal delay={delay}>
       <Link to={`/spots/${s.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
         <figure className="h-44 relative">
-          <CardCarousel images={s.images} alt={lx(s.name)} icon={Camera} className="w-full h-full" />
+          <CardCarousel images={s.images} alt={lx(s.name)} icon={Camera} scene={CATEGORY_SCENE[s.category]} className="w-full h-full" />
           {s.isHidden && (
             <span className="absolute top-3 left-3 badge badge-secondary badge-sm shadow">💎 {t('district.hiddenGem')}</span>
           )}
@@ -233,7 +234,7 @@ export default function District() {
               </span>
               <VerifiedBadge verified={district.isVerified} />
             </div>
-            <h1 className="font-display text-4xl md:text-6xl font-extrabold">{lx(district.name)}</h1>
+            <h1 className="font-display text-hero font-extrabold">{lx(district.name)}</h1>
           </motion.div>
         </div>
       </section>

@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { ImageOff } from 'lucide-react';
+import Scene from './Scene';
+import { sceneForText } from '../../lib/scenes';
 
-// Image with a shimmer placeholder while loading and a branded
-// fallback when src is missing or fails to load.
-export default function Img({ src, alt = '', className = '', icon: Icon, ...props }) {
+// Image with a shimmer placeholder while loading and an illustrated
+// landscape fallback when src is missing or fails to load.
+// `scene` picks the illustration; otherwise it is derived from the alt text.
+export default function Img({ src, alt = '', className = '', icon: Icon, scene, ...props }) {
   const [failed, setFailed] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const Fallback = Icon || ImageOff;
@@ -11,11 +14,14 @@ export default function Img({ src, alt = '', className = '', icon: Icon, ...prop
   if (!src || failed) {
     return (
       <div
-        className={`flex items-center justify-center bg-gradient-to-br from-primary/15 via-secondary/10 to-accent/15 text-primary/40 ${className}`}
+        className={`${/\b(absolute|fixed|sticky)\b/.test(className) ? '' : 'relative '}overflow-hidden bg-base-300 ${className}`}
         role="img"
         aria-label={alt}
       >
-        <Fallback className="w-10 h-10" strokeWidth={1.5} />
+        <Scene type={scene || sceneForText(alt)} className="absolute inset-0 w-full h-full" />
+        <span className="absolute left-3 bottom-3 grid place-items-center w-8 h-8 rounded-full bg-black/25 backdrop-blur-sm text-white/90">
+          <Fallback className="w-4 h-4" strokeWidth={2} aria-hidden />
+        </span>
       </div>
     );
   }

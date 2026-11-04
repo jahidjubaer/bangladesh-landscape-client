@@ -18,6 +18,7 @@ import StarRating from '../../components/ui/StarRating';
 import Reviews from '../../components/Reviews';
 import Loader from '../../components/Loader';
 import SpotMap from '../../components/SpotMap';
+import { CATEGORY_SCENE } from '../../lib/scenes';
 import Seo, { absUrl } from '../../components/Seo';
 import Reveal from '../../components/ui/Reveal';
 import Img from '../../components/ui/Img';
@@ -39,7 +40,7 @@ function MoreNearby({ districtSlug, currentSlug }) {
           <Reveal key={s.slug} delay={i * 0.07}>
             <Link to={`/spots/${s.slug}`} className="card bg-base-100 shadow-md card-lift img-zoom block h-full">
               <figure className="h-40 relative">
-                <CardCarousel images={s.images} alt={lx(s.name)} icon={Camera} className="w-full h-full" />
+                <CardCarousel images={s.images} alt={lx(s.name)} icon={Camera} scene={CATEGORY_SCENE[s.category]} className="w-full h-full" />
                 {s.isHidden && (
                   <span className="absolute top-3 left-3 badge badge-secondary badge-sm shadow">💎 {t('district.hiddenGem')}</span>
                 )}
@@ -223,7 +224,7 @@ export default function Spot() {
         <Link to={`/districts/${spot.district.slug}`} className="inline-flex items-center gap-1.5 text-sm link link-primary mb-3">
           <ArrowLeft className="w-4 h-4" /> {lx(spot.district.name)} — {t('spot.backToDistrict')}
         </Link>
-        <h1 className="font-display text-3xl md:text-5xl font-extrabold flex items-center gap-3 flex-wrap mb-3">
+        <h1 className="font-display text-display font-extrabold flex items-center gap-3 flex-wrap mb-3">
           {lx(spot.name)}
           {spot.isHidden && <span className="badge badge-secondary">💎 {t('district.hiddenGem')}</span>}
         </h1>

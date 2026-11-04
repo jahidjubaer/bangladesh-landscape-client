@@ -120,7 +120,7 @@ function Hero({ districts, images }) {
           <MapPin className="w-3.5 h-3.5" /> {t('home.launchDistrict')}
         </motion.span>
 
-        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.15] mb-6">
+        <h1 className="font-display text-hero font-extrabold mb-6">
           {headlineWords.map((word, i) => (
             <motion.span
               key={i}

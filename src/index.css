@@ -83,24 +83,105 @@
   --noise: 0;
 }
 
+/* UI v2 tokens (docs/09). Latin glyphs come from Inter/Fraunces, Bangla falls
+   through to the Noto families, so mixed bn/en text gets the right face for each. */
 @theme {
-  --font-sans: 'Noto Sans Bengali', system-ui, sans-serif;
-  --font-display: 'Noto Serif Bengali', 'Noto Sans Bengali', serif;
+  --font-sans: 'Inter', 'Noto Sans Bengali', system-ui, sans-serif;
+  --font-display: 'Fraunces', 'Noto Serif Bengali', 'Noto Sans Bengali', serif;
+
+  /* Motion */
+  --ease-brand: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --duration-micro: 150ms;
+  --duration-ui: 300ms;
+  --duration-reveal: 700ms;
+  --duration-hero: 1200ms;
+}
+
+/* Season accent follows <html data-season> (lib/seasons.js). `season` is for
+   fills with white text, `season-ink` for text on the page background;
+   both pass WCAG AA in light and dark. */
+@theme inline {
+  --color-season: var(--season);
+  --color-season-ink: var(--season-ink);
+  --color-season-soft: color-mix(in oklab, var(--season) 14%, var(--color-base-100));
 }
 
 :root {
+  --season: #0f766e;
+  --season-ink: #0f766e;
   font-family: var(--font-sans);
   scroll-behavior: smooth;
 }
+[data-season='grishma'] { --season: #c2410c; --season-ink: #c2410c; }
+[data-season='barsha'] { --season: #0f766e; --season-ink: #0f766e; }
+[data-season='sharat'] { --season: #4361a6; --season-ink: #4361a6; }
+[data-season='hemanta'] { --season: #a16207; --season-ink: #a16207; }
+[data-season='sheet'] { --season: #475569; --season-ink: #475569; }
+[data-season='basanta'] { --season: #be185d; --season-ink: #be185d; }
+/* Dark theme: brighter accents, dark text on fills */
+[data-theme='landscape-dark'][data-season='grishma'] { --season: #fb923c; --season-ink: #fb923c; }
+[data-theme='landscape-dark'][data-season='barsha'] { --season: #2dd4bf; --season-ink: #2dd4bf; }
+[data-theme='landscape-dark'][data-season='sharat'] { --season: #93b4f0; --season-ink: #93b4f0; }
+[data-theme='landscape-dark'][data-season='hemanta'] { --season: #facc15; --season-ink: #facc15; }
+[data-theme='landscape-dark'][data-season='sheet'] { --season: #a5b4c8; --season-ink: #a5b4c8; }
+[data-theme='landscape-dark'][data-season='basanta'] { --season: #f472b6; --season-ink: #f472b6; }
 
 body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+/* Bangla conjuncts and vowel signs clip at Latin line-heights */
+:root:lang(bn) body {
+  line-height: 1.7;
 }
 
-/* Editorial headlines */
+/* Editorial headlines. Negative tracking only for Latin: it breaks Bangla conjuncts. */
 .font-display {
   font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+:root:lang(en) .font-display {
+  letter-spacing: -0.02em;
+}
+
+/* Fluid type scale */
+.text-hero {
+  font-size: clamp(2.75rem, 1.5rem + 5vw, 6rem);
+  line-height: 1;
+}
+.text-display {
+  font-size: clamp(2rem, 1.3rem + 2.8vw, 3.5rem);
+  line-height: 1.08;
+}
+.text-title {
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  line-height: 1.15;
+}
+:root:lang(bn) .text-hero {
+  /* Bangla headlines run longer and taller: one step smaller */
+  font-size: clamp(2.4rem, 1.4rem + 4vw, 5rem);
+  line-height: 1.25;
+}
+:root:lang(bn) .text-display,
+:root:lang(bn) .text-title {
+  line-height: 1.35;
+}
+:root:lang(en) .text-hero {
+  letter-spacing: -0.035em;
+}
+
+/* Small uppercase label above section titles */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--season-ink);
+}
+:root:lang(bn) .eyebrow {
+  font-size: 0.875rem;
+  letter-spacing: 0;
 }
 
 /* Selection + scrollbar tuned to brand */

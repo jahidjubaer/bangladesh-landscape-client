@@ -7,9 +7,11 @@ import { ToastProvider } from './components/ui/Toast';
 import { ConfirmProvider } from './components/ui/ConfirmModal';
 import router from './routes/router';
 import { installGlobalErrorHandlers } from './lib/errorReporter';
+import { applySeason } from './lib/seasons';
 import './index.css';
 
 installGlobalErrorHandlers();
+applySeason();
 
 const queryClient = new QueryClient({
   defaultOptions: {
